@@ -403,6 +403,25 @@
                 margin: 0;
             }
 
+            /* Tối ưu cỡ chữ và chống rớt chữ cho Call To Action */
+            .cta-desc {
+                color: var(--text-secondary);
+                font-size: 1rem;
+                line-height: 1.6;
+                max-width: 520px;
+                margin-left: auto;
+                margin-right: auto;
+                text-wrap: balance;
+            }
+            @media (max-width: 576px) {
+                .cta-desc {
+                    font-size: 0.92rem !important;
+                    line-height: 1.55 !important;
+                    max-width: 330px !important;
+                    padding: 0 0.5rem;
+                }
+            }
+
             /* Nút bấm đồng bộ chuẩn Minimalist */
             .btn-minimal {
                 display: inline-flex;
@@ -622,7 +641,8 @@
                 <section class="section-dark-alt text-center" id="contact">
                     <div class="container px-4 px-lg-5">
                         <h2 class="section-title mb-3">Let's Work Together</h2>
-                        <p class="mb-5 text-muted" style="max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                        <!-- Đoạn mô tả đã tối ưu font chữ và chống rớt từ -->
+                        <p class="cta-desc mb-5">
                             Have a project in mind or looking for a creative collaborator? Feel free to reach out.
                         </p>
                         <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3">
