@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
         <meta name="description" content="Portfolio of Hieu Luong - Video Editor & Motion Graphic Designer" />
         <meta name="author" content="Hieu Luong" />
         <title>Hieu Luong's Portfolio</title>
@@ -19,12 +19,13 @@
 
         <style>
             :root {
-                --bg-main: #121212;
-                --bg-nav: #161616;
-                --bg-card: #1a1a1a;
-                --text-primary: #f5f5f7;
-                --text-secondary: #a1a1a6;
-                --border-subtle: #262626;
+                /* Màu sắc chuẩn xác theo mẫu Adobe Portfolio */
+                --bg-nav: #1c1c1c;      /* Thanh header màu xám than */
+                --bg-main: #111111;     /* Nền chính màu đen sâu */
+                --bg-card: #181818;
+                --text-primary: #ffffff;
+                --text-secondary: #999999;
+                --border-subtle: #242424;
             }
 
             /* Cuộn trang mượt mà */
@@ -48,15 +49,15 @@
                 background-color: var(--bg-main);
             }
 
-            /* Thanh top navigation cố định (Fixed Header) */
+            /* Thanh top navigation cố định (Màu chuẩn mẫu Adobe) */
             .top-nav {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 64px;
-                background-color: var(--bg-nav);
-                border-bottom: 1px solid var(--border-subtle);
+                background-color: var(--bg-nav) !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -66,7 +67,7 @@
             .nav-brand-center {
                 font-weight: 700;
                 font-size: 1.15rem;
-                letter-spacing: -0.3px;
+                letter-spacing: -0.2px;
                 color: var(--text-primary);
                 text-decoration: none;
                 text-align: center;
@@ -85,24 +86,25 @@
                 line-height: 1;
             }
 
-            /* Menu Full Screen chuẩn Adobe Portfolio */
+            /* Menu Full Screen chuẩn Adobe Portfolio, hỗ trợ Safari iOS */
             #fullscreen-menu {
                 position: fixed;
-                inset: 0;
+                top: 0;
+                left: 0;
                 width: 100%;
                 height: 100vh;
-                background-color: rgba(18, 18, 18, 0.98);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
+                height: 100dvh; /* Tự co giãn theo thanh Safari của iPhone */
+                background-color: #141414;
                 z-index: 2000;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
                 align-items: center;
-                padding: 2.5rem 1.5rem 3rem 1.5rem;
+                padding: 1.5rem 1.5rem calc(2rem + env(safe-area-inset-bottom)) 1.5rem;
                 opacity: 0;
                 visibility: hidden;
-                transition: opacity 0.3s ease, visibility 0.3s ease;
+                transition: opacity 0.25s ease, visibility 0.25s ease;
+                box-sizing: border-box;
             }
             #fullscreen-menu.active {
                 opacity: 1;
@@ -113,7 +115,7 @@
                 background: transparent;
                 border: none;
                 color: var(--text-primary);
-                font-size: 1.75rem;
+                font-size: 1.8rem;
                 cursor: pointer;
                 padding: 0.5rem;
                 line-height: 1;
@@ -121,37 +123,42 @@
             .menu-nav-links {
                 list-style: none;
                 padding: 0;
-                margin: 0;
+                margin: auto 0;
                 text-align: center;
             }
             .menu-nav-links li {
-                margin: 1.25rem 0;
+                margin: 1.2rem 0;
             }
             .menu-nav-links a {
                 color: var(--text-secondary);
                 text-decoration: none;
-                font-size: 1.6rem;
+                font-size: 1.55rem;
                 font-weight: 600;
-                letter-spacing: -0.5px;
+                letter-spacing: -0.4px;
                 transition: color 0.2s ease;
             }
             .menu-nav-links a:hover,
             .menu-nav-links a:active {
                 color: #ffffff;
             }
+
+            /* Cụm icon mạng xã hội ở đáy Menu */
             .menu-social-icons {
                 display: flex;
                 align-items: center;
-                gap: 1.75rem;
+                justify-content: center;
+                gap: 2.25rem;
+                padding-bottom: 1rem;
             }
             .menu-social-icons a {
-                color: var(--text-secondary);
-                font-size: 1.4rem;
-                transition: color 0.2s ease;
+                color: #ffffff;
+                font-size: 1.5rem;
+                transition: opacity 0.2s ease;
                 text-decoration: none;
+                opacity: 0.85;
             }
             .menu-social-icons a:hover {
-                color: #ffffff;
+                opacity: 1;
             }
 
             /* Masthead Hero Section */
@@ -222,12 +229,12 @@
                 border-top: 1px solid var(--border-subtle);
             }
             .section-dark-alt {
-                background-color: #161616;
+                background-color: #141414;
                 padding: 5.5rem 0;
                 border-top: 1px solid var(--border-subtle);
             }
 
-            /* Tiêu đề chung cho Skills và Portfolio (trên 1 dòng) */
+            /* Tiêu đề chung cho Skills và Portfolio */
             .section-title {
                 font-size: 2.15rem;
                 font-weight: 700;
@@ -406,7 +413,7 @@
     <body id="page-top">
         <div class="main-wrapper">
 
-            <!-- Fixed Top Bar (Luôn hiển thị trên cùng khi cuộn) -->
+            <!-- Fixed Top Bar (Màu chuẩn xám than #1c1c1c như mẫu) -->
             <header class="top-nav">
                 <a href="#page-top" class="nav-brand-center">Hieu Luong’s Portfolio</a>
                 <button class="nav-menu-btn" id="open-menu-btn" aria-label="Open navigation menu">
@@ -427,8 +434,8 @@
                     <li><a href="#contact" class="nav-link-item">Contact</a></li>
                 </ul>
                 <div class="menu-social-icons">
-                    <a href="mailto:trunghieu220600@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-                    <a href="https://www.linkedin.com/in/hieuluong0622" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:trunghieu220600@gmail.com" title="Email"><i class="fas fa-envelope fa-lg"></i></a>
+                    <a href="https://www.linkedin.com/in/hieuluong0622" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin-in fa-lg"></i></a>
                 </div>
             </div>
 
@@ -608,13 +615,13 @@
             // Mở menu full màn hình
             openMenuBtn.addEventListener('click', () => {
                 fullMenu.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Khóa cuộn trang khi menu mở
+                document.body.style.overflow = 'hidden';
             });
 
             // Đóng menu full màn hình
             const closeMenu = () => {
                 fullMenu.classList.remove('active');
-                document.body.style.overflow = ''; // Mở lại cuộn trang
+                document.body.style.overflow = '';
             };
 
             closeMenuBtn.addEventListener('click', closeMenu);
