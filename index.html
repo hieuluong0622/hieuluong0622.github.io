@@ -19,13 +19,14 @@
 
         <style>
             :root {
-                /* Màu sắc chuẩn xác theo mẫu Adobe Portfolio */
-                --bg-nav: #1c1c1c;      /* Thanh header màu xám than */
-                --bg-main: #111111;     /* Nền chính màu đen sâu */
-                --bg-card: #181818;
+                /* Đảo màu: Sticky bar & menu màu đen sâu, nền web màu xám than */
+                --bg-nav: #121212;      /* Sticky header & Menu nền đen sâu */
+                --bg-main: #1c1c1c;     /* Nền chính trang web màu xám than */
+                --bg-card: #242424;     /* Card dự án và skill */
+                --bg-alt: #181818;      /* Khối xen kẽ */
                 --text-primary: #ffffff;
-                --text-secondary: #999999;
-                --border-subtle: #242424;
+                --text-secondary: #a6a6a6;
+                --border-subtle: #2b2b2b;
             }
 
             /* Cuộn trang mượt mà */
@@ -49,7 +50,7 @@
                 background-color: var(--bg-main);
             }
 
-            /* Thanh top navigation cố định (Màu chuẩn mẫu Adobe) */
+            /* Thanh top navigation cố định (Màu đen sâu đồng bộ với menu) */
             .top-nav {
                 position: fixed;
                 top: 0;
@@ -57,7 +58,7 @@
                 width: 100%;
                 height: 64px;
                 background-color: var(--bg-nav) !important;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -86,15 +87,15 @@
                 line-height: 1;
             }
 
-            /* Menu Full Screen chuẩn Adobe Portfolio, hỗ trợ Safari iOS */
+            /* Menu Full Screen: Màu nền đồng bộ hoàn toàn với Sticky Bar */
             #fullscreen-menu {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100vh;
-                height: 100dvh; /* Tự co giãn theo thanh Safari của iPhone */
-                background-color: #141414;
+                height: 100dvh;
+                background-color: var(--bg-nav);
                 z-index: 2000;
                 display: flex;
                 flex-direction: column;
@@ -229,7 +230,7 @@
                 border-top: 1px solid var(--border-subtle);
             }
             .section-dark-alt {
-                background-color: #141414;
+                background-color: var(--bg-alt);
                 padding: 5.5rem 0;
                 border-top: 1px solid var(--border-subtle);
             }
@@ -249,7 +250,7 @@
                 }
             }
 
-            /* Tiêu đề mục About: Cho phép xuống dòng tự nhiên, không bao giờ bị cắt */
+            /* Tiêu đề mục About: Cho phép xuống dòng tự nhiên */
             .about-heading {
                 font-size: 2.15rem;
                 font-weight: 700;
@@ -295,12 +296,12 @@
             }
             .skill-card:hover {
                 transform: translateY(-4px);
-                border-color: #383838;
+                border-color: #3d3d3d;
             }
             .skill-icon-wrapper {
                 width: 56px;
                 height: 56px;
-                background-color: #242424;
+                background-color: #2f2f2f;
                 color: #ffffff;
                 border-radius: 50%;
                 display: flex;
@@ -347,7 +348,7 @@
             .project-overlay {
                 position: absolute;
                 inset: 0;
-                background: linear-gradient(180deg, rgba(0,0,0,0.1) 20%, rgba(18,18,18,0.95) 90%);
+                background: linear-gradient(180deg, rgba(0,0,0,0.1) 20%, rgba(20,20,20,0.95) 90%);
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-end;
@@ -392,17 +393,17 @@
             .btn-minimal-outline {
                 background-color: transparent;
                 color: #ffffff;
-                border: 1px solid #383838;
+                border: 1px solid #3d3d3d;
             }
             .btn-minimal-outline:hover {
-                background-color: #1f1f1f;
+                background-color: #262626;
                 color: #ffffff;
-                border-color: #666666;
+                border-color: #777777;
             }
 
             /* Footer */
             .footer-dark {
-                background-color: #0c0c0c;
+                background-color: #0f0f0f;
                 border-top: 1px solid var(--border-subtle);
                 padding: 2.5rem 0;
                 color: var(--text-secondary);
@@ -413,7 +414,7 @@
     <body id="page-top">
         <div class="main-wrapper">
 
-            <!-- Fixed Top Bar (Màu chuẩn xám than #1c1c1c như mẫu) -->
+            <!-- Fixed Top Bar (Màu nền đen sâu #121212) -->
             <header class="top-nav">
                 <a href="#page-top" class="nav-brand-center">Hieu Luong’s Portfolio</a>
                 <button class="nav-menu-btn" id="open-menu-btn" aria-label="Open navigation menu">
@@ -421,7 +422,7 @@
                 </button>
             </header>
 
-            <!-- Full Screen Menu Overlay -->
+            <!-- Full Screen Menu Overlay (Nền đen sâu đồng bộ #121212) -->
             <div id="fullscreen-menu">
                 <button class="menu-close-btn" id="close-menu-btn" aria-label="Close navigation menu">
                     <i class="fas fa-times"></i>
@@ -439,7 +440,7 @@
                 </div>
             </div>
 
-            <!-- Hero Section (Minimalist Dark Masthead) -->
+            <!-- Hero Section (Nền xám than #1c1c1c) -->
             <section class="masthead-dark">
                 <div class="container px-4 text-center">
                     <h1 class="masthead-title">Hieu Luong</h1>
@@ -448,7 +449,7 @@
                         Motion Graphic Designer
                     </p>
                 </div>
-                <!-- Mũi tên chỉ xuống trượt xuống phần About -->
+                <!-- Mũi tên chỉ xuống -->
                 <a href="#about" class="scroll-indicator" aria-label="Scroll down to About section">
                     <i class="fas fa-chevron-down"></i>
                 </a>
@@ -459,7 +460,6 @@
                 <div class="container px-4 px-lg-5 text-center">
                     <div class="row justify-content-center">
                         <div class="col-lg-10">
-                            <!-- Tiêu đề xuống dòng tự nhiên, không bị cắt chữ -->
                             <h2 class="about-heading mb-4">Visual Storytelling Backed by Marketing Insight</h2>
                             <p class="about-text-justify mb-5">
                                 Hi, I'm a <strong>Video Editor &amp; Motion Graphic Designer</strong> with a strong strategic mindset. 
@@ -612,13 +612,11 @@
             const fullMenu = document.getElementById('fullscreen-menu');
             const navLinks = document.querySelectorAll('.nav-link-item');
 
-            // Mở menu full màn hình
             openMenuBtn.addEventListener('click', () => {
                 fullMenu.classList.add('active');
                 document.body.style.overflow = 'hidden';
             });
 
-            // Đóng menu full màn hình
             const closeMenu = () => {
                 fullMenu.classList.remove('active');
                 document.body.style.overflow = '';
@@ -626,7 +624,6 @@
 
             closeMenuBtn.addEventListener('click', closeMenu);
 
-            // Bấm vào bất kỳ mục nào trong menu: đóng menu và cuộn mượt
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     closeMenu();
@@ -638,7 +635,6 @@
                 });
             });
 
-            // Logo ở thanh Header bấm vào cuộn lên đầu trang
             document.querySelector('.nav-brand-center').addEventListener('click', (e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
