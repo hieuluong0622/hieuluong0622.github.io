@@ -3,13 +3,13 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
+        <meta name="description" content="Portfolio of Luong Trung Hieu - Video Editor & Motion Graphic Designer" />
+        <meta name="author" content="Luong Trung Hieu" />
         <title>HieuLuong's Portfolio</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" /
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (CSS Minified - Tải cực nhanh) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
         <!-- Simple line icons-->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css" rel="stylesheet" />
@@ -17,6 +17,28 @@
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+
+        <style>
+            /* Tiêu đề chính co giãn tự động để luôn trên 1 dòng */
+            .masthead-title {
+                font-size: clamp(1.85rem, 7.5vw, 4.5rem);
+                white-space: nowrap;
+                font-weight: 700;
+            }
+
+            /* Tiêu đề My Portfolio đảm bảo luôn trên 1 dòng */
+            .portfolio-heading-title {
+                font-size: clamp(2rem, 8vw, 3.25rem);
+                white-space: nowrap;
+                letter-spacing: 1px;
+            }
+
+            /* Căn đều 2 lề cho đoạn giới thiệu bản thân */
+            .about-text-justify {
+                text-align: justify;
+                text-justify: inter-word;
+            }
+        </style>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -26,26 +48,31 @@
                 <li class="sidebar-brand"><a href="#page-top">HieuLuong's Portfolio</a></li>
                 <li class="sidebar-nav-item"><a href="#page-top">Home</a></li>
                 <li class="sidebar-nav-item"><a href="#about">About</a></li>
-                <li class="sidebar-nav-item"><a href="#services">Resume</a></li>
+                <li class="sidebar-nav-item"><a href="#services">Skills</a></li>
                 <li class="sidebar-nav-item"><a href="#portfolio">Portfolio</a></li>
                 <li class="sidebar-nav-item"><a href="#contact">Contact</a></li>
             </ul>
         </nav>
+
         <!-- Header-->
         <header class="masthead d-flex align-items-center">
             <div class="container px-4 px-lg-5 text-center">
-                <h1 class="mb-1">HieuLuong's Portfolio</h1>
-                <h3 class="mb-5"><em>Video Editor/Motion Graphic Designer</em></h3>
+                <h1 class="mb-3 masthead-title">HieuLuong's Portfolio</h1>
+                <h3 class="mb-5 lead fw-normal text-dark">
+                    <span>Video Editor</span><br />
+                    <span>Motion Graphic Designer</span>
+                </h3>
                 <a class="btn btn-primary btn-xl" href="#about">Find Out More</a>
             </div>
         </header>
-                        <!-- About-->
+
+        <!-- About-->
         <section class="content-section bg-light" id="about">
             <div class="container px-4 px-lg-5 text-center">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-10">
                         <h2 class="mb-4">Visual Storytelling Backed by Marketing Insight</h2>
-                        <p class="lead mb-5">
+                        <p class="lead mb-5 about-text-justify">
                             Hi, I'm a <strong>Video Editor &amp; Motion Graphic Designer</strong> with a strong strategic mindset. 
                             Combining dynamic motion, rhythm, and a solid background in marketing and brand communication, 
                             I craft engaging visual content that doesn't just look compelling, but actively elevates brand identity and connects meaningfully with audiences.
@@ -55,6 +82,7 @@
                 </div>
             </div>
         </section>
+
         <!-- Services (Skills)-->
         <section class="content-section bg-primary text-white text-center" id="services">
             <div class="container px-4 px-lg-5">
@@ -86,96 +114,112 @@
                 </div>
             </div>
         </section>
+
         <!-- Portfolio-->
         <section class="content-section" id="portfolio">
             <div class="container px-4 px-lg-5">
-                <div class="content-section-heading text-center">
-                    <h3 class="text-secondary mb-0">Portfolio</h3>
-                    <h2 class="mb-5">Recent Projects</h2>
+                <div class="content-section-heading text-center mb-5">
+                    <h2 class="fw-bold portfolio-heading-title mb-0">MY PORTFOLIO</h2>
                 </div>
                 <div class="row gx-0">
-                    <!-- Trước khi sửa: href="#!" -->
-<!-- Sau khi sửa: href="project-1.html" -->
-
-<div class="col-lg-6">
-    <a class="portfolio-item" href="KL-Commerce.html">
-        <div class="caption">
-            <div class="caption-content">
-                <div class="h2">KL - Commerce</div>
-                <p class="mb-0">Bấm để xem video chi tiết và hậu kỳ dự án</p>
-            </div>
-        </div>
-        <img class="img-fluid" src="assets/img/portfolio-1.jpg" alt="Dự án 1" />
-    </a>
-</div>
-
+                    <!-- Dự án 1: KL-Commerce -->
                     <div class="col-lg-6">
-                        <a class="portfolio-item" href="#!">
+                        <a class="portfolio-item" href="KL-Commerce.html">
                             <div class="caption">
                                 <div class="caption-content">
-                                    <div class="h2">Ice Cream</div>
-                                    <p class="mb-0">A dark blue background with a colored pencil, a clip, and a tiny ice cream cone!</p>
+                                    <div class="h2">KL Commerce</div>
+                                    <p class="mb-0">High-converting short-form video ads and 2D motion graphics tailored for TikTok e-commerce.</p>
                                 </div>
                             </div>
-                            <img class="img-fluid" src="assets/img/portfolio-2.jpg" alt="..." />
+                            <img class="img-fluid" src="assets/img/portfolio-1.jpg" alt="KL Commerce Project" />
                         </a>
                     </div>
+
+                    <!-- Dự án 2: The New Xgear -->
                     <div class="col-lg-6">
-                        <a class="portfolio-item" href="#!">
+                        <a class="portfolio-item" href="xgear.html">
                             <div class="caption">
                                 <div class="caption-content">
-                                    <div class="h2">Strawberries</div>
-                                    <p class="mb-0">Strawberries are such a tasty snack, especially with a little sugar on top!</p>
+                                    <div class="h2">The New Xgear</div>
+                                    <p class="mb-0">Full-scope social media execution, tech product photography, motion design, and e-commerce content strategy.</p>[span_0](start_span)[span_0](end_span)
                                 </div>
                             </div>
-                            <img class="img-fluid" src="assets/img/portfolio-3.jpg" alt="..." />
+                            <img class="img-fluid" src="assets/img/portfolio-2.jpg" alt="The New Xgear Project" />
                         </a>
                     </div>
+
+                    <!-- Dự án 3: Cerberus Esports -->
                     <div class="col-lg-6">
-                        <a class="portfolio-item" href="#!">
+                        <a class="portfolio-item" href="cerberus-esports.html">
                             <div class="caption">
                                 <div class="caption-content">
-                                    <div class="h2">Workspace</div>
-                                    <p class="mb-0">A yellow workspace with some scissors, pencils, and other objects.</p>
+                                    <div class="h2">Cerberus Esports</div>
+                                    <p class="mb-0">Story-driven long-form YouTube editing, behind-the-scenes features, and digital content driving team fandom.</p>[span_1](start_span)[span_1](end_span)
                                 </div>
                             </div>
-                            <img class="img-fluid" src="assets/img/portfolio-4.jpg" alt="..." />
+                            <img class="img-fluid" src="assets/img/portfolio-3.jpg" alt="Cerberus Esports Project" />
+                        </a>
+                    </div>
+
+                    <!-- Dự án 4: Personal & Freelance Work -->
+                    <div class="col-lg-6">
+                        <a class="portfolio-item" href="freelance.html">
+                            <div class="caption">
+                                <div class="caption-content">
+                                    <div class="h2">Personal &amp; Freelance Work</div>
+                                    <p class="mb-0">A curated collection of independent freelance deliverables, personal motion experiments, and creative visual explorations.</p>
+                                </div>
+                            </div>
+                            <img class="img-fluid" src="assets/img/portfolio-4.jpg" alt="Personal and Freelance Work" />
                         </a>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- Call to Action-->
-        <section class="content-section bg-primary text-white">
+
+        <!-- Call to Action (Let's Work Together) -->
+        <section class="content-section bg-primary text-white" id="contact">
             <div class="container px-4 px-lg-5 text-center">
-                <h2 class="mb-4">The buttons below are impossible to resist...</h2>
-                <a class="btn btn-xl btn-light me-4" href="#!">Click Me!</a>
-                <a class="btn btn-xl btn-dark" href="#!">Look at Me!</a>
+                <h2 class="mb-4 display-5 fw-bold">Let's Work Together</h2>
+                <p class="lead mb-5 text-faded">Have a project in mind or looking for a creative collaborator? Feel free to reach out.</p>
+                <a class="btn btn-xl btn-light me-sm-3 mb-3 mb-sm-0" href="mailto:trunghieu220600@gmail.com">
+                    <i class="fas fa-envelope me-2"></i>Send an Email
+                </a>
+                <a class="btn btn-xl btn-dark" href="https://www.linkedin.com/in/hieuluong0622" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin me-2"></i>Connect on LinkedIn
+                </a>
             </div>
         </section>
-        <!-- Map-->
-        <div class="map" id="contact">
-            <iframe src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
-            <br />
-            <small><a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a></small>
-        </div>
+
         <!-- Footer-->
-        <footer class="footer text-center">
+        <footer class="footer text-center py-5">
             <div class="container px-4 px-lg-5">
-                <ul class="list-inline mb-5">
-                    <li class="list-inline-item">
-                        <a class="social-link rounded-circle text-white mr-3" href="#!"><i class="icon-social-facebook"></i></a>
+                <ul class="list-inline mb-4">
+                    <!-- LinkedIn -->
+                    <li class="list-inline-item mx-2">
+                        <a class="social-link rounded-circle text-white bg-dark d-inline-flex align-items-center justify-content-center" 
+                           style="width: 50px; height: 50px; text-decoration: none;" 
+                           href="https://www.linkedin.com/in/hieuluong0622" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           title="LinkedIn Profile">
+                            <i class="fab fa-linkedin-in fa-lg"></i>
+                        </a>
                     </li>
-                    <li class="list-inline-item">
-                        <a class="social-link rounded-circle text-white mr-3" href="#!"><i class="icon-social-twitter"></i></a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="social-link rounded-circle text-white" href="#!"><i class="icon-social-github"></i></a>
+                    <!-- Gmail -->
+                    <li class="list-inline-item mx-2">
+                        <a class="social-link rounded-circle text-white bg-dark d-inline-flex align-items-center justify-content-center" 
+                           style="width: 50px; height: 50px; text-decoration: none;" 
+                           href="mailto:trunghieu220600@gmail.com" 
+                           title="Send Email">
+                            <i class="fas fa-envelope fa-lg"></i>
+                        </a>
                     </li>
                 </ul>
-                <p class="text-muted small mb-0">Copyright &copy; Your Website 2023</p>
+                <p class="text-muted small mb-0">Copyright &copy; Luong Trung Hieu 2026</p>
             </div>
         </footer>
+
         <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
         <!-- Bootstrap core JS-->
