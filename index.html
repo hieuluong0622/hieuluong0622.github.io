@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="Hieu Luong's Portfolio" />
-        <meta name="author" content="Hieu Luong" />
+        <meta name="description" content="Portfolio of Luong Trung Hieu - Video Editor & Motion Graphic Designer" />
+        <meta name="author" content="Luong Trung Hieu" />
         <title>HieuLuong's Portfolio</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -19,6 +19,11 @@
         <link href="css/styles.css" rel="stylesheet" />
 
         <style>
+            /* Cuộn trang mượt mà */
+            html {
+                scroll-behavior: smooth;
+            }
+
             /* Chống tràn chiều ngang tuyệt đối trên toàn trang */
             html, body {
                 overflow-x: hidden;
@@ -32,7 +37,7 @@
                 line-height: 1.2;
             }
 
-            /* Tối ưu tiêu đề vừa khít 1 dòng trên màn hình điện thoại */
+            /* Tối ưu tiêu đề chính vừa khít 1 dòng trên màn hình điện thoại */
             @media (max-width: 576px) {
                 .masthead-title {
                     font-size: 1.85rem;
@@ -40,14 +45,18 @@
                 }
             }
 
-            /* Tiêu đề mục My Portfolio */
-            .portfolio-heading-title {
-                font-size: 2.75rem;
-                letter-spacing: 1px;
+            /* Đồng bộ kích thước font chữ cho các tiêu đề Section */
+            .section-heading-unified {
+                font-size: 2.25rem;
+                font-weight: 700;
+                line-height: 1.25;
             }
+
+            /* Tối ưu riêng trên mobile: nằm gọn trên 1 dòng duy nhất */
             @media (max-width: 576px) {
-                .portfolio-heading-title {
-                    font-size: 2.1rem;
+                .section-heading-unified {
+                    font-size: 1.65rem;
+                    letter-spacing: -0.3px;
                 }
             }
 
@@ -55,6 +64,35 @@
             .about-text-justify {
                 text-align: justify;
                 text-justify: inter-word;
+            }
+
+            /* Điều chỉnh kích thước chữ trong thẻ Portfolio */
+            .portfolio-item .caption .caption-content {
+                padding: 1.5rem;
+            }
+            .project-card-title {
+                font-size: 1.5rem !important;
+                font-weight: 700 !important;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                margin-bottom: 0.5rem;
+                color: #fff;
+            }
+            .project-card-desc {
+                font-size: 0.95rem !important;
+                font-weight: 400 !important;
+                line-height: 1.45;
+                color: rgba(255, 255, 255, 0.9);
+            }
+            @media (max-width: 576px) {
+                .project-card-title {
+                    font-size: 1.35rem !important;
+                    margin-bottom: 0.35rem;
+                }
+                .project-card-desc {
+                    font-size: 0.88rem !important;
+                    line-height: 1.4;
+                }
             }
 
             /* Đồng bộ kích thước chuẩn cho toàn bộ nút bấm chính */
@@ -88,6 +126,9 @@
         </style>
     </head>
     <body id="page-top">
+        <!-- Điểm neo trên cùng đảm bảo cuộn mượt khi bấm Home -->
+        <div id="top-anchor"></div>
+
         <!-- Navigation-->
         <a class="menu-toggle rounded" href="#"><i class="fas fa-bars"></i></a>
         <nav id="sidebar-wrapper">
@@ -118,7 +159,7 @@
             <div class="container px-4 px-lg-5 text-center">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-10">
-                        <h2 class="mb-4">Visual Storytelling Backed by Marketing Insight</h2>
+                        <h2 class="mb-4 section-heading-unified">Visual Storytelling Backed by Marketing Insight</h2>
                         <p class="lead mb-5 about-text-justify">
                             Hi, I'm a <strong>Video Editor &amp; Motion Graphic Designer</strong> with a strong strategic mindset. 
                             Combining dynamic motion, rhythm, and a solid background in marketing and brand communication, 
@@ -134,8 +175,8 @@
         <section class="content-section bg-primary text-white text-center" id="services">
             <div class="container px-4 px-lg-5">
                 <div class="content-section-heading">
-                    <h3 class="text-secondary mb-0">Core Competencies</h3>
-                    <h2 class="mb-5">Skills &amp; Expertise</h2>
+                    <h3 class="text-secondary mb-2">Core Competencies</h3>
+                    <h2 class="mb-5 section-heading-unified">Skills &amp; Expertise</h2>
                 </div>
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
@@ -166,7 +207,7 @@
         <section class="content-section" id="portfolio">
             <div class="container px-4 px-lg-5">
                 <div class="content-section-heading text-center mb-5">
-                    <h2 class="fw-bold portfolio-heading-title mb-0">MY PORTFOLIO</h2>
+                    <h2 class="section-heading-unified mb-0">MY PORTFOLIO</h2>
                 </div>
                 <div class="row gx-0">
                     <!-- Dự án 1: KL-Commerce -->
@@ -174,8 +215,8 @@
                         <a class="portfolio-item" href="KL-Commerce.html">
                             <div class="caption">
                                 <div class="caption-content">
-                                    <div class="h2">KL Commerce</div>
-                                    <p class="mb-0">High-converting short-form video ads and 2D motion graphics tailored for TikTok e-commerce.</p>
+                                    <div class="project-card-title">KL Commerce</div>
+                                    <p class="project-card-desc mb-0">High-converting short-form video ads and 2D motion graphics tailored for TikTok e-commerce.</p>
                                 </div>
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio-1.jpg" alt="KL Commerce Project" />
@@ -187,8 +228,8 @@
                         <a class="portfolio-item" href="xgear.html">
                             <div class="caption">
                                 <div class="caption-content">
-                                    <div class="h2">The New Xgear</div>
-                                    <p class="mb-0">Full-scope social media execution, tech product photography, motion design, and e-commerce content strategy.</p>
+                                    <div class="project-card-title">The New Xgear</div>
+                                    <p class="project-card-desc mb-0">Full-scope social media execution, tech product photography, motion design, and e-commerce content strategy.</p>
                                 </div>
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio-2.jpg" alt="The New Xgear Project" />
@@ -200,8 +241,8 @@
                         <a class="portfolio-item" href="cerberus-esports.html">
                             <div class="caption">
                                 <div class="caption-content">
-                                    <div class="h2">Cerberus Esports</div>
-                                    <p class="mb-0">Story-driven long-form YouTube editing, behind-the-scenes features, and digital content driving team fandom.</p>
+                                    <div class="project-card-title">Cerberus Esports</div>
+                                    <p class="project-card-desc mb-0">Story-driven long-form YouTube editing, behind-the-scenes features, and digital content driving team fandom.</p>
                                 </div>
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio-3.jpg" alt="Cerberus Esports Project" />
@@ -213,8 +254,8 @@
                         <a class="portfolio-item" href="freelance.html">
                             <div class="caption">
                                 <div class="caption-content">
-                                    <div class="h2">Personal &amp; Freelance Work</div>
-                                    <p class="mb-0">A curated collection of independent freelance deliverables, personal motion experiments, and creative visual explorations.</p>
+                                    <div class="project-card-title">Personal &amp; Freelance Work</div>
+                                    <p class="project-card-desc mb-0">A curated collection of independent freelance deliverables, personal motion experiments, and creative visual explorations.</p>
                                 </div>
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio-4.jpg" alt="Personal and Freelance Work" />
@@ -249,9 +290,30 @@
 
         <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
+
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+
+        <!-- Script hỗ trợ cuộn mượt tuyệt đối khi bấm nút Home -->
+        <script>
+            document.querySelectorAll('a[href="#page-top"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    // Đóng sidebar menu nếu đang mở
+                    const sidebarWrapper = document.getElementById('sidebar-wrapper');
+                    if (sidebarWrapper && sidebarWrapper.classList.contains('active')) {
+                        sidebarWrapper.classList.remove('active');
+                        const menuToggle = document.querySelector('.menu-toggle');
+                        if (menuToggle) menuToggle.classList.remove('active');
+                    }
+                });
+            });
+        </script>
     </body>
 </html>
