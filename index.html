@@ -30,6 +30,19 @@
                 width: 100%;
             }
 
+            /* Tối ưu hiệu năng trượt mượt mà 60fps cho Menu Sidebar bằng GPU */
+            #sidebar-wrapper {
+                right: 0 !important;
+                transform: translate3d(260px, 0, 0) !important;
+                transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+                will-change: transform;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            #sidebar-wrapper.active {
+                transform: translate3d(0, 0, 0) !important;
+            }
+
             /* Tiêu đề chính màn hình máy tính */
             .masthead-title {
                 font-size: 3.75rem;
@@ -45,18 +58,17 @@
                 }
             }
 
-            /* Đồng bộ kích thước font chữ cho các tiêu đề Section */
+            /* Tiêu đề mục Section: đồng bộ kích thước chuẩn và luôn trên 1 dòng */
             .section-heading-unified {
                 font-size: 2.25rem;
                 font-weight: 700;
                 line-height: 1.25;
             }
-
-            /* Tối ưu riêng trên mobile: nằm gọn trên 1 dòng duy nhất */
             @media (max-width: 576px) {
                 .section-heading-unified {
-                    font-size: 1.65rem;
-                    letter-spacing: -0.3px;
+                    font-size: 1.5rem !important; /* Đảm bảo Skills & Expertise và MY PORTFOLIO luôn trọn 1 dòng */
+                    letter-spacing: -0.2px;
+                    white-space: nowrap;
                 }
             }
 
@@ -174,9 +186,8 @@
         <!-- Services (Skills)-->
         <section class="content-section bg-primary text-white text-center" id="services">
             <div class="container px-4 px-lg-5">
-                <div class="content-section-heading">
-                    <h3 class="text-secondary mb-2">Core Competencies</h3>
-                    <h2 class="mb-5 section-heading-unified">Skills &amp; Expertise</h2>
+                <div class="content-section-heading mb-5">
+                    <h2 class="section-heading-unified mb-0">Skills &amp; Expertise</h2>
                 </div>
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
