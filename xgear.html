@@ -166,26 +166,28 @@
                 padding: 3.5rem 1.5rem 3.5rem 1.5rem;
             }
             
-            /* Tối ưu Badge: thanh mảnh, bo tròn vừa vặn và hỗ trợ 2 dòng trên mobile */
+            /* Badge dạng viên thuốc (Pill Shape) chuẩn Minimalist */
             .project-badge {
-                display: inline-block;
-                background-color: rgba(255, 255, 255, 0.06);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                background-color: rgba(255, 255, 255, 0.08);
                 color: #ffffff;
-                font-size: 0.82rem;
+                font-size: 0.8rem;
                 font-weight: 600;
-                padding: 0.5rem 1.15rem;
-                border-radius: 10px;
+                padding: 0.45rem 1.25rem;
+                border-radius: 9999px; /* Tạo hình viên thuốc hoàn hảo */
                 letter-spacing: 0.4px;
-                line-height: 1.45;
+                line-height: 1.35;
                 margin-bottom: 1.35rem;
                 border: 1px solid var(--border-subtle);
                 text-align: center;
             }
             @media (max-width: 576px) {
                 .project-badge {
-                    font-size: 0.78rem;
-                    padding: 0.45rem 1rem;
-                    border-radius: 8px;
+                    font-size: 0.76rem;
+                    padding: 0.5rem 1.2rem;
+                    border-radius: 9999px;
                 }
             }
 
@@ -381,7 +383,7 @@
     <body id="page-top">
         <div class="main-wrapper">
 
-            <!-- Fixed Top Bar (Màu nền đen sâu #121212) -->
+            <!-- Fixed Top Bar (Màu đen sâu #121212) -->
             <header class="top-nav">
                 <a href="index.html#page-top" class="nav-brand-center">Hieu Luong’s Portfolio</a>
                 <button class="nav-menu-btn" id="open-menu-btn" aria-label="Open navigation menu">
@@ -410,7 +412,7 @@
             <!-- Tiêu đề dự án, Thời gian làm việc & Bối cảnh -->
             <header class="project-header text-center">
                 <div class="container px-4 px-lg-5">
-                    <!-- Badge ngắt dòng chủ động trên điện thoại -->
+                    <!-- Badge dạng viên thuốc đồng bộ KL-Commerce, ngắt 2 dòng cân đối trên mobile -->
                     <span class="project-badge">
                         Product Creatives &amp;<br class="d-sm-none" /> Brand Commercial
                     </span>
