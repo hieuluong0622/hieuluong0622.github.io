@@ -176,7 +176,7 @@
                 font-size: 0.8rem;
                 font-weight: 600;
                 padding: 0.45rem 1.25rem;
-                border-radius: 9999px; /* Tạo hình viên thuốc hoàn hảo */
+                border-radius: 9999px;
                 letter-spacing: 0.4px;
                 line-height: 1.35;
                 margin-bottom: 1.35rem;
@@ -187,7 +187,6 @@
                 .project-badge {
                     font-size: 0.76rem;
                     padding: 0.5rem 1.2rem;
-                    border-radius: 9999px;
                 }
             }
 
@@ -250,14 +249,13 @@
                     grid-template-columns: repeat(2, 1fr);
                     gap: 0.75rem;
                 }
-                /* Bố cục 1 + 14 trên Mobile: Poster-02 đứng riêng full chiều ngang */
                 .featured-mobile-poster {
                     grid-column: span 2;
                     margin-bottom: 0.25rem;
                 }
             }
 
-            /* Khung ảnh poster 1:1 */
+            /* Khung ảnh poster 1:1 có Hover Overlay & Zoom Icon */
             .poster-card {
                 position: relative;
                 aspect-ratio: 1 / 1;
@@ -266,21 +264,59 @@
                 background-color: var(--bg-card);
                 border: 1px solid var(--border-subtle);
                 cursor: pointer;
-                transition: transform 0.25s ease, border-color 0.25s ease;
-            }
-            .poster-card:hover {
-                transform: translateY(-4px) scale(1.02);
-                border-color: #3d3d3d;
+                transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
             }
             .poster-card img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
                 display: block;
+                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            
+            /* Lớp phủ mờ tối + icon kính lúp trên PC */
+            .poster-overlay {
+                position: absolute;
+                inset: 0;
+                background-color: rgba(0, 0, 0, 0.45);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
                 transition: opacity 0.25s ease;
             }
-            .poster-card:hover img {
-                opacity: 0.92;
+            .poster-zoom-icon {
+                width: 42px;
+                height: 42px;
+                background-color: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #ffffff;
+                font-size: 1rem;
+                transform: scale(0.85);
+                transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            /* Trải nghiệm Hover mượt mà trên PC */
+            @media (hover: hover) and (pointer: fine) {
+                .poster-card:hover {
+                    transform: translateY(-4px);
+                    border-color: #4a4a4a;
+                }
+                .poster-card:hover img {
+                    transform: scale(1.04);
+                }
+                .poster-card:hover .poster-overlay {
+                    opacity: 1;
+                }
+                .poster-card:hover .poster-zoom-icon {
+                    transform: scale(1);
+                }
             }
 
             /* Khung nhúng Video 16:9 Responsive */
@@ -383,7 +419,7 @@
     <body id="page-top">
         <div class="main-wrapper">
 
-            <!-- Fixed Top Bar (Màu đen sâu #121212) -->
+            <!-- Fixed Top Bar (Màu nền đen sâu #121212) -->
             <header class="top-nav">
                 <a href="index.html#page-top" class="nav-brand-center">Hieu Luong’s Portfolio</a>
                 <button class="nav-menu-btn" id="open-menu-btn" aria-label="Open navigation menu">
@@ -412,7 +448,6 @@
             <!-- Tiêu đề dự án, Thời gian làm việc & Bối cảnh -->
             <header class="project-header text-center">
                 <div class="container px-4 px-lg-5">
-                    <!-- Badge dạng viên thuốc đồng bộ KL-Commerce, ngắt 2 dòng cân đối trên mobile -->
                     <span class="project-badge">
                         Product Creatives &amp;<br class="d-sm-none" /> Brand Commercial
                     </span>
@@ -433,80 +468,125 @@
                     <h2 class="content-section-title">Product Creatives</h2>
                     <div class="poster-grid">
                         
-                        <!-- Poster 02 (Featured Spotlight: Bung rộng 2 cột trên điện thoại) -->
+                        <!-- Poster 02 (Featured Spotlight trên mobile) -->
                         <div class="poster-card featured-mobile-poster" onclick="openLightbox('assets/img/xgear/poster-02.png')">
                             <img src="assets/img/xgear/poster-02.png" alt="Xgear Product Poster 02 - Featured" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
-                        <!-- 14 Poster còn lại (Tự động chia thành 7 hàng x 2 cột trên điện thoại) -->
+                        <!-- 14 Poster còn lại -->
                         <!-- Poster 01 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-01.png')">
                             <img src="assets/img/xgear/poster-01.png" alt="Xgear Product Poster 01" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                         <!-- Poster 03 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-03.png')">
                             <img src="assets/img/xgear/poster-03.png" alt="Xgear Product Poster 03" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                         <!-- Poster 04 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-04.png')">
                             <img src="assets/img/xgear/poster-04.png" alt="Xgear Product Poster 04" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                         <!-- Poster 05 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-05.png')">
                             <img src="assets/img/xgear/poster-05.png" alt="Xgear Product Poster 05" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                         <!-- Poster 06 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-06.png')">
                             <img src="assets/img/xgear/poster-06.png" alt="Xgear Product Poster 06" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                         <!-- Poster 07 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-07.png')">
                             <img src="assets/img/xgear/poster-07.png" alt="Xgear Product Poster 07" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                         <!-- Poster 08 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-08.png')">
                             <img src="assets/img/xgear/poster-08.png" alt="Xgear Product Poster 08" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                         <!-- Poster 09 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-09.png')">
                             <img src="assets/img/xgear/poster-09.png" alt="Xgear Product Poster 09" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                         <!-- Poster 10 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-10.png')">
                             <img src="assets/img/xgear/poster-10.png" alt="Xgear Product Poster 10" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                         <!-- Poster 11 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-11.png')">
                             <img src="assets/img/xgear/poster-11.png" alt="Xgear Product Poster 11" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                         <!-- Poster 12 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-12.png')">
                             <img src="assets/img/xgear/poster-12.png" alt="Xgear Product Poster 12" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                         <!-- Poster 13 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-13.png')">
                             <img src="assets/img/xgear/poster-13.png" alt="Xgear Product Poster 13" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                         <!-- Poster 14 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-14.png')">
                             <img src="assets/img/xgear/poster-14.png" alt="Xgear Product Poster 14" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                         <!-- Poster 15 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-15.png')">
                             <img src="assets/img/xgear/poster-15.png" alt="Xgear Product Poster 15" loading="lazy" decoding="async" />
+                            <div class="poster-overlay">
+                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                            </div>
                         </div>
 
                     </div>
