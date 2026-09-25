@@ -162,13 +162,15 @@
                 opacity: 1;
             }
 
-            /* Masthead Hero Section: Hiệu ứng cố định hậu cảnh (Sticky Background) */
+            /* Masthead Hero: Cố định tuyệt đối 100% tại chỗ (Đứng yên không cuộn) */
             .masthead-dark {
-                position: sticky;
+                position: fixed;
                 top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                height: 100dvh;
                 z-index: 1;
-                min-height: 100vh;
-                min-height: 100dvh;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -177,16 +179,19 @@
                 padding: 64px 1.5rem 0 1.5rem;
                 background-color: var(--bg-main);
                 box-sizing: border-box;
+                pointer-events: auto;
             }
             
-            /* Khung chứa chữ và mũi tên để tính toán hiệu ứng mờ dần */
+            /* Khung chứa chữ và mũi tên */
             .hero-content {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 width: 100%;
-                will-change: opacity, transform;
+                padding-top: 1rem;
+                padding-bottom: 3.5rem;
+                will-change: opacity;
                 transition: opacity 0.1s linear;
             }
 
@@ -219,32 +224,38 @@
                 }
             }
 
-            /* Nâng mũi tên lên cao để không bị thanh Safari che khuất */
+            /* Mũi tên trượt xuống */
             .scroll-indicator {
-                position: absolute;
-                bottom: calc(5rem + env(safe-area-inset-bottom));
-                left: 50%;
-                transform: translateX(-50%);
+                margin-top: 3.5rem;
                 color: var(--text-secondary);
                 text-decoration: none;
-                transition: color 0.25s ease;
+                transition: color 0.25s ease, transform 0.25s ease;
                 display: inline-block;
                 padding: 0.5rem;
-                z-index: 5;
             }
             .scroll-indicator i {
                 font-size: 1.4rem;
             }
             .scroll-indicator:hover {
                 color: #ffffff;
+                transform: translateY(3px);
             }
 
-            /* Wrapper chứa các nội dung bên dưới trượt đè lên Hero */
+            /* Khối đệm trong suốt để giữ khoảng trống bằng đúng 1 màn hình cho thanh cuộn */
+            .hero-spacer {
+                height: 100vh;
+                height: 100dvh;
+                width: 100%;
+                position: relative;
+                pointer-events: none;
+            }
+
+            /* Tầng nội dung bên dưới: trượt đè lên Hero đứng yên */
             .content-layers {
                 position: relative;
                 z-index: 2;
                 background-color: var(--bg-main);
-                box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.4);
+                box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.6);
             }
 
             /* Section Styling */
@@ -464,7 +475,7 @@
                 </div>
             </div>
 
-            <!-- Hero Section (Nền xám than, cố định để nội dung trượt đè lên) -->
+            <!-- Hero Section: Cố định 100% tại chỗ ở hậu cảnh -->
             <section class="masthead-dark">
                 <div class="hero-content" id="hero-content">
                     <div class="container px-4 text-center">
@@ -474,14 +485,17 @@
                             Motion Graphic Designer
                         </p>
                     </div>
-                    <!-- Mũi tên chỉ xuống: nâng cao tránh thanh Safari -->
+                    <!-- Mũi tên chỉ xuống nằm ngay dưới khối chữ tự nhiên -->
                     <a href="#about" class="scroll-indicator" aria-label="Scroll down to About section">
                         <i class="fas fa-chevron-down"></i>
                     </a>
                 </div>
             </section>
 
-            <!-- Tầng nội dung bên dưới trượt đè lên Hero -->
+            <!-- Khối đệm chiều cao cho màn hình Hero -->
+            <div class="hero-spacer"></div>
+
+            <!-- Tầng nội dung bên dưới: trượt đè lên Hero đứng yên -->
             <div class="content-layers">
 
                 <!-- About Section -->
@@ -639,11 +653,11 @@
         <!-- Script điều khiển hiệu ứng chữ mờ dần và Menu điều hướng -->
         <script>
             const heroContent = document.getElementById('hero-content');
+            const mastheadDark = document.querySelector('.masthead-dark');
 
-            // Xử lý chữ Hero mờ dần đều khi cuộn xuống
+            // Xử lý chữ Hero mờ dần đều khi cuộn xuống và tắt tương tác khi ẩn hoàn toàn
             window.addEventListener('scroll', () => {
                 const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-                const windowHeight = window.innerHeight;
                 
                 // Mờ dần trong khoảng 350px đầu tiên
                 let opacity = 1 - (scrollY / 350);
@@ -651,6 +665,13 @@
                 if (opacity > 1) opacity = 1;
                 
                 heroContent.style.opacity = opacity;
+
+                // Tắt tương tác click khi Hero đã bị che khuất hoàn toàn
+                if (opacity === 0) {
+                    mastheadDark.style.pointerEvents = 'none';
+                } else {
+                    mastheadDark.style.pointerEvents = 'auto';
+                }
             }, { passive: true });
 
             const openMenuBtn = document.getElementById('open-menu-btn');
