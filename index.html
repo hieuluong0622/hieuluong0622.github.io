@@ -19,24 +19,71 @@
         <link href="css/styles.css" rel="stylesheet" />
 
         <style>
-            /* Tiêu đề chính co giãn tự động để luôn trên 1 dòng */
-            .masthead-title {
-                font-size: clamp(1.85rem, 7.5vw, 4.5rem);
-                white-space: nowrap;
-                font-weight: 700;
+            /* Chống tràn chiều ngang tuyệt đối trên toàn trang */
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
             }
 
-            /* Tiêu đề My Portfolio đảm bảo luôn trên 1 dòng */
+            /* Tiêu đề chính màn hình máy tính */
+            .masthead-title {
+                font-size: 3.75rem;
+                font-weight: 700;
+                line-height: 1.2;
+            }
+
+            /* Tối ưu tiêu đề vừa khít 1 dòng trên màn hình điện thoại */
+            @media (max-width: 576px) {
+                .masthead-title {
+                    font-size: 1.85rem;
+                    letter-spacing: -0.5px;
+                }
+            }
+
+            /* Tiêu đề mục My Portfolio */
             .portfolio-heading-title {
-                font-size: clamp(2rem, 8vw, 3.25rem);
-                white-space: nowrap;
+                font-size: 2.75rem;
                 letter-spacing: 1px;
             }
+            @media (max-width: 576px) {
+                .portfolio-heading-title {
+                    font-size: 2.1rem;
+                }
+            }
 
-            /* Căn đều 2 lề cho đoạn giới thiệu bản thân */
+            /* Căn đều 2 lề cho phần giới thiệu bản thân */
             .about-text-justify {
                 text-align: justify;
                 text-justify: inter-word;
+            }
+
+            /* Đồng bộ kích thước chuẩn cho toàn bộ nút bấm chính */
+            .btn-custom-size {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 260px;
+                height: 56px;
+                font-size: 1rem;
+                font-weight: 700;
+                border-radius: 8px;
+                padding: 0 1.5rem;
+                text-decoration: none;
+            }
+
+            /* Đoạn mô tả trong Call to Action chống rớt 1 chữ */
+            .cta-lead {
+                font-size: 1.05rem;
+                max-width: 540px;
+                margin-left: auto;
+                margin-right: auto;
+                line-height: 1.5;
+            }
+            @media (max-width: 576px) {
+                .cta-lead {
+                    font-size: 0.95rem;
+                    padding: 0 10px;
+                }
             }
         </style>
     </head>
@@ -62,7 +109,7 @@
                     <span>Video Editor</span><br />
                     <span>Motion Graphic Designer</span>
                 </h3>
-                <a class="btn btn-primary btn-xl" href="#about">Find Out More</a>
+                <a class="btn btn-primary btn-custom-size shadow-sm" href="#about">Find Out More</a>
             </div>
         </header>
 
@@ -77,7 +124,7 @@
                             Combining dynamic motion, rhythm, and a solid background in marketing and brand communication, 
                             I craft engaging visual content that doesn't just look compelling, but actively elevates brand identity and connects meaningfully with audiences.
                         </p>
-                        <a class="btn btn-dark btn-xl" href="#services">Explore My Skills</a>
+                        <a class="btn btn-dark btn-custom-size shadow-sm" href="#services">Explore My Skills</a>
                     </div>
                 </div>
             </div>
@@ -141,7 +188,7 @@
                             <div class="caption">
                                 <div class="caption-content">
                                     <div class="h2">The New Xgear</div>
-                                    <p class="mb-0">Full-scope social media execution, tech product photography, motion design, and e-commerce content strategy.</p>[span_0](start_span)[span_0](end_span)
+                                    <p class="mb-0">Full-scope social media execution, tech product photography, motion design, and e-commerce content strategy.</p>
                                 </div>
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio-2.jpg" alt="The New Xgear Project" />
@@ -154,7 +201,7 @@
                             <div class="caption">
                                 <div class="caption-content">
                                     <div class="h2">Cerberus Esports</div>
-                                    <p class="mb-0">Story-driven long-form YouTube editing, behind-the-scenes features, and digital content driving team fandom.</p>[span_1](start_span)[span_1](end_span)
+                                    <p class="mb-0">Story-driven long-form YouTube editing, behind-the-scenes features, and digital content driving team fandom.</p>
                                 </div>
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio-3.jpg" alt="Cerberus Esports Project" />
@@ -181,42 +228,22 @@
         <section class="content-section bg-primary text-white" id="contact">
             <div class="container px-4 px-lg-5 text-center">
                 <h2 class="mb-4 display-5 fw-bold">Let's Work Together</h2>
-                <p class="lead mb-5 text-faded">Have a project in mind or looking for a creative collaborator? Feel free to reach out.</p>
-                <a class="btn btn-xl btn-light me-sm-3 mb-3 mb-sm-0" href="mailto:trunghieu220600@gmail.com">
-                    <i class="fas fa-envelope me-2"></i>Send an Email
-                </a>
-                <a class="btn btn-xl btn-dark" href="https://www.linkedin.com/in/hieuluong0622" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-linkedin me-2"></i>Connect on LinkedIn
-                </a>
+                <p class="cta-lead mb-5 text-faded">Have a project in mind or looking for a creative collaborator? Feel free to reach out.</p>
+                <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3">
+                    <a class="btn btn-light btn-custom-size shadow-sm" href="mailto:trunghieu220600@gmail.com">
+                        <i class="fas fa-envelope me-2"></i>Send an Email
+                    </a>
+                    <a class="btn btn-dark btn-custom-size shadow-sm" href="https://www.linkedin.com/in/hieuluong0622" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-linkedin-in me-2"></i>Connect on LinkedIn
+                    </a>
+                </div>
             </div>
         </section>
 
-        <!-- Footer-->
-        <footer class="footer text-center py-5">
+        <!-- Footer (Tinh gọn) -->
+        <footer class="footer text-center py-4 bg-light border-top">
             <div class="container px-4 px-lg-5">
-                <ul class="list-inline mb-4">
-                    <!-- LinkedIn -->
-                    <li class="list-inline-item mx-2">
-                        <a class="social-link rounded-circle text-white bg-dark d-inline-flex align-items-center justify-content-center" 
-                           style="width: 50px; height: 50px; text-decoration: none;" 
-                           href="https://www.linkedin.com/in/hieuluong0622" 
-                           target="_blank" 
-                           rel="noopener noreferrer" 
-                           title="LinkedIn Profile">
-                            <i class="fab fa-linkedin-in fa-lg"></i>
-                        </a>
-                    </li>
-                    <!-- Gmail -->
-                    <li class="list-inline-item mx-2">
-                        <a class="social-link rounded-circle text-white bg-dark d-inline-flex align-items-center justify-content-center" 
-                           style="width: 50px; height: 50px; text-decoration: none;" 
-                           href="mailto:trunghieu220600@gmail.com" 
-                           title="Send Email">
-                            <i class="fas fa-envelope fa-lg"></i>
-                        </a>
-                    </li>
-                </ul>
-                <p class="text-muted small mb-0">Copyright &copy; Luong Trung Hieu 2026</p>
+                <p class="text-muted small mb-0">Hieu Luong &copy; 2026</p>
             </div>
         </footer>
 
