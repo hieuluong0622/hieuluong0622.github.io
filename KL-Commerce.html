@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>KL-Commerce - Project Showcase</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <style>
+            /* Khung tùy chỉnh giữ tỷ lệ chuẩn 9:16 cho video dạng Shorts/Reels/Tiktok */
+            .ratio-9x16 {
+                aspect-ratio: 9 / 16;
+                width: 100%;
+                max-width: 380px; /* Độ rộng vừa mắt trên màn hình máy tính */
+                margin: 0 auto;
+                border-radius: 12px;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body class="bg-light">
+        <!-- Thanh điều hướng quay về trang chủ -->
+        <nav class="navbar navbar-dark bg-dark py-3">
+            <div class="container px-4">
+                <a class="navbar-brand text-white" href="index.html">
+                    <i class="fas fa-arrow-left me-2"></i> Back to Portfolio
+                </a>
+            </div>
+        </nav>
+
+        <!-- Tiêu đề dự án -->
+        <header class="py-5 bg-white border-bottom mb-4 text-center">
+            <div class="container px-4 px-lg-5">
+                <span class="badge bg-primary mb-2">Short-form Video &amp; Motion</span>
+                <h1 class="fw-bold mb-3">KL-Commerce</h1>
+                <p class="lead text-muted mx-auto" style="max-width: 700px;">
+                    Dự án sản xuất video quảng cáo ngắn / thương mại điện tử, tập trung vào nhịp điệu cắt dựng cuốn hút và hình ảnh sản phẩm nổi bật.
+                </p>
+            </div>
+        </header>
+
+        <!-- Khu vực hiển thị Video -->
+        <main class="container px-4 px-lg-5 mb-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    
+                    <!-- Khối Video 1: Shorts -->
+                    <div class="card border-0 shadow-sm rounded-3 mb-5 p-3 bg-white text-center">
+                        <div class="card-body">
+                            <h4 class="card-title fw-bold mb-2">Creative Ad #1</h4>
+                            <p class="text-muted small mb-4">Video định dạng dọc 9:16 tối ưu cho Reels / TikTok / YouTube Shorts</p>
+                            
+                            <!-- Video nhúng -->
+                            <div class="ratio-9x16 shadow-sm">
+                                <iframe 
+                                    class="w-100 h-100 border-0"
+                                    src="https://www.youtube.com/embed/eCpNEVdDNr0" 
+                                    title="KL-Commerce Video 1"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nút quay lại trang chủ -->
+                    <div class="text-center mt-5">
+                        <a href="index.html#portfolio" class="btn btn-dark btn-xl">
+                            <i class="fas fa-arrow-left me-2"></i> View More Projects
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer text-center bg-white py-4 border-top">
+            <div class="container">
+                <p class="text-muted small mb-0">HieuLuong Portfolio &copy; 2026</p>
+            </div>
+        </footer>
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
