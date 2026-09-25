@@ -6,22 +6,20 @@
         <title>KL-Commerce - Project Showcase</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Font Awesome icons (CSS Minified - Tải cực nhanh) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
+        <!-- Font Awesome icons (CSS Minified) -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS-->
         <link href="css/styles.css" rel="stylesheet" />
         <style>
-            /* Khung tùy chỉnh giữ tỷ lệ chuẩn 9:16 cho video dạng Shorts/Reels/Tiktok */
+            /* Khung giữ tỷ lệ chuẩn 9:16 cho video dọc */
             .ratio-9x16 {
                 aspect-ratio: 9 / 16;
                 width: 100%;
-                max-width: 380px; /* Độ rộng vừa mắt trên màn hình máy tính */
-                margin: 0 auto;
                 border-radius: 12px;
                 overflow: hidden;
+                background-color: #000;
             }
         </style>
     </head>
@@ -46,61 +44,98 @@
             </div>
         </header>
 
-        <!-- Khu vực hiển thị Video -->
+        <!-- Khu vực hiển thị Video (Lưới Responsive) -->
         <main class="container px-4 px-lg-5 mb-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    
-                    <!-- Khối Video 1: Shorts -->
-                    <div class="card border-0 shadow-sm rounded-3 mb-5 p-3 bg-white text-center">
-                        <div class="card-body">
-                            <h4 class="card-title fw-bold mb-2">Creative Ad #1</h4>
-                            <p class="text-muted small mb-4">Video định dạng dọc 9:16 tối ưu cho Reels / TikTok / YouTube Shorts</p>
-                            
-                            <!-- Video nhúng -->
-                            <div class="ratio-9x16 shadow-sm">
-    <video 
-        class="w-100 h-100" 
-        style="object-fit: cover;" 
-        controls 
-        playsinline 
-        preload="metadata">
-        <source src="assets/videos/1JJIL6TK3_7S3IBU.mp4" type="video/mp4">
-        Trình duyệt của bạn không hỗ trợ thẻ video.
-    </video>
-</div>
-
+            <!-- row g-4 tạo khoảng cách đều đặn giữa các video -->
+            <div class="row g-4 justify-content-center">
+                
+                <!-- Video 1 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 p-3 bg-white text-center">
+                        <div class="card-body p-2 d-flex flex-column">
+                            <h5 class="card-title fw-bold mb-1">Creative Ad #1</h5>
+                            <p class="text-muted small mb-3">Shorts / Reels / TikTok</p>
+                            <div class="ratio-9x16 shadow-sm mt-auto">
+                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
+                                    <source src="assets/videos/1JJIL6TK3_7S3IBU.mp4" type="video/mp4">
+                                    Trình duyệt không hỗ trợ thẻ video.
+                                </video>
+                            </div>
                         </div>
                     </div>
-<!-- Khối Video 2: Shorts -->
-                    <div class="card border-0 shadow-sm rounded-3 mb-5 p-3 bg-white text-center">
-                        <div class="card-body">
-                            <h4 class="card-title fw-bold mb-2">Creative Ad #1</h4>
-                            <p class="text-muted small mb-4">Video định dạng dọc 9:16 tối ưu cho Reels / TikTok / YouTube Shorts</p>
-                            
-                            <!-- Video nhúng -->
-                            <div class="ratio-9x16 shadow-sm">
-    <video 
-        class="w-100 h-100" 
-        style="object-fit: cover;" 
-        controls 
-        playsinline 
-        preload="metadata">
-        <source src="assets/videos/1JJIL02HG_7S3IBU.mp4" type="video/mp4">
-        Trình duyệt của bạn không hỗ trợ thẻ video.
-    </video>
-</div>
-
-                        </div>
-                    </div>
-                    <!-- Nút quay lại trang chủ -->
-                    <div class="text-center mt-5">
-                        <a href="index.html#portfolio" class="btn btn-dark btn-xl">
-                            <i class="fas fa-arrow-left me-2"></i> View More Projects
-                        </a>
-                    </div>
-
                 </div>
+
+                <!-- Video 2 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 p-3 bg-white text-center">
+                        <div class="card-body p-2 d-flex flex-column">
+                            <h5 class="card-title fw-bold mb-1">Creative Ad #2</h5>
+                            <p class="text-muted small mb-3">Shorts / Reels / TikTok</p>
+                            <div class="ratio-9x16 shadow-sm mt-auto">
+                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
+                                    <source src="assets/videos/1JJIL02HG_7S3IBU.mp4" type="video/mp4">
+                                    Trình duyệt không hỗ trợ thẻ video.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 p-3 bg-white text-center">
+                        <div class="card-body p-2 d-flex flex-column">
+                            <h5 class="card-title fw-bold mb-1">Creative Ad #3</h5>
+                            <p class="text-muted small mb-3">Shorts / Reels / TikTok</p>
+                            <div class="ratio-9x16 shadow-sm mt-auto">
+                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
+                                    <source src="assets/videos/v14025g50000cv1e1dnog65vetcm2clg.mov" type="video/quicktime">
+                                    Trình duyệt không hỗ trợ thẻ video.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video 4 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 p-3 bg-white text-center">
+                        <div class="card-body p-2 d-flex flex-column">
+                            <h5 class="card-title fw-bold mb-1">Creative Ad #4</h5>
+                            <p class="text-muted small mb-3">Shorts / Reels / TikTok</p>
+                            <div class="ratio-9x16 shadow-sm mt-auto">
+                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
+                                    <source src="assets/videos/v14025g50000cvjpb0nog65pt2rekpsg.mov" type="video/quicktime">
+                                    Trình duyệt không hỗ trợ thẻ video.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video 5 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 p-3 bg-white text-center">
+                        <div class="card-body p-2 d-flex flex-column">
+                            <h5 class="card-title fw-bold mb-1">Creative Ad #5</h5>
+                            <p class="text-muted small mb-3">Shorts / Reels / TikTok</p>
+                            <div class="ratio-9x16 shadow-sm mt-auto">
+                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
+                                    <source src="assets/videos/v14025g50000d06b9onog65n6pomf850.mov" type="video/quicktime">
+                                    Trình duyệt không hỗ trợ thẻ video.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Nút quay lại trang chủ -->
+            <div class="text-center mt-5">
+                <a href="index.html" class="btn btn-dark btn-xl">
+                    <i class="fas fa-arrow-left me-2"></i> View More Projects
+                </a>
             </div>
         </main>
 
