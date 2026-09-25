@@ -19,7 +19,7 @@
 
         <style>
             :root {
-                /* Đảo màu: Sticky bar & menu màu đen sâu, nền web màu xám than */
+                /* Đảo màu chuẩn xác: Sticky bar & Menu nền đen sâu, Trang web màu xám than */
                 --bg-nav: #121212;      /* Sticky header & Menu nền đen sâu */
                 --bg-main: #1c1c1c;     /* Nền chính trang web màu xám than */
                 --bg-card: #242424;     /* Card dự án và skill */
@@ -87,7 +87,7 @@
                 line-height: 1;
             }
 
-            /* Menu Full Screen: Màu nền đồng bộ hoàn toàn với Sticky Bar */
+            /* Menu Full Screen: Màu nền đen sâu #121212 */
             #fullscreen-menu {
                 position: fixed;
                 top: 0;
@@ -162,18 +162,34 @@
                 opacity: 1;
             }
 
-            /* Masthead Hero Section */
+            /* Masthead Hero Section: Hiệu ứng cố định hậu cảnh (Sticky Background) */
             .masthead-dark {
+                position: sticky;
+                top: 0;
+                z-index: 1;
                 min-height: 100vh;
+                min-height: 100dvh;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 text-align: center;
-                padding: 7rem 1.5rem 3rem 1.5rem;
-                position: relative;
+                padding: 64px 1.5rem 0 1.5rem;
                 background-color: var(--bg-main);
+                box-sizing: border-box;
             }
+            
+            /* Khung chứa chữ và mũi tên để tính toán hiệu ứng mờ dần */
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                will-change: opacity, transform;
+                transition: opacity 0.1s linear;
+            }
+
             .masthead-title {
                 font-size: 4rem;
                 font-weight: 800;
@@ -203,24 +219,32 @@
                 }
             }
 
-            /* Mũi tên trượt xuống */
+            /* Nâng mũi tên lên cao để không bị thanh Safari che khuất */
             .scroll-indicator {
                 position: absolute;
-                bottom: 2.5rem;
+                bottom: calc(5rem + env(safe-area-inset-bottom));
                 left: 50%;
                 transform: translateX(-50%);
                 color: var(--text-secondary);
                 text-decoration: none;
-                transition: color 0.25s ease, transform 0.25s ease;
+                transition: color 0.25s ease;
                 display: inline-block;
                 padding: 0.5rem;
+                z-index: 5;
             }
             .scroll-indicator i {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
             .scroll-indicator:hover {
                 color: #ffffff;
-                transform: translateX(-50%) translateY(4px);
+            }
+
+            /* Wrapper chứa các nội dung bên dưới trượt đè lên Hero */
+            .content-layers {
+                position: relative;
+                z-index: 2;
+                background-color: var(--bg-main);
+                box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.4);
             }
 
             /* Section Styling */
@@ -440,173 +464,195 @@
                 </div>
             </div>
 
-            <!-- Hero Section (Nền xám than #1c1c1c) -->
+            <!-- Hero Section (Nền xám than, cố định để nội dung trượt đè lên) -->
             <section class="masthead-dark">
-                <div class="container px-4 text-center">
-                    <h1 class="masthead-title">Hieu Luong</h1>
-                    <p class="masthead-subtitle">
-                        Video Editor<br />
-                        Motion Graphic Designer
-                    </p>
-                </div>
-                <!-- Mũi tên chỉ xuống -->
-                <a href="#about" class="scroll-indicator" aria-label="Scroll down to About section">
-                    <i class="fas fa-chevron-down"></i>
-                </a>
-            </section>
-
-            <!-- About Section -->
-            <section class="section-dark" id="about">
-                <div class="container px-4 px-lg-5 text-center">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-10">
-                            <h2 class="about-heading mb-4">Visual Storytelling Backed by Marketing Insight</h2>
-                            <p class="about-text-justify mb-5">
-                                Hi, I'm a <strong>Video Editor &amp; Motion Graphic Designer</strong> with a strong strategic mindset. 
-                                Combining dynamic motion, rhythm, and a solid background in marketing and brand communication, 
-                                I craft engaging visual content that doesn't just look compelling, but actively elevates brand identity and connects meaningfully with audiences.
-                            </p>
-                            <a class="btn-minimal btn-minimal-outline" href="#services">Explore My Skills</a>
-                        </div>
+                <div class="hero-content" id="hero-content">
+                    <div class="container px-4 text-center">
+                        <h1 class="masthead-title">Hieu Luong</h1>
+                        <p class="masthead-subtitle">
+                            Video Editor<br />
+                            Motion Graphic Designer
+                        </p>
                     </div>
+                    <!-- Mũi tên chỉ xuống: nâng cao tránh thanh Safari -->
+                    <a href="#about" class="scroll-indicator" aria-label="Scroll down to About section">
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
                 </div>
             </section>
 
-            <!-- Skills Section -->
-            <section class="section-dark-alt text-center" id="services">
-                <div class="container px-4 px-lg-5">
-                    <h2 class="section-title mb-5">Skills &amp; Expertise</h2>
-                    <div class="row g-4 justify-content-center">
-                        <!-- Skill 1 -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="skill-card text-center">
-                                <div class="skill-icon-wrapper">
-                                    <i class="fas fa-film"></i>
-                                </div>
-                                <h4>Video Editing</h4>
-                                <p>Pacing, storytelling, audio mixing, and seamless cuts tailored for multiple digital formats.</p>
-                            </div>
-                        </div>
-                        <!-- Skill 2 -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="skill-card text-center">
-                                <div class="skill-icon-wrapper">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                                <h4>Motion Graphics</h4>
-                                <p>Dynamic typography, 2D animation, lower thirds, and engaging visual assets that bring ideas to life.</p>
-                            </div>
-                        </div>
-                        <!-- Skill 3 -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="skill-card text-center">
-                                <div class="skill-icon-wrapper">
-                                    <i class="fas fa-layer-group"></i>
-                                </div>
-                                <h4>Compositing &amp; VFX</h4>
-                                <p>Green screen keying, screen replacement, visual cleanup, and smooth scene transitions.</p>
-                            </div>
-                        </div>
-                        <!-- Skill 4 -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="skill-card text-center">
-                                <div class="skill-icon-wrapper">
-                                    <i class="fas fa-bullhorn"></i>
-                                </div>
-                                <h4>Brand &amp; Marketing</h4>
-                                <p>Audience retention strategies, brand guidelines adherence, and high-impact social media creatives.</p>
+            <!-- Tầng nội dung bên dưới trượt đè lên Hero -->
+            <div class="content-layers">
+
+                <!-- About Section -->
+                <section class="section-dark" id="about">
+                    <div class="container px-4 px-lg-5 text-center">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-10">
+                                <h2 class="about-heading mb-4">Visual Storytelling Backed by Marketing Insight</h2>
+                                <p class="about-text-justify mb-5">
+                                    Hi, I'm a <strong>Video Editor &amp; Motion Graphic Designer</strong> with a strong strategic mindset. 
+                                    Combining dynamic motion, rhythm, and a solid background in marketing and brand communication, 
+                                    I craft engaging visual content that doesn't just look compelling, but actively elevates brand identity and connects meaningfully with audiences.
+                                </p>
+                                <a class="btn-minimal btn-minimal-outline" href="#services">Explore My Skills</a>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- Portfolio Showcase Section -->
-            <section class="section-dark" id="portfolio">
-                <div class="container px-4 px-lg-5">
-                    <div class="text-center mb-5">
-                        <h2 class="section-title mb-0">MY PORTFOLIO</h2>
-                    </div>
-                    <div class="row g-4">
-                        <!-- Project 1: KL-Commerce -->
-                        <div class="col-lg-6">
-                            <a class="project-card" href="KL-Commerce.html">
-                                <img src="assets/img/portfolio-1.jpg" alt="KL Commerce Project" />
-                                <div class="project-overlay">
-                                    <div class="project-title">KL Commerce</div>
-                                    <p class="project-desc">High-converting short-form video ads and 2D motion graphics tailored for TikTok e-commerce.</p>
+                <!-- Skills Section -->
+                <section class="section-dark-alt text-center" id="services">
+                    <div class="container px-4 px-lg-5">
+                        <h2 class="section-title mb-5">Skills &amp; Expertise</h2>
+                        <div class="row g-4 justify-content-center">
+                            <!-- Skill 1 -->
+                            <div class="col-lg-3 col-md-6">
+                                <div class="skill-card text-center">
+                                    <div class="skill-icon-wrapper">
+                                        <i class="fas fa-film"></i>
+                                    </div>
+                                    <h4>Video Editing</h4>
+                                    <p>Pacing, storytelling, audio mixing, and seamless cuts tailored for multiple digital formats.</p>
                                 </div>
-                            </a>
-                        </div>
-
-                        <!-- Project 2: The New Xgear -->
-                        <div class="col-lg-6">
-                            <a class="project-card" href="xgear.html">
-                                <img src="assets/img/portfolio-2.jpg" alt="The New Xgear Project" />
-                                <div class="project-overlay">
-                                    <div class="project-title">The New Xgear</div>
-                                    <p class="project-desc">Full-scope social media execution, tech product photography, motion design, and e-commerce content strategy.</p>
+                            </div>
+                            <!-- Skill 2 -->
+                            <div class="col-lg-3 col-md-6">
+                                <div class="skill-card text-center">
+                                    <div class="skill-icon-wrapper">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                    <h4>Motion Graphics</h4>
+                                    <p>Dynamic typography, 2D animation, lower thirds, and engaging visual assets that bring ideas to life.</p>
                                 </div>
-                            </a>
-                        </div>
-
-                        <!-- Project 3: Cerberus Esports -->
-                        <div class="col-lg-6">
-                            <a class="project-card" href="cerberus-esports.html">
-                                <img src="assets/img/portfolio-3.jpg" alt="Cerberus Esports Project" />
-                                <div class="project-overlay">
-                                    <div class="project-title">Cerberus Esports</div>
-                                    <p class="project-desc">Story-driven long-form YouTube editing, behind-the-scenes features, and digital content driving team fandom.</p>
+                            </div>
+                            <!-- Skill 3 -->
+                            <div class="col-lg-3 col-md-6">
+                                <div class="skill-card text-center">
+                                    <div class="skill-icon-wrapper">
+                                        <i class="fas fa-layer-group"></i>
+                                    </div>
+                                    <h4>Compositing &amp; VFX</h4>
+                                    <p>Green screen keying, screen replacement, visual cleanup, and smooth scene transitions.</p>
                                 </div>
-                            </a>
-                        </div>
-
-                        <!-- Project 4: Personal & Freelance Work -->
-                        <div class="col-lg-6">
-                            <a class="project-card" href="freelance.html">
-                                <img src="assets/img/portfolio-4.jpg" alt="Personal and Freelance Work" />
-                                <div class="project-overlay">
-                                    <div class="project-title">Personal &amp; Freelance Work</div>
-                                    <p class="project-desc">A curated collection of independent freelance deliverables, personal motion experiments, and creative visual explorations.</p>
+                            </div>
+                            <!-- Skill 4 -->
+                            <div class="col-lg-3 col-md-6">
+                                <div class="skill-card text-center">
+                                    <div class="skill-icon-wrapper">
+                                        <i class="fas fa-bullhorn"></i>
+                                    </div>
+                                    <h4>Brand &amp; Marketing</h4>
+                                    <p>Audience retention strategies, brand guidelines adherence, and high-impact social media creatives.</p>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- Call to Action Section -->
-            <section class="section-dark-alt text-center" id="contact">
-                <div class="container px-4 px-lg-5">
-                    <h2 class="section-title mb-3">Let's Work Together</h2>
-                    <p class="mb-5 text-muted" style="max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-                        Have a project in mind or looking for a creative collaborator? Feel free to reach out.
-                    </p>
-                    <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3">
-                        <a class="btn-minimal btn-minimal-white" href="mailto:trunghieu220600@gmail.com">
-                            <i class="fas fa-envelope me-2"></i>Send an Email
-                        </a>
-                        <a class="btn-minimal btn-minimal-outline" href="https://www.linkedin.com/in/hieuluong0622" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-linkedin-in me-2"></i>Connect on LinkedIn
-                        </a>
+                <!-- Portfolio Showcase Section -->
+                <section class="section-dark" id="portfolio">
+                    <div class="container px-4 px-lg-5">
+                        <div class="text-center mb-5">
+                            <h2 class="section-title mb-0">MY PORTFOLIO</h2>
+                        </div>
+                        <div class="row g-4">
+                            <!-- Project 1: KL-Commerce -->
+                            <div class="col-lg-6">
+                                <a class="project-card" href="KL-Commerce.html">
+                                    <img src="assets/img/portfolio-1.jpg" alt="KL Commerce Project" />
+                                    <div class="project-overlay">
+                                        <div class="project-title">KL Commerce</div>
+                                        <p class="project-desc">High-converting short-form video ads and 2D motion graphics tailored for TikTok e-commerce.</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Project 2: The New Xgear -->
+                            <div class="col-lg-6">
+                                <a class="project-card" href="xgear.html">
+                                    <img src="assets/img/portfolio-2.jpg" alt="The New Xgear Project" />
+                                    <div class="project-overlay">
+                                        <div class="project-title">The New Xgear</div>
+                                        <p class="project-desc">Full-scope social media execution, tech product photography, motion design, and e-commerce content strategy.</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Project 3: Cerberus Esports -->
+                            <div class="col-lg-6">
+                                <a class="project-card" href="cerberus-esports.html">
+                                    <img src="assets/img/portfolio-3.jpg" alt="Cerberus Esports Project" />
+                                    <div class="project-overlay">
+                                        <div class="project-title">Cerberus Esports</div>
+                                        <p class="project-desc">Story-driven long-form YouTube editing, behind-the-scenes features, and digital content driving team fandom.</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Project 4: Personal & Freelance Work -->
+                            <div class="col-lg-6">
+                                <a class="project-card" href="freelance.html">
+                                    <img src="assets/img/portfolio-4.jpg" alt="Personal and Freelance Work" />
+                                    <div class="project-overlay">
+                                        <div class="project-title">Personal &amp; Freelance Work</div>
+                                        <p class="project-desc">A curated collection of independent freelance deliverables, personal motion experiments, and creative visual explorations.</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- Minimal Footer -->
-            <footer class="footer-dark text-center">
-                <div class="container px-4">
-                    <p class="mb-0">Hieu Luong &copy; 2026</p>
-                </div>
-            </footer>
+                <!-- Call to Action Section -->
+                <section class="section-dark-alt text-center" id="contact">
+                    <div class="container px-4 px-lg-5">
+                        <h2 class="section-title mb-3">Let's Work Together</h2>
+                        <p class="mb-5 text-muted" style="max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                            Have a project in mind or looking for a creative collaborator? Feel free to reach out.
+                        </p>
+                        <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3">
+                            <a class="btn-minimal btn-minimal-white" href="mailto:trunghieu220600@gmail.com">
+                                <i class="fas fa-envelope me-2"></i>Send an Email
+                            </a>
+                            <a class="btn-minimal btn-minimal-outline" href="https://www.linkedin.com/in/hieuluong0622" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-linkedin-in me-2"></i>Connect on LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Minimal Footer -->
+                <footer class="footer-dark text-center">
+                    <div class="container px-4">
+                        <p class="mb-0">Hieu Luong &copy; 2026</p>
+                    </div>
+                </footer>
+
+            </div><!-- /content-layers -->
 
         </div><!-- /main-wrapper -->
 
         <!-- Bootstrap core JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Script điều khiển Full Screen Menu và Cuộn trang mượt mà -->
+        <!-- Script điều khiển hiệu ứng chữ mờ dần và Menu điều hướng -->
         <script>
+            const heroContent = document.getElementById('hero-content');
+
+            // Xử lý chữ Hero mờ dần đều khi cuộn xuống
+            window.addEventListener('scroll', () => {
+                const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+                const windowHeight = window.innerHeight;
+                
+                // Mờ dần trong khoảng 350px đầu tiên
+                let opacity = 1 - (scrollY / 350);
+                if (opacity < 0) opacity = 0;
+                if (opacity > 1) opacity = 1;
+                
+                heroContent.style.opacity = opacity;
+            }, { passive: true });
+
             const openMenuBtn = document.getElementById('open-menu-btn');
             const closeMenuBtn = document.getElementById('close-menu-btn');
             const fullMenu = document.getElementById('fullscreen-menu');
