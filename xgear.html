@@ -163,20 +163,32 @@
             .project-header {
                 background-color: var(--bg-main);
                 border-bottom: 1px solid var(--border-subtle);
-                padding: 4rem 1.5rem 3.5rem 1.5rem;
+                padding: 3.5rem 1.5rem 3.5rem 1.5rem;
             }
+            
+            /* Tối ưu Badge: thanh mảnh, bo tròn vừa vặn và hỗ trợ 2 dòng trên mobile */
             .project-badge {
                 display: inline-block;
-                background-color: rgba(255, 255, 255, 0.08);
+                background-color: rgba(255, 255, 255, 0.06);
                 color: #ffffff;
-                font-size: 0.8rem;
+                font-size: 0.82rem;
                 font-weight: 600;
-                padding: 0.35rem 0.85rem;
-                border-radius: 20px;
-                letter-spacing: 0.5px;
-                margin-bottom: 1.25rem;
+                padding: 0.5rem 1.15rem;
+                border-radius: 10px;
+                letter-spacing: 0.4px;
+                line-height: 1.45;
+                margin-bottom: 1.35rem;
                 border: 1px solid var(--border-subtle);
+                text-align: center;
             }
+            @media (max-width: 576px) {
+                .project-badge {
+                    font-size: 0.78rem;
+                    padding: 0.45rem 1rem;
+                    border-radius: 8px;
+                }
+            }
+
             .project-title {
                 font-size: 2.75rem;
                 font-weight: 800;
@@ -235,6 +247,11 @@
                 .poster-grid {
                     grid-template-columns: repeat(2, 1fr);
                     gap: 0.75rem;
+                }
+                /* Bố cục 1 + 14 trên Mobile: Poster-02 đứng riêng full chiều ngang */
+                .featured-mobile-poster {
+                    grid-column: span 2;
+                    margin-bottom: 0.25rem;
                 }
             }
 
@@ -317,7 +334,7 @@
                 font-size: 0.88rem;
             }
 
-            /* Lightbox Popup xem ảnh phóng to */
+            /* Lightbox Modal Popup */
             .lightbox-modal {
                 position: fixed;
                 inset: 0;
@@ -364,7 +381,7 @@
     <body id="page-top">
         <div class="main-wrapper">
 
-            <!-- Fixed Top Bar (Màu đen sâu #121212) -->
+            <!-- Fixed Top Bar (Màu nền đen sâu #121212) -->
             <header class="top-nav">
                 <a href="index.html#page-top" class="nav-brand-center">Hieu Luong’s Portfolio</a>
                 <button class="nav-menu-btn" id="open-menu-btn" aria-label="Open navigation menu">
@@ -393,7 +410,10 @@
             <!-- Tiêu đề dự án, Thời gian làm việc & Bối cảnh -->
             <header class="project-header text-center">
                 <div class="container px-4 px-lg-5">
-                    <span class="project-badge">Product Creatives &amp; Brand Commercial</span>
+                    <!-- Badge ngắt dòng chủ động trên điện thoại -->
+                    <span class="project-badge">
+                        Product Creatives &amp;<br class="d-sm-none" /> Brand Commercial
+                    </span>
                     <h1 class="project-title">The New Xgear</h1>
                     <div class="project-timeline">Feb 2023 – Oct 2023</div>
                     <p class="project-description">
@@ -406,19 +426,20 @@
             <!-- Nội dung chính -->
             <main class="container px-4 px-lg-5 py-5">
                 
-                <!-- Phân khu 1: 15 Poster Sản Phẩm (Lưới 5 cột PC, 2 cột Mobile) -->
+                <!-- Phân khu 1: 15 Poster Sản Phẩm -->
                 <section class="mb-5 pb-4">
                     <h2 class="content-section-title">Product Creatives</h2>
                     <div class="poster-grid">
                         
+                        <!-- Poster 02 (Featured Spotlight: Bung rộng 2 cột trên điện thoại) -->
+                        <div class="poster-card featured-mobile-poster" onclick="openLightbox('assets/img/xgear/poster-02.png')">
+                            <img src="assets/img/xgear/poster-02.png" alt="Xgear Product Poster 02 - Featured" loading="lazy" decoding="async" />
+                        </div>
+
+                        <!-- 14 Poster còn lại (Tự động chia thành 7 hàng x 2 cột trên điện thoại) -->
                         <!-- Poster 01 -->
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-01.png')">
                             <img src="assets/img/xgear/poster-01.png" alt="Xgear Product Poster 01" loading="lazy" decoding="async" />
-                        </div>
-
-                        <!-- Poster 02 -->
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-02.png')">
-                            <img src="assets/img/xgear/poster-02.png" alt="Xgear Product Poster 02" loading="lazy" decoding="async" />
                         </div>
 
                         <!-- Poster 03 -->
