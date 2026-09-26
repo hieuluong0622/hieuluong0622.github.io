@@ -1,80 +1,89 @@
-/*!
-* Start Bootstrap - Stylish Portfolio v6.0.6 (https://startbootstrap.com/theme/stylish-portfolio)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-stylish-portfolio/blob/master/LICENSE)
-*/
-window.addEventListener('DOMContentLoaded', event => {
+/**
+ * Core Interactive Scripts - Hieu Luong Portfolio
+ * Handles Navigation Menu, Smooth Scrolling, Hero Opacity & Image Lightbox
+ */
 
-    const sidebarWrapper = document.getElementById('sidebar-wrapper');
-    let scrollToTopVisible = false;
-    // Closes the sidebar menu
-    const menuToggle = document.body.querySelector('.menu-toggle');
-    menuToggle.addEventListener('click', event => {
-        event.preventDefault();
-        sidebarWrapper.classList.toggle('active');
-        _toggleMenuIcon();
-        menuToggle.classList.toggle('active');
-    })
+document.addEventListener('DOMContentLoaded', () => {
 
-    // Closes responsive menu when a scroll trigger link is clicked
-    var scrollTriggerList = [].slice.call(document.querySelectorAll('#sidebar-wrapper .js-scroll-trigger'));
-    scrollTriggerList.map(scrollTrigger => {
-        scrollTrigger.addEventListener('click', () => {
-            sidebarWrapper.classList.remove('active');
-            menuToggle.classList.remove('active');
-            _toggleMenuIcon();
-        })
-    });
+    /* --- 1. FULLSCREEN MENU NAVIGATION --- */
+    const openMenuBtn = document.getElementById('open-menu-btn');
+    const closeMenuBtn = document.getElementById('close-menu-btn');
+    const fullMenu = document.getElementById('fullscreen-menu');
+    const navLinks = document.querySelectorAll('.nav-link-item');
+    const navBrand = document.querySelector('.nav-brand-center');
 
-    function _toggleMenuIcon() {
-        const menuToggleBars = document.body.querySelector('.menu-toggle > .fa-bars');
-        const menuToggleTimes = document.body.querySelector('.menu-toggle > .fa-xmark');
-        if (menuToggleBars) {
-            menuToggleBars.classList.remove('fa-bars');
-            menuToggleBars.classList.add('fa-xmark');
+    const closeMenu = () => {
+        if (fullMenu) {
+            fullMenu.classList.remove('active');
+            document.body.style.overflow = '';
         }
-        if (menuToggleTimes) {
-            menuToggleTimes.classList.remove('fa-xmark');
-            menuToggleTimes.classList.add('fa-bars');
-        }
+    };
+
+    if (openMenuBtn && fullMenu) {
+        openMenuBtn.addEventListener('click', () => {
+            fullMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
     }
 
-    // Scroll to top button appear
-    document.addEventListener('scroll', () => {
-        const scrollToTop = document.body.querySelector('.scroll-to-top');
-        if (document.documentElement.scrollTop > 100) {
-            if (!scrollToTopVisible) {
-                fadeIn(scrollToTop);
-                scrollToTopVisible = true;
-            }
-        } else {
-            if (scrollToTopVisible) {
-                fadeOut(scrollToTop);
-                scrollToTopVisible = false;
-            }
-        }
-    })
-})
+    if (closeMenuBtn) {
+        closeMenuBtn.addEventListener('click', closeMenu);
+    }
 
-function fadeOut(el) {
-    el.style.opacity = 1;
-    (function fade() {
-        if ((el.style.opacity -= .1) < 0) {
-            el.style.display = "none";
-        } else {
-            requestAnimationFrame(fade);
-        }
-    })();
-};
+    // Tự động đóng menu khi bấm vào link và cuộn trang mượt
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            closeMenu();
+            const targetHref = link.getAttribute('href');
+            if (targetHref === '#page-top') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    });
 
-function fadeIn(el, display) {
-    el.style.opacity = 0;
-    el.style.display = display || "block";
-    (function fade() {
-        var val = parseFloat(el.style.opacity);
-        if (!((val += .1) > 1)) {
-            el.style.opacity = val;
-            requestAnimationFrame(fade);
-        }
-    })();
-};
+    // Cuộn lên đầu trang khi bấm vào tên Brand trên Navbar
+    if (navBrand && navBrand.getAttribute('href') === '#page-top') {
+        navBrand.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    /* --- 2. HERO PARALLAX OPACITY (CHỈ DÀNH CHO INDEX.HTML) --- */
+    const heroContent = document.getElementById('hero-content');
+    const mastheadDark = document.querySelector('.masthead-dark');
+
+    if (heroContent && mastheadDark) {
+        window.addEventListener('scroll', () => {
+            const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+            let opacity = 1 - (scrollY / 350);
+            if (opacity < 0) opacity = 0;
+            if (opacity > 1) opacity = 1;
+            
+            heroContent.style.opacity = opacity;
+            mastheadDark.style.pointerEvents = (opacity === 0) ? 'none' : 'auto';
+        }, { passive: true });
+    }
+
+    /* --- 3. LIGHTBOX IMAGE POPUP (CHỈ DÀNH CHO XGEAR.HTML) --- */
+    const lightboxModal = document.getElementById('lightbox-modal');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    if (lightboxModal && lightboxImg) {
+        window.openLightbox = function(src) {
+            lightboxImg.src = src;
+            lightboxModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeLightbox = function(e) {
+            if (e.target !== lightboxImg) {
+                lightboxModal.classList.remove('active');
+                lightboxImg.src = '';
+                document.body.style.overflow = '';
+            }
+        };
+    }
+
+});
