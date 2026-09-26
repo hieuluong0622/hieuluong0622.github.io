@@ -219,40 +219,7 @@
         <!-- Bootstrap core JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Scripts -->
-        <script>
-            const openMenuBtn = document.getElementById('open-menu-btn');
-            const closeMenuBtn = document.getElementById('close-menu-btn');
-            const fullMenu = document.getElementById('fullscreen-menu');
-
-            openMenuBtn.addEventListener('click', () => {
-                fullMenu.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-
-            const closeMenu = () => {
-                fullMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            };
-
-            closeMenuBtn.addEventListener('click', closeMenu);
-
-            const lightboxModal = document.getElementById('lightbox-modal');
-            const lightboxImg = document.getElementById('lightbox-img');
-
-            function openLightbox(src) {
-                lightboxImg.src = src;
-                lightboxModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeLightbox(e) {
-                if (e.target !== lightboxImg) {
-                    lightboxModal.classList.remove('active');
-                    lightboxImg.src = '';
-                    document.body.style.overflow = '';
-                }
-            }
-        </script>
+        <!-- Custom Core JS -->
+        <script src="js/scripts.js"></script>
     </body>
 </html>
