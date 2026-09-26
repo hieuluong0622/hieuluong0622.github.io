@@ -218,53 +218,7 @@
         <!-- Bootstrap core JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Scripts -->
-        <script>
-            const heroContent = document.getElementById('hero-content');
-            const mastheadDark = document.querySelector('.masthead-dark');
-
-            window.addEventListener('scroll', () => {
-                const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-                let opacity = 1 - (scrollY / 350);
-                if (opacity < 0) opacity = 0;
-                if (opacity > 1) opacity = 1;
-                
-                heroContent.style.opacity = opacity;
-                mastheadDark.style.pointerEvents = (opacity === 0) ? 'none' : 'auto';
-            }, { passive: true });
-
-            const openMenuBtn = document.getElementById('open-menu-btn');
-            const closeMenuBtn = document.getElementById('close-menu-btn');
-            const fullMenu = document.getElementById('fullscreen-menu');
-            const navLinks = document.querySelectorAll('.nav-link-item');
-
-            openMenuBtn.addEventListener('click', () => {
-                fullMenu.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-
-            const closeMenu = () => {
-                fullMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            };
-
-            closeMenuBtn.addEventListener('click', closeMenu);
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    closeMenu();
-                    const targetId = link.getAttribute('href');
-                    if (targetId === '#page-top') {
-                        e.preventDefault();
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                });
-            });
-
-            document.querySelector('.nav-brand-center').addEventListener('click', (e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        </script>
+        <!-- Custom Core JS -->
+        <script src="js/scripts.js"></script>
     </body>
 </html>
