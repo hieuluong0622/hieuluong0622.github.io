@@ -1,18 +1,13 @@
-/* ==========================================================================
-   CUSTOM DARK THEME PORTFOLIO SYSTEM - HIEU LUONG
-   ========================================================================== */
-
 :root {
-    --bg-nav: #121212;      /* Sticky header & Menu nền đen sâu */
-    --bg-main: #1c1c1c;     /* Nền chính trang web màu xám than */
-    --bg-card: #242424;     /* Card dự án, skill, khung video */
-    --bg-alt: #181818;      /* Khối xen kẽ */
+    --bg-nav: #121212;
+    --bg-main: #1c1c1c;
+    --bg-card: #242424;
+    --bg-alt: #181818;
     --text-primary: #ffffff;
     --text-secondary: #a6a6a6;
     --border-subtle: #2b2b2b;
 }
 
-/* --- Cuộn trang & Thiết lập nền tảng --- */
 html {
     scroll-behavior: smooth;
 }
@@ -25,7 +20,6 @@ body {
     padding: 0;
 }
 
-/* Container chống tràn an toàn cho iOS Safari */
 .main-wrapper {
     overflow-x: hidden;
     width: 100%;
@@ -34,10 +28,9 @@ body {
 }
 
 .main-wrapper-project {
-    padding-top: 64px; /* Tránh bị che bởi Sticky Header trên các trang con */
+    padding-top: 64px;
 }
 
-/* --- Top Navigation Bar Cố Định --- */
 .top-nav {
     position: fixed;
     top: 0;
@@ -76,7 +69,6 @@ body {
     line-height: 1;
 }
 
-/* --- Fullscreen Menu Overlay --- */
 #fullscreen-menu {
     position: fixed;
     top: 0;
@@ -158,7 +150,6 @@ body {
     opacity: 1;
 }
 
-/* --- Common Button Styles --- */
 .btn-minimal {
     display: inline-flex;
     align-items: center;
@@ -217,7 +208,6 @@ body {
     border-color: #777777;
 }
 
-/* --- Project Pages: Header Section --- */
 .project-header {
     background-color: var(--bg-main);
     border-bottom: 1px solid var(--border-subtle);
@@ -293,7 +283,6 @@ body {
     text-align: center;
 }
 
-/* --- Common Footer --- */
 .footer-dark {
     background-color: #0f0f0f;
     border-top: 1px solid var(--border-subtle);
@@ -302,11 +291,6 @@ body {
     font-size: 0.88rem;
 }
 
-/* ==========================================================================
-   HOMEPAGE SPECIFIC STYLES (index.html)
-   ========================================================================== */
-
-/* Parallax Masthead Hero */
 .masthead-dark {
     position: fixed;
     top: 0;
@@ -583,10 +567,6 @@ body {
     }
 }
 
-/* ==========================================================================
-   KL-COMMERCE SPECIFIC STYLES
-   ========================================================================== */
-
 .brand-section-header {
     text-align: center;
     margin-bottom: 2rem;
@@ -677,10 +657,6 @@ body {
     object-fit: cover;
     display: block;
 }
-
-/* ==========================================================================
-   THE NEW XGEAR SPECIFIC STYLES
-   ========================================================================== */
 
 .poster-grid {
     display: grid;
@@ -836,10 +812,6 @@ body {
 .lightbox-close-btn:hover {
     opacity: 1;
 }
-
-/* ==========================================================================
-   CERBERUS ESPORTS SPECIFIC STYLES
-   ========================================================================== */
 
 .video-grid-2x2 {
     display: grid;
