@@ -1,6 +1,6 @@
 /**
  * Core Interactive Scripts - Hieu Luong Portfolio
- * Handles Navigation Menu, Smooth Scrolling, Hero Opacity & Image Lightbox
+ * Handles Navigation Menu, Smooth Scrolling, Hero Opacity, Image Lightbox & Smart Video Player
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -84,6 +84,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.style.overflow = '';
             }
         };
+    }
+
+    /* --- 4. SMART VIDEO CONTROLLER (CHỈ DÀNH CHO CÁC TRANG CÓ VIDEO THẺ THUẦN) --- */
+    const allVideos = document.querySelectorAll('video');
+    if (allVideos.length > 0) {
+        allVideos.forEach(video => {
+            video.addEventListener('play', () => {
+                allVideos.forEach(otherVideo => {
+                    if (otherVideo !== video && !otherVideo.paused) {
+                        otherVideo.pause();
+                    }
+                });
+            });
+        });
     }
 
 });
