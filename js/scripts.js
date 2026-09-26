@@ -1,11 +1,5 @@
-/**
- * Core Interactive Scripts - Hieu Luong Portfolio
- * Handles Navigation Menu, Smooth Scrolling, Hero Opacity, Image Lightbox & Smart Video Player
- */
-
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* --- 1. FULLSCREEN MENU NAVIGATION --- */
     const openMenuBtn = document.getElementById('open-menu-btn');
     const closeMenuBtn = document.getElementById('close-menu-btn');
     const fullMenu = document.getElementById('fullscreen-menu');
@@ -30,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
         closeMenuBtn.addEventListener('click', closeMenu);
     }
 
-    // Tự động đóng menu khi bấm vào link và cuộn trang mượt
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             closeMenu();
@@ -42,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Cuộn lên đầu trang khi bấm vào tên Brand trên Navbar
     if (navBrand && navBrand.getAttribute('href') === '#page-top') {
         navBrand.addEventListener('click', (e) => {
             e.preventDefault();
@@ -50,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* --- 2. HERO PARALLAX OPACITY (CHỈ DÀNH CHO INDEX.HTML) --- */
     const heroContent = document.getElementById('hero-content');
     const mastheadDark = document.querySelector('.masthead-dark');
 
@@ -66,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 
-    /* --- 3. LIGHTBOX IMAGE POPUP (CHỈ DÀNH CHO XGEAR.HTML) --- */
     const lightboxModal = document.getElementById('lightbox-modal');
     const lightboxImg = document.getElementById('lightbox-img');
 
@@ -84,9 +74,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.style.overflow = '';
             }
         };
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightboxModal.classList.contains('active')) {
+                lightboxModal.classList.remove('active');
+                lightboxImg.src = '';
+                document.body.style.overflow = '';
+            }
+        });
     }
 
-    /* --- 4. SMART VIDEO CONTROLLER (CHỈ DÀNH CHO CÁC TRANG CÓ VIDEO THẺ THUẦN) --- */
     const allVideos = document.querySelectorAll('video');
     if (allVideos.length > 0) {
         allVideos.forEach(video => {
