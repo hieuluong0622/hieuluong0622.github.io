@@ -19,7 +19,7 @@
             :root {
                 --bg-nav: #121212;      /* Sticky header & Menu nền đen sâu */
                 --bg-main: #1c1c1c;     /* Nền chính trang web màu xám than */
-                --bg-card: #242424;     /* Card chứa video */
+                --bg-card: #242424;     /* Khung nền chứa video */
                 --text-primary: #ffffff;
                 --text-secondary: #a6a6a6;
                 --border-subtle: #2b2b2b;
@@ -47,7 +47,7 @@
                 padding-top: 64px; /* Tránh bị che bởi Sticky Header */
             }
 
-            /* Thanh top navigation cố định đồng bộ index */
+            /* Thanh top navigation cố định đồng bộ */
             .top-nav {
                 position: fixed;
                 top: 0;
@@ -163,20 +163,33 @@
             .project-header {
                 background-color: var(--bg-main);
                 border-bottom: 1px solid var(--border-subtle);
-                padding: 4rem 1.5rem 3.5rem 1.5rem;
+                padding: 3.5rem 1.5rem 3.5rem 1.5rem;
             }
+            
+            /* Badge dạng viên thuốc chuẩn Minimalist */
             .project-badge {
-                display: inline-block;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
                 background-color: rgba(255, 255, 255, 0.08);
                 color: #ffffff;
                 font-size: 0.8rem;
                 font-weight: 600;
-                padding: 0.35rem 0.85rem;
-                border-radius: 20px;
-                letter-spacing: 0.5px;
-                margin-bottom: 1.25rem;
+                padding: 0.45rem 1.25rem;
+                border-radius: 9999px;
+                letter-spacing: 0.4px;
+                line-height: 1.35;
+                margin-bottom: 1.35rem;
                 border: 1px solid var(--border-subtle);
+                text-align: center;
             }
+            @media (max-width: 576px) {
+                .project-badge {
+                    font-size: 0.76rem;
+                    padding: 0.5rem 1.2rem;
+                }
+            }
+
             .project-title {
                 font-size: 2.75rem;
                 font-weight: 800;
@@ -205,49 +218,98 @@
                 text-align: justify;
                 text-justify: inter-word;
             }
-            .project-description a {
+            .project-description strong {
                 color: #ffffff;
-                font-weight: 600;
             }
 
-            /* Card video Dark Theme */
-            .video-card {
-                background-color: var(--bg-card);
-                border: 1px solid var(--border-subtle);
-                border-radius: 14px;
-                padding: 1.25rem;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                transition: transform 0.2s ease, border-color 0.2s ease;
+            /* Tiêu đề phân khu thương hiệu tối ưu mobile */
+            .brand-section-header {
+                text-align: center;
+                margin-bottom: 2rem;
             }
-            .video-card:hover {
-                transform: translateY(-4px);
-                border-color: #3d3d3d;
-            }
-            .video-card-title {
+            .brand-section-title {
+                font-size: 1.4rem;
+                font-weight: 700;
+                letter-spacing: -0.3px;
                 color: #ffffff;
-                font-size: 1.1rem;
-                font-weight: 600;
-                margin-bottom: 0.25rem;
+                margin-bottom: 0.5rem;
             }
-            .video-card-sub {
+            @media (max-width: 576px) {
+                .brand-section-title {
+                    font-size: 1.2rem;
+                }
+            }
+            .brand-tiktok-pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.45rem;
+                background-color: rgba(255, 255, 255, 0.05);
                 color: var(--text-secondary);
-                font-size: 0.82rem;
-                margin-bottom: 1rem;
+                font-size: 0.8rem;
+                font-weight: 500;
+                padding: 0.35rem 0.95rem;
+                border-radius: 9999px;
+                border: 1px solid var(--border-subtle);
+                text-decoration: none;
+                transition: all 0.2s ease;
+                max-width: 100%;
+                word-break: break-all;
+            }
+            .brand-tiktok-pill:hover {
+                color: #ffffff;
+                background-color: rgba(255, 255, 255, 0.1);
+                border-color: #4a4a4a;
             }
 
-            /* Tỷ lệ 9:16 cho video dọc TikTok */
-            .ratio-9x16 {
+            /* Lưới Video 9:16: 5 cột trên PC, 2 cột trên Mobile */
+            .video-vertical-grid {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.25rem;
+            }
+            @media (max-width: 992px) {
+                .video-vertical-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 1rem;
+                }
+            }
+            @media (max-width: 576px) {
+                .video-vertical-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 0.75rem;
+                }
+                /* Video đại diện (Featured) chiếm trọn 2 cột ngang trên Mobile */
+                .featured-mobile-video {
+                    grid-column: span 2;
+                    margin-bottom: 0.25rem;
+                }
+            }
+
+            /* Khung thuần video dọc 9:16 Minimalist */
+            .vertical-video-frame {
+                position: relative;
                 aspect-ratio: 9 / 16;
                 width: 100%;
-                border-radius: 8px;
+                border-radius: 12px;
                 overflow: hidden;
                 background-color: #000;
-                margin-top: auto;
+                border: 1px solid var(--border-subtle);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+                transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            }
+            .vertical-video-frame:hover {
+                transform: translateY(-4px);
+                border-color: #444444;
+                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+            }
+            .vertical-video-frame video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
             }
 
-            /* Nút View More Projects đồng bộ phong cách Minimalist */
+            /* Nút View More Projects */
             .btn-view-more {
                 display: inline-flex;
                 align-items: center;
@@ -311,165 +373,131 @@
             <!-- Tiêu đề dự án, Thời gian làm việc & Bối cảnh -->
             <header class="project-header text-center">
                 <div class="container px-4 px-lg-5">
-                    <span class="project-badge">TikTok Ads &amp; Motion</span>
+                    <span class="project-badge">
+                        TikTok Ads &amp;<br class="d-sm-none" /> Motion Graphics
+                    </span>
                     <h1 class="project-title">KL-Commerce</h1>
                     <div class="project-timeline">Nov 2023 – Apr 2026</div>
                     <p class="project-description">
                         A collection of high-impact TikTok video creatives for brands including 
-                        <strong class="text-white">Philips Massager Store</strong> 
-                        (<a href="https://www.tiktok.com/@philipsmassagervietnam" target="_blank" rel="noopener noreferrer" class="text-decoration-none"><i class="fab fa-tiktok me-1"></i>@philipsmassagervietnam</a>) 
-                        and <strong class="text-white">GERM VIỆT NAM</strong> 
-                        (<a href="https://www.tiktok.com/@germ_vietnam" target="_blank" rel="noopener noreferrer" class="text-decoration-none"><i class="fab fa-tiktok me-1"></i>@germ_vietnam</a>). 
+                        <strong>Philips Massager Store</strong> and <strong>GERM VIỆT NAM</strong>. 
                         Having contributed to shaping and building both channels from the ground up, I manage daily video production while leading key animated campaigns. In these projects, I handle the full creative pipeline from concept ideation and Key Visual design to dynamic motion graphics and final delivery.
                     </p>
                 </div>
             </header>
 
-            <!-- Khu vực hiển thị Video (Lưới Responsive: 1 cột mobile, 3 cột PC) -->
+            <!-- Khu vực hiển thị Video phân theo thương hiệu -->
             <main class="container px-4 px-lg-5 py-5">
-                <div class="row g-4 justify-content-center">
+                
+                <!-- Phân khu 1: Philips Massager Store -->
+                <section class="mb-5 pb-4">
+                    <div class="brand-section-header">
+                        <h2 class="brand-section-title">Philips Massager Store</h2>
+                        <a href="https://www.tiktok.com/@philipsmassagervietnam" target="_blank" rel="noopener noreferrer" class="brand-tiktok-pill">
+                            <i class="fab fa-tiktok"></i> @philipsmassagervietnam
+                        </a>
+                    </div>
                     
-                    <!-- Video 1 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="video-card text-center">
-                            <h5 class="video-card-title">Creative Ad #1</h5>
-                            <p class="video-card-sub">TikTok</p>
-                            <div class="ratio-9x16">
-                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
-                                    <source src="assets/videos/1JJIL6TK3_7S3IBU.mp4" type="video/mp4">
-                                    Trình duyệt không hỗ trợ thẻ video.
-                                </video>
-                            </div>
+                    <div class="video-vertical-grid">
+                        
+                        <!-- Video 4: Featured Spotlight trên Mobile (Tràn 2 cột) -->
+                        <div class="vertical-video-frame featured-mobile-video">
+                            <video controls playsinline preload="metadata">
+                                <source src="assets/videos/v14025g50000cvjpb0nog65pt2rekpsg.mov" type="video/quicktime">
+                                Trình duyệt không hỗ trợ thẻ video.
+                            </video>
                         </div>
+
+                        <!-- 4 Video vệ tinh còn lại của Philips -->
+                        <!-- Video 1 -->
+                        <div class="vertical-video-frame">
+                            <video controls playsinline preload="metadata">
+                                <source src="assets/videos/1JJIL6TK3_7S3IBU.mp4" type="video/mp4">
+                                Trình duyệt không hỗ trợ thẻ video.
+                            </video>
+                        </div>
+
+                        <!-- Video 2 -->
+                        <div class="vertical-video-frame">
+                            <video controls playsinline preload="metadata">
+                                <source src="assets/videos/1JJIL02HG_7S3IBU.mp4" type="video/mp4">
+                                Trình duyệt không hỗ trợ thẻ video.
+                            </video>
+                        </div>
+
+                        <!-- Video 3 -->
+                        <div class="vertical-video-frame">
+                            <video controls playsinline preload="metadata">
+                                <source src="assets/videos/v14025g50000cv1e1dnog65vetcm2clg.mov" type="video/quicktime">
+                                Trình duyệt không hỗ trợ thẻ video.
+                            </video>
+                        </div>
+
+                        <!-- Video 5 -->
+                        <div class="vertical-video-frame">
+                            <video controls playsinline preload="metadata">
+                                <source src="assets/videos/v14025g50000d06b9onog65n6pomf850.mov" type="video/quicktime">
+                                Trình duyệt không hỗ trợ thẻ video.
+                            </video>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Phân khu 2: GERM VIỆT NAM -->
+                <section class="mb-5 pt-3">
+                    <div class="brand-section-header">
+                        <h2 class="brand-section-title">GERM VIỆT NAM</h2>
+                        <a href="https://www.tiktok.com/@germ_vietnam" target="_blank" rel="noopener noreferrer" class="brand-tiktok-pill">
+                            <i class="fab fa-tiktok"></i> @germ_vietnam
+                        </a>
                     </div>
 
-                    <!-- Video 2 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="video-card text-center">
-                            <h5 class="video-card-title">Creative Ad #2</h5>
-                            <p class="video-card-sub">TikTok</p>
-                            <div class="ratio-9x16">
-                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
-                                    <source src="assets/videos/1JJIL02HG_7S3IBU.mp4" type="video/mp4">
-                                    Trình duyệt không hỗ trợ thẻ video.
-                                </video>
-                            </div>
+                    <div class="video-vertical-grid">
+                        
+                        <!-- Video 7 (Germ2): Featured Spotlight trên Mobile (Tràn 2 cột) -->
+                        <div class="vertical-video-frame featured-mobile-video">
+                            <video controls playsinline preload="metadata">
+                                <source src="assets/videos/Germ2.mp4" type="video/mp4">
+                                Trình duyệt không hỗ trợ thẻ video.
+                            </video>
                         </div>
-                    </div>
 
-                    <!-- Video 3 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="video-card text-center">
-                            <h5 class="video-card-title">Creative Ad #3</h5>
-                            <p class="video-card-sub">TikTok</p>
-                            <div class="ratio-9x16">
-                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
-                                    <source src="assets/videos/v14025g50000cv1e1dnog65vetcm2clg.mov" type="video/quicktime">
-                                    Trình duyệt không hỗ trợ thẻ video.
-                                </video>
-                            </div>
+                        <!-- 4 Video vệ tinh còn lại của GERM -->
+                        <!-- Video 6 (Germ1) -->
+                        <div class="vertical-video-frame">
+                            <video controls playsinline preload="metadata">
+                                <source src="assets/videos/Germ1.mp4" type="video/mp4">
+                                Trình duyệt không hỗ trợ thẻ video.
+                            </video>
                         </div>
-                    </div>
 
-                    <!-- Video 4 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="video-card text-center">
-                            <h5 class="video-card-title">Creative Ad #4</h5>
-                            <p class="video-card-sub">TikTok</p>
-                            <div class="ratio-9x16">
-                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
-                                    <source src="assets/videos/v14025g50000cvjpb0nog65pt2rekpsg.mov" type="video/quicktime">
-                                    Trình duyệt không hỗ trợ thẻ video.
-                                </video>
-                            </div>
+                        <!-- Video 8 (Germ3) -->
+                        <div class="vertical-video-frame">
+                            <video controls playsinline preload="metadata">
+                                <source src="assets/videos/Germ3.mp4" type="video/mp4">
+                                Trình duyệt không hỗ trợ thẻ video.
+                            </video>
                         </div>
-                    </div>
 
-                    <!-- Video 5 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="video-card text-center">
-                            <h5 class="video-card-title">Creative Ad #5</h5>
-                            <p class="video-card-sub">TikTok</p>
-                            <div class="ratio-9x16">
-                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
-                                    <source src="assets/videos/v14025g50000d06b9onog65n6pomf850.mov" type="video/quicktime">
-                                    Trình duyệt không hỗ trợ thẻ video.
-                                </video>
-                            </div>
+                        <!-- Video 9 (Germ4) -->
+                        <div class="vertical-video-frame">
+                            <video controls playsinline preload="metadata">
+                                <source src="assets/videos/Germ4.mp4" type="video/mp4">
+                                Trình duyệt không hỗ trợ thẻ video.
+                            </video>
                         </div>
-                    </div>
 
-                    <!-- Video 6: GERM 1 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="video-card text-center">
-                            <h5 class="video-card-title">Creative Ad #6</h5>
-                            <p class="video-card-sub">TikTok</p>
-                            <div class="ratio-9x16">
-                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
-                                    <source src="assets/videos/Germ1.mp4" type="video/mp4">
-                                    Trình duyệt không hỗ trợ thẻ video.
-                                </video>
-                            </div>
+                        <!-- Video 10 (Germ5) -->
+                        <div class="vertical-video-frame">
+                            <video controls playsinline preload="metadata">
+                                <source src="assets/videos/Germ5.mp4" type="video/mp4">
+                                Trình duyệt không hỗ trợ thẻ video.
+                            </video>
                         </div>
-                    </div>
 
-                    <!-- Video 7: GERM 2 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="video-card text-center">
-                            <h5 class="video-card-title">Creative Ad #7</h5>
-                            <p class="video-card-sub">TikTok</p>
-                            <div class="ratio-9x16">
-                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
-                                    <source src="assets/videos/Germ2.mp4" type="video/mp4">
-                                    Trình duyệt không hỗ trợ thẻ video.
-                                </video>
-                            </div>
-                        </div>
                     </div>
-
-                    <!-- Video 8: GERM 3 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="video-card text-center">
-                            <h5 class="video-card-title">Creative Ad #8</h5>
-                            <p class="video-card-sub">TikTok</p>
-                            <div class="ratio-9x16">
-                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
-                                    <source src="assets/videos/Germ3.mp4" type="video/mp4">
-                                    Trình duyệt không hỗ trợ thẻ video.
-                                </video>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Video 9: GERM 4 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="video-card text-center">
-                            <h5 class="video-card-title">Creative Ad #9</h5>
-                            <p class="video-card-sub">TikTok</p>
-                            <div class="ratio-9x16">
-                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
-                                    <source src="assets/videos/Germ4.mp4" type="video/mp4">
-                                    Trình duyệt không hỗ trợ thẻ video.
-                                </video>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Video 10: GERM 5 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="video-card text-center">
-                            <h5 class="video-card-title">Creative Ad #10</h5>
-                            <p class="video-card-sub">TikTok</p>
-                            <div class="ratio-9x16">
-                                <video class="w-100 h-100" style="object-fit: cover;" controls playsinline preload="metadata">
-                                    <source src="assets/videos/Germ5.mp4" type="video/mp4">
-                                    Trình duyệt không hỗ trợ thẻ video.
-                                </video>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                </section>
 
                 <!-- Nút quay lại mục Portfolio trên trang chủ -->
                 <div class="text-center mt-5 pt-3">
