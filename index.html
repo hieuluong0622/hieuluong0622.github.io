@@ -281,7 +281,6 @@
             @media (max-width: 576px) {
                 .section-title {
                     font-size: 1.5rem !important;
-                    white-space: nowrap;
                 }
                 .cta-heading {
                     font-size: 1.75rem !important;
@@ -289,7 +288,7 @@
                 }
             }
 
-            /* Tiêu đề mục About: Cho phép xuống dòng tự nhiên */
+            /* Tiêu đề mục About */
             .about-heading {
                 font-size: 2.15rem;
                 font-weight: 700;
@@ -384,14 +383,20 @@
                 transform: scale(1.03);
                 opacity: 0.95;
             }
+            /* Lớp phủ gradient tăng cường độ tương phản, chuyển màu tối từ 40% */
             .project-overlay {
                 position: absolute;
                 inset: 0;
-                background: linear-gradient(180deg, rgba(0,0,0,0.1) 20%, rgba(20,20,20,0.95) 90%);
+                background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 40%, rgba(15,15,15,0.96) 90%);
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-end;
                 padding: 1.75rem;
+            }
+            @media (max-width: 576px) {
+                .project-overlay {
+                    padding: 1.25rem;
+                }
             }
             .project-title {
                 color: #ffffff;
@@ -586,15 +591,15 @@
                     </div>
                 </section>
 
-                <!-- Portfolio Showcase Section -->
+                <!-- Portfolio Showcase Section (Lưới 2 cột mượt mà trên cả Tablet và PC) -->
                 <section class="section-dark" id="portfolio">
                     <div class="container px-4 px-lg-5">
                         <div class="text-center mb-5">
-                            <h2 class="section-title mb-0">MY PORTFOLIO</h2>
+                            <h2 class="section-title mb-0">My Portfolio</h2>
                         </div>
                         <div class="row g-4">
                             <!-- Project 1: KL-Commerce -->
-                            <div class="col-lg-6">
+                            <div class="col-md-6 col-lg-6">
                                 <a class="project-card" href="KL-Commerce.html">
                                     <img src="assets/img/portfolio-1.jpg" alt="KL Commerce Project" />
                                     <div class="project-overlay">
@@ -605,7 +610,7 @@
                             </div>
 
                             <!-- Project 2: The New Xgear -->
-                            <div class="col-lg-6">
+                            <div class="col-md-6 col-lg-6">
                                 <a class="project-card" href="xgear.html">
                                     <img src="assets/img/portfolio-2.jpg" alt="The New Xgear Project" />
                                     <div class="project-overlay">
@@ -616,7 +621,7 @@
                             </div>
 
                             <!-- Project 3: Cerberus Esports -->
-                            <div class="col-lg-6">
+                            <div class="col-md-6 col-lg-6">
                                 <a class="project-card" href="cerberus-esports.html">
                                     <img src="assets/img/portfolio-3.jpg" alt="Cerberus Esports Project" />
                                     <div class="project-overlay">
@@ -627,7 +632,7 @@
                             </div>
 
                             <!-- Project 4: Personal & Freelance Work -->
-                            <div class="col-lg-6">
+                            <div class="col-md-6 col-lg-6">
                                 <a class="project-card" href="freelance.html">
                                     <img src="assets/img/portfolio-4.jpg" alt="Personal and Freelance Work" />
                                     <div class="project-overlay">
@@ -644,7 +649,6 @@
                 <section class="section-dark-alt text-center" id="contact">
                     <div class="container px-4 px-lg-5">
                         <h2 class="section-title cta-heading mb-3">Let's Work Together</h2>
-                        <!-- Đoạn mô tả đã thu gọn font chữ và phân bổ dòng cân đối -->
                         <p class="cta-desc mb-5">
                             Have a project in mind or looking for a creative collaborator? Feel free to reach out.
                         </p>
