@@ -138,4 +138,63 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const copyToClipboard = (text) => {
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+        } else {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            return new Promise((resolve, reject) => {
+                document.execCommand('copy') ? resolve() : reject();
+                textArea.remove();
+            });
+        }
+    };
+
+    const copyEmailBtn = document.getElementById('copy-email-btn');
+    const copyEmailText = document.getElementById('copy-email-text');
+    let copyTimeout;
+
+    if (copyEmailBtn && copyEmailText) {
+        copyEmailBtn.addEventListener('click', () => {
+            const email = copyEmailBtn.getAttribute('data-email') || 'trunghieu220600@gmail.com';
+            copyToClipboard(email).then(() => {
+                clearTimeout(copyTimeout);
+                copyEmailText.textContent = 'Copied to Clipboard!';
+                copyEmailBtn.classList.add('copied');
+                copyEmailBtn.querySelector('i').className = 'fas fa-check me-2';
+
+                copyTimeout = setTimeout(() => {
+                    copyEmailText.textContent = email;
+                    copyEmailBtn.classList.remove('copied');
+                    copyEmailBtn.querySelector('i').className = 'fas fa-envelope me-2';
+                }, 2000);
+            });
+        });
+    }
+
+    const menuCopyEmailBtn = document.getElementById('menu-copy-email-btn');
+    let menuCopyTimeout;
+
+    if (menuCopyEmailBtn) {
+        const tooltip = menuCopyEmailBtn.querySelector('.copy-tooltip');
+        menuCopyEmailBtn.addEventListener('click', () => {
+            const email = 'trunghieu220600@gmail.com';
+            copyToClipboard(email).then(() => {
+                clearTimeout(menuCopyTimeout);
+                if (tooltip) tooltip.classList.add('show');
+
+                menuCopyTimeout = setTimeout(() => {
+                    if (tooltip) tooltip.classList.remove('show');
+                }, 2000);
+            });
+        });
+    }
+
 });
