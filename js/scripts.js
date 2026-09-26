@@ -84,6 +84,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const isDesktopHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const verticalVideoFrames = document.querySelectorAll('.vertical-video-frame');
+
+    if (isDesktopHover && verticalVideoFrames.length > 0) {
+        verticalVideoFrames.forEach(frame => {
+            const video = frame.querySelector('video');
+            if (!video) return;
+
+            frame.addEventListener('mouseenter', () => {
+                video.muted = true;
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {});
+                }
+            });
+
+            frame.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+            });
+        });
+    }
+
     const allVideos = document.querySelectorAll('video');
     if (allVideos.length > 0) {
         allVideos.forEach(video => {
@@ -94,6 +117,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             });
+        });
+    }
+
+    const gridBtn = document.getElementById('view-grid-btn');
+    const filmBtn = document.getElementById('view-filmstrip-btn');
+    const posterContainer = document.getElementById('poster-container');
+
+    if (gridBtn && filmBtn && posterContainer) {
+        gridBtn.addEventListener('click', () => {
+            gridBtn.classList.add('active');
+            filmBtn.classList.remove('active');
+            posterContainer.classList.remove('filmstrip-mode');
+        });
+
+        filmBtn.addEventListener('click', () => {
+            filmBtn.classList.add('active');
+            gridBtn.classList.remove('active');
+            posterContainer.classList.add('filmstrip-mode');
         });
     }
 
