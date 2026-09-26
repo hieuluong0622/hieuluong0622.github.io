@@ -1,45 +1,84 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const openMenuBtn = document.getElementById('open-menu-btn');
-    const closeMenuBtn = document.getElementById('close-menu-btn');
-    const fullMenu = document.getElementById('fullscreen-menu');
-    const navLinks = document.querySelectorAll('.nav-link-item');
-    const navBrand = document.querySelector('.nav-brand-center');
+    const initMenu = () => {
+        const openMenuBtn = document.getElementById('open-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const fullMenu = document.getElementById('fullscreen-menu');
+        const navLinks = document.querySelectorAll('.nav-link-item');
+        const navBrand = document.querySelector('.nav-brand-center');
 
-    const closeMenu = () => {
-        if (fullMenu) {
-            fullMenu.classList.remove('active');
-            document.body.style.overflow = '';
+        const closeMenu = () => {
+            if (fullMenu) {
+                fullMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        };
+
+        if (openMenuBtn && fullMenu) {
+            openMenuBtn.addEventListener('click', () => {
+                fullMenu.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        if (closeMenuBtn) {
+            closeMenuBtn.addEventListener('click', closeMenu);
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                closeMenu();
+                const targetHref = link.getAttribute('href');
+                if (targetHref === '#page-top' || targetHref === 'index.html#page-top') {
+                    if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        if (navBrand) {
+            navBrand.addEventListener('click', (e) => {
+                if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        const menuCopyEmailBtn = document.getElementById('menu-copy-email-btn');
+        let menuCopyTimeout;
+
+        if (menuCopyEmailBtn) {
+            const tooltip = menuCopyEmailBtn.querySelector('.copy-tooltip');
+            menuCopyEmailBtn.addEventListener('click', () => {
+                const email = 'trunghieu220600@gmail.com';
+                copyToClipboard(email).then(() => {
+                    clearTimeout(menuCopyTimeout);
+                    if (tooltip) tooltip.classList.add('show');
+
+                    menuCopyTimeout = setTimeout(() => {
+                        if (tooltip) tooltip.classList.remove('show');
+                    }, 2000);
+                });
+            });
         }
     };
 
-    if (openMenuBtn && fullMenu) {
-        openMenuBtn.addEventListener('click', () => {
-            fullMenu.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    }
-
-    if (closeMenuBtn) {
-        closeMenuBtn.addEventListener('click', closeMenu);
-    }
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            closeMenu();
-            const targetHref = link.getAttribute('href');
-            if (targetHref === '#page-top') {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        });
-    });
-
-    if (navBrand && navBrand.getAttribute('href') === '#page-top') {
-        navBrand.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+    const navPlaceholder = document.getElementById('nav-placeholder');
+    if (navPlaceholder) {
+        fetch('components/nav.html')
+            .then(res => res.text())
+            .then(html => {
+                navPlaceholder.innerHTML = html;
+                initMenu();
+            })
+            .catch(() => {
+                initMenu();
+            });
+    } else {
+        initMenu();
     }
 
     const heroContent = document.getElementById('hero-content');
@@ -174,24 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     copyEmailText.textContent = email;
                     copyEmailBtn.classList.remove('copied');
                     copyEmailBtn.querySelector('i').className = 'fas fa-envelope me-2';
-                }, 2000);
-            });
-        });
-    }
-
-    const menuCopyEmailBtn = document.getElementById('menu-copy-email-btn');
-    let menuCopyTimeout;
-
-    if (menuCopyEmailBtn) {
-        const tooltip = menuCopyEmailBtn.querySelector('.copy-tooltip');
-        menuCopyEmailBtn.addEventListener('click', () => {
-            const email = 'trunghieu220600@gmail.com';
-            copyToClipboard(email).then(() => {
-                clearTimeout(menuCopyTimeout);
-                if (tooltip) tooltip.classList.add('show');
-
-                menuCopyTimeout = setTimeout(() => {
-                    if (tooltip) tooltip.classList.remove('show');
                 }, 2000);
             });
         });
