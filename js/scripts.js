@@ -1,5 +1,59 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    const isDesktopHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    let audioEnabled = true;
+    let audioCtx = null;
+
+    const playClickSound = () => {
+        if (!isDesktopHover || !audioEnabled) return;
+        try {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(820, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.035);
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.035);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.035);
+        } catch (e) {}
+    };
+
+    let lastTickTime = 0;
+    const playTickSound = () => {
+        if (!isDesktopHover || !audioEnabled) return;
+        const now = performance.now();
+        if (now - lastTickTime < 65) return;
+        lastTickTime = now;
+        try {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(1400, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.015);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.015);
+        } catch (e) {}
+    };
+
     const trackEvent = (eventName, params = {}) => {
         if (typeof gtag === 'function') {
             gtag('event', eventName, params);
@@ -22,17 +76,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (openMenuBtn && fullMenu) {
             openMenuBtn.addEventListener('click', () => {
+                playClickSound();
                 fullMenu.classList.add('active');
                 document.body.style.overflow = 'hidden';
             });
         }
 
         if (closeMenuBtn) {
-            closeMenuBtn.addEventListener('click', closeMenu);
+            closeMenuBtn.addEventListener('click', () => {
+                playClickSound();
+                closeMenu();
+            });
         }
 
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
+                playClickSound();
                 closeMenu();
                 const targetHref = link.getAttribute('href');
                 if (targetHref === '#page-top' || targetHref === 'index.html#page-top') {
@@ -46,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (navBrand) {
             navBrand.addEventListener('click', (e) => {
+                playClickSound();
                 if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
                     e.preventDefault();
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -59,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (menuCopyEmailBtn) {
             const tooltip = menuCopyEmailBtn.querySelector('.copy-tooltip');
             menuCopyEmailBtn.addEventListener('click', () => {
+                playClickSound();
                 const email = 'trunghieu220600@gmail.com';
                 copyToClipboard(email).then(() => {
                     clearTimeout(menuCopyTimeout);
@@ -110,6 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (lightboxModal && lightboxImg) {
         window.openLightbox = function(src) {
+            playClickSound();
             lightboxImg.src = src;
             lightboxModal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -118,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.closeLightbox = function(e) {
             if (e.target !== lightboxImg) {
+                playClickSound();
                 lightboxModal.classList.remove('active');
                 lightboxImg.src = '';
                 document.body.style.overflow = '';
@@ -126,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && lightboxModal.classList.contains('active')) {
+                playClickSound();
                 lightboxModal.classList.remove('active');
                 lightboxImg.src = '';
                 document.body.style.overflow = '';
@@ -133,7 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const isDesktopHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const verticalVideoFrames = document.querySelectorAll('.vertical-video-frame');
 
     if (isDesktopHover && verticalVideoFrames.length > 0) {
@@ -158,6 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     video.pause();
                     video.currentTime = percent * video.duration;
+                    playTickSound();
+
                     if (progressFill) {
                         progressFill.style.width = `${percent * 100}%`;
                     }
@@ -190,6 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (gridBtn && filmBtn && posterContainer) {
         gridBtn.addEventListener('click', () => {
+            playClickSound();
             gridBtn.classList.add('active');
             filmBtn.classList.remove('active');
             posterContainer.classList.remove('filmstrip-mode');
@@ -197,6 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         filmBtn.addEventListener('click', () => {
+            playClickSound();
             filmBtn.classList.add('active');
             gridBtn.classList.remove('active');
             posterContainer.classList.add('filmstrip-mode');
@@ -229,6 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (copyEmailBtn && copyEmailText) {
         copyEmailBtn.addEventListener('click', () => {
+            playClickSound();
             const email = copyEmailBtn.getAttribute('data-email') || 'trunghieu220600@gmail.com';
             copyToClipboard(email).then(() => {
                 clearTimeout(copyTimeout);
@@ -249,6 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('a[href*="CV_LuongTrungHieu.pdf"]').forEach(btn => {
         btn.addEventListener('click', () => {
+            playClickSound();
             trackEvent('click_download_resume', {
                 link_text: btn.textContent.trim(),
                 page: window.location.pathname
@@ -258,54 +327,136 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('a[href*="linkedin.com"]').forEach(btn => {
         btn.addEventListener('click', () => {
+            playClickSound();
             trackEvent('click_linkedin', {
                 page: window.location.pathname
             });
         });
     });
 
-    const profiles = [
-        { name: 'Rec.709', class: '' },
-        { name: 'Flat LOG', class: 'profile-log' },
-        { name: '35mm Film', class: 'profile-film' }
-    ];
-    let currentProfileIndex = 0;
-
-    const grainOverlay = document.createElement('div');
-    grainOverlay.className = 'film-grain-overlay';
-    document.body.appendChild(grainOverlay);
-
-    const lutBtn = document.createElement('button');
-    lutBtn.type = 'button';
-    lutBtn.className = 'lut-toggle-btn';
-    lutBtn.setAttribute('aria-label', 'Toggle Color Profile LUT');
-    lutBtn.innerHTML = `
-        <span class="lut-dot"></span>
-        <span class="lut-name">LUT: Rec.709</span>
-    `;
-    document.body.appendChild(lutBtn);
-
-    const lutNameEl = lutBtn.querySelector('.lut-name');
-
-    lutBtn.addEventListener('click', () => {
-        if (profiles[currentProfileIndex].class) {
-            document.body.classList.remove(profiles[currentProfileIndex].class);
-        }
-
-        currentProfileIndex = (currentProfileIndex + 1) % profiles.length;
-        const currentProfile = profiles[currentProfileIndex];
-
-        if (currentProfile.class) {
-            document.body.classList.add(currentProfile.class);
-        }
-        lutNameEl.textContent = `LUT: ${currentProfile.name}`;
-
-        trackEvent('switch_color_lut', { profile: currentProfile.name });
-    });
-
     let bindCursorToDynamicElements = () => {};
 
     if (isDesktopHover) {
+        const profiles = [
+            { name: 'Rec.709', class: '' },
+            { name: 'Flat LOG', class: 'profile-log' },
+            { name: '35mm Film', class: 'profile-film' }
+        ];
+        let currentProfileIndex = 0;
+
+        const grainOverlay = document.createElement('div');
+        grainOverlay.className = 'film-grain-overlay';
+        document.body.appendChild(grainOverlay);
+
+        const controlDock = document.createElement('div');
+        controlDock.className = 'floating-control-dock';
+
+        const audioBtn = document.createElement('button');
+        audioBtn.type = 'button';
+        audioBtn.className = 'audio-toggle-btn';
+        audioBtn.setAttribute('aria-label', 'Toggle UI Sound Effects');
+        audioBtn.innerHTML = `<i class="fas fa-volume-high"></i>`;
+
+        const lutBtn = document.createElement('button');
+        lutBtn.type = 'button';
+        lutBtn.className = 'lut-toggle-btn';
+        lutBtn.setAttribute('aria-label', 'Toggle Color Profile LUT');
+        lutBtn.innerHTML = `
+            <span class="lut-dot"></span>
+            <span class="lut-name">LUT: Rec.709</span>
+        `;
+
+        controlDock.appendChild(audioBtn);
+        controlDock.appendChild(lutBtn);
+        document.body.appendChild(controlDock);
+
+        const lutNameEl = lutBtn.querySelector('.lut-name');
+
+        audioBtn.addEventListener('click', () => {
+            audioEnabled = !audioEnabled;
+            audioBtn.innerHTML = audioEnabled ? `<i class="fas fa-volume-high"></i>` : `<i class="fas fa-volume-xmark" style="color: var(--text-secondary);"></i>`;
+            if (audioEnabled) playClickSound();
+        });
+
+        lutBtn.addEventListener('click', () => {
+            playClickSound();
+            if (profiles[currentProfileIndex].class) {
+                document.body.classList.remove(profiles[currentProfileIndex].class);
+            }
+
+            currentProfileIndex = (currentProfileIndex + 1) % profiles.length;
+            const currentProfile = profiles[currentProfileIndex];
+
+            if (currentProfile.class) {
+                document.body.classList.add(currentProfile.class);
+            }
+            lutNameEl.textContent = `LUT: ${currentProfile.name}`;
+
+            trackEvent('switch_color_lut', { profile: currentProfile.name });
+        });
+
+        const scopeDock = document.createElement('div');
+        scopeDock.className = 'scope-dock';
+        scopeDock.setAttribute('title', 'Click to expand RGB Waveform');
+        scopeDock.innerHTML = `
+            <div class="scope-header">
+                <span>RGB PARADE</span>
+                <span>100 IRE</span>
+            </div>
+            <canvas class="scope-canvas" width="216" height="96"></canvas>
+        `;
+        document.body.appendChild(scopeDock);
+
+        const scopeCanvas = scopeDock.querySelector('.scope-canvas');
+        const sCtx = scopeCanvas.getContext('2d');
+
+        scopeDock.addEventListener('click', () => {
+            playClickSound();
+            scopeDock.classList.toggle('expanded');
+        });
+
+        let scopeAngle = 0;
+        const renderScope = () => {
+            const w = scopeCanvas.width;
+            const h = scopeCanvas.height;
+            sCtx.fillStyle = '#0d0d0d';
+            sCtx.fillRect(0, 0, w, h);
+
+            sCtx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+            sCtx.lineWidth = 1;
+            [0.2, 0.5, 0.8].forEach(pos => {
+                sCtx.beginPath();
+                sCtx.moveTo(0, h * pos);
+                sCtx.lineTo(w, h * pos);
+                sCtx.stroke();
+            });
+
+            const channels = [
+                { color: 'rgba(255, 59, 48, 0.75)', offset: 0, mult: 1.0 },
+                { color: 'rgba(52, 199, 89, 0.75)', offset: 2.1, mult: 0.85 },
+                { color: 'rgba(0, 122, 255, 0.75)', offset: 4.2, mult: 1.1 }
+            ];
+
+            const partW = w / 3;
+
+            channels.forEach((ch, idx) => {
+                sCtx.fillStyle = ch.color;
+                const startX = idx * partW;
+                for (let i = 4; i < partW - 4; i += 3) {
+                    const nx = (i / partW) * 8;
+                    const wave = Math.sin(nx + scopeAngle + ch.offset) * 0.25 + 
+                                 Math.cos(nx * 2 - scopeAngle) * 0.15 + 0.5;
+                    const y = Math.min(Math.max(wave * ch.mult, 0.1), 0.9) * h;
+                    sCtx.fillRect(startX + i, h - y, 2, 2.5);
+                    sCtx.fillRect(startX + i, h - (y * 0.85), 1.5, 1.5);
+                }
+            });
+
+            scopeAngle += 0.05;
+            requestAnimationFrame(renderScope);
+        };
+        requestAnimationFrame(renderScope);
+
         const dot = document.createElement('div');
         dot.className = 'custom-cursor-dot';
 
@@ -377,7 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            const interactiveBtns = container.querySelectorAll('.btn-minimal, .btn-view-more, .nav-brand-center, .nav-menu-btn, .menu-close-btn, .menu-copy-email-btn, .view-btn, .scroll-indicator, .brand-tiktok-pill, .menu-nav-links a, .menu-social-icons a, .lut-toggle-btn');
+            const interactiveBtns = container.querySelectorAll('.btn-minimal, .btn-view-more, .nav-brand-center, .nav-menu-btn, .menu-close-btn, .menu-copy-email-btn, .view-btn, .scroll-indicator, .brand-tiktok-pill, .menu-nav-links a, .menu-social-icons a, .lut-toggle-btn, .audio-toggle-btn, .scope-dock');
             interactiveBtns.forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     ring.classList.add('cursor-hover-btn');
