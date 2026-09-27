@@ -379,7 +379,59 @@
                 <section id="tiktok-view-container" class="tiktok-feed-wrapper">
                     <div class="phone-mockup-frame" id="phoneMockupFrame">
                         <div class="phone-notch"></div>
-                        <div class="tiktok-slider-track" id="tiktokSliderTrack"></div>
+                        <div class="tiktok-slider-track" id="tiktokSliderTrack">
+                            
+                            <!-- Static Pre-mounted Slide A (Primary Active on Safari) -->
+                            <div class="tiktok-slide active" id="slideA">
+                                <video playsinline webkit-playsinline loop muted preload="metadata" poster="assets/img/KL-Commerce/thumbs/philips-thumb-01.webp">
+                                    <source src="assets/videos/1JJIL6TK3_7S3IBU.mp4" type="video/mp4">
+                                </video>
+                                <div class="tiktok-overlay-ui">
+                                    <div class="tiktok-top-bar">
+                                        <span>Following | <strong>For You</strong></span>
+                                        <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
+                                    </div>
+                                    <div class="tiktok-main-content">
+                                        <div class="tiktok-info-col">
+                                            <div class="tiktok-creator-tag"><span class="txt-creator">@philipsmassagervietnam</span> <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
+                                            <div class="tiktok-caption-text txt-caption">Ergonomic deep-tissue massager performance review #philips #wellness</div>
+                                            <div class="tiktok-music-track"><i class="fas fa-music"></i> <span class="txt-music">Trending Beat - KL Commerce</span></div>
+                                        </div>
+                                        <div class="tiktok-actions-col">
+                                            <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count txt-likes">18.2K</span></button>
+                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count txt-comments">194</span></button>
+                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count txt-shares">528</span></button>
+                                            <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Static Pre-mounted Slide B (Buffer Slot) -->
+                            <div class="tiktok-slide" id="slideB">
+                                <video playsinline webkit-playsinline loop muted preload="none"></video>
+                                <div class="tiktok-overlay-ui">
+                                    <div class="tiktok-top-bar">
+                                        <span>Following | <strong>For You</strong></span>
+                                        <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
+                                    </div>
+                                    <div class="tiktok-main-content">
+                                        <div class="tiktok-info-col">
+                                            <div class="tiktok-creator-tag"><span class="txt-creator"></span> <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
+                                            <div class="tiktok-caption-text txt-caption"></div>
+                                            <div class="tiktok-music-track"><i class="fas fa-music"></i> <span class="txt-music"></span></div>
+                                        </div>
+                                        <div class="tiktok-actions-col">
+                                            <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count txt-likes"></span></button>
+                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count txt-comments"></span></button>
+                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count txt-shares"></span></button>
+                                            <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
                     <div class="feed-nav-arrows">
@@ -494,16 +546,6 @@
             document.addEventListener('DOMContentLoaded', () => {
                 const RAW_VIDEOS = [
                     {
-                        src: 'assets/videos/v14025g50000cvjpb0nog65pt2rekpsg.mov',
-                        poster: 'assets/img/KL-Commerce/thumbs/philips-featured.webp',
-                        creator: '@philipsmassagervietnam',
-                        caption: 'Philips Massager Hero Campaign • Motion Graphics & Keying Composite',
-                        music: 'Original Sound - Philips Massager',
-                        likes: '24.5K',
-                        comments: '382',
-                        shares: '1.1K'
-                    },
-                    {
                         src: 'assets/videos/1JJIL6TK3_7S3IBU.mp4',
                         poster: 'assets/img/KL-Commerce/thumbs/philips-thumb-01.webp',
                         creator: '@philipsmassagervietnam',
@@ -514,36 +556,6 @@
                         shares: '528'
                     },
                     {
-                        src: 'assets/videos/1JJIL02HG_7S3IBU.mp4',
-                        poster: 'assets/img/KL-Commerce/thumbs/philips-thumb-02.webp',
-                        creator: '@philipsmassagervietnam',
-                        caption: 'Smart heat-therapy mini massage gun demonstration #gadgets #relax',
-                        music: 'Original Sound - KL Creative Suite',
-                        likes: '31.4K',
-                        comments: '412',
-                        shares: '940'
-                    },
-                    {
-                        src: 'assets/videos/v14025g50000cv1e1dnog65vetcm2clg.mov',
-                        poster: 'assets/img/KL-Commerce/thumbs/philips-thumb-03.webp',
-                        creator: '@philipsmassagervietnam',
-                        caption: 'Neck & shoulder wrap therapy in-depth feature showcase #lifestyle #relax',
-                        music: 'Chill Vibes - Philips Suite',
-                        likes: '15.7K',
-                        comments: '129',
-                        shares: '410'
-                    },
-                    {
-                        src: 'assets/videos/v14025g50000d06b9onog65n6pomf850.mov',
-                        poster: 'assets/img/KL-Commerce/thumbs/philips-thumb-04.webp',
-                        creator: '@philipsmassagervietnam',
-                        caption: 'Dynamic motion typography & product kinetic typography cut #motion #ads',
-                        music: 'Bass Drop - Motion Beat',
-                        likes: '28.9K',
-                        comments: '305',
-                        shares: '815'
-                    },
-                    {
                         src: 'assets/videos/Germ2.mp4',
                         poster: 'assets/img/KL-Commerce/thumbs/germ-featured.webp',
                         creator: '@germ_vietnam',
@@ -552,6 +564,16 @@
                         likes: '45.8K',
                         comments: '560',
                         shares: '1.4K'
+                    },
+                    {
+                        src: 'assets/videos/1JJIL02HG_7S3IBU.mp4',
+                        poster: 'assets/img/KL-Commerce/thumbs/philips-thumb-02.webp',
+                        creator: '@philipsmassagervietnam',
+                        caption: 'Smart heat-therapy mini massage gun demonstration #gadgets #relax',
+                        music: 'Original Sound - KL Creative Suite',
+                        likes: '31.4K',
+                        comments: '412',
+                        shares: '940'
                     },
                     {
                         src: 'assets/videos/Germ1.mp4',
@@ -574,6 +596,16 @@
                         shares: '480'
                     },
                     {
+                        src: 'assets/videos/v14025g50000cvjpb0nog65pt2rekpsg.mov',
+                        poster: 'assets/img/KL-Commerce/thumbs/philips-featured.webp',
+                        creator: '@philipsmassagervietnam',
+                        caption: 'Philips Massager Hero Campaign • Motion Graphics & Keying Composite',
+                        music: 'Original Sound - Philips Massager',
+                        likes: '24.5K',
+                        comments: '382',
+                        shares: '1.1K'
+                    },
+                    {
                         src: 'assets/videos/Germ4.mp4',
                         poster: 'assets/img/KL-Commerce/thumbs/germ-thumb-03.webp',
                         creator: '@germ_vietnam',
@@ -584,6 +616,16 @@
                         shares: '365'
                     },
                     {
+                        src: 'assets/videos/v14025g50000cv1e1dnog65vetcm2clg.mov',
+                        poster: 'assets/img/KL-Commerce/thumbs/philips-thumb-03.webp',
+                        creator: '@philipsmassagervietnam',
+                        caption: 'Neck & shoulder wrap therapy in-depth feature showcase #lifestyle #relax',
+                        music: 'Chill Vibes - Philips Suite',
+                        likes: '15.7K',
+                        comments: '129',
+                        shares: '410'
+                    },
+                    {
                         src: 'assets/videos/Germ5.mp4',
                         poster: 'assets/img/KL-Commerce/thumbs/germ-thumb-04.webp',
                         creator: '@germ_vietnam',
@@ -592,16 +634,32 @@
                         likes: '37.6K',
                         comments: '420',
                         shares: '920'
+                    },
+                    {
+                        src: 'assets/videos/v14025g50000d06b9onog65n6pomf850.mov',
+                        poster: 'assets/img/KL-Commerce/thumbs/philips-thumb-04.webp',
+                        creator: '@philipsmassagervietnam',
+                        caption: 'Dynamic motion typography & product kinetic typography cut #motion #ads',
+                        music: 'Bass Drop - Motion Beat',
+                        likes: '28.9K',
+                        comments: '305',
+                        shares: '815'
                     }
                 ];
 
+                // Shuffle array but guarantee the 1st item is always an MP4 for instant mobile boot
                 const playlist = [...RAW_VIDEOS];
                 for (let i = playlist.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [playlist[i], playlist[j]] = [playlist[j], playlist[i]];
                 }
+                if (playlist[0].src.endsWith('.mov')) {
+                    const mp4Index = playlist.findIndex(item => item.src.endsWith('.mp4'));
+                    if (mp4Index > 0) {
+                        [playlist[0], playlist[mp4Index]] = [playlist[mp4Index], playlist[0]];
+                    }
+                }
 
-                const track = document.getElementById('tiktokSliderTrack');
                 const frame = document.getElementById('phoneMockupFrame');
                 const btnTiktok = document.getElementById('btn-mode-tiktok');
                 const btnGrid = document.getElementById('btn-mode-grid');
@@ -614,65 +672,17 @@
                 let currentIndex = 0;
                 let isAnimating = false;
 
-                const createSlideElement = () => {
-                    const slide = document.createElement('div');
-                    slide.className = 'tiktok-slide';
-                    
-                    const vid = document.createElement('video');
-                    vid.playsInline = true;
-                    vid.loop = true;
-                    vid.defaultMuted = true;
-                    vid.muted = true;
-                    vid.setAttribute('playsinline', '');
-                    vid.setAttribute('webkit-playsinline', '');
-                    vid.preload = 'metadata';
-                    slide.appendChild(vid);
+                let activeSlide = document.getElementById('slideA');
+                let bufferSlide = document.getElementById('slideB');
 
-                    const overlay = document.createElement('div');
-                    overlay.className = 'tiktok-overlay-ui';
-                    overlay.innerHTML = `
-                        <div class="tiktok-top-bar">
-                            <span>Following | <strong>For You</strong></span>
-                            <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
-                        </div>
-                        <div class="tiktok-main-content">
-                            <div class="tiktok-info-col">
-                                <div class="tiktok-creator-tag"><span class="txt-creator"></span> <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
-                                <div class="tiktok-caption-text txt-caption"></div>
-                                <div class="tiktok-music-track"><i class="fas fa-music"></i> <span class="txt-music"></span></div>
-                            </div>
-                            <div class="tiktok-actions-col">
-                                <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count txt-likes"></span></button>
-                                <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count txt-comments"></span></button>
-                                <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count txt-shares"></span></button>
-                                <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
-                            </div>
-                        </div>
-                    `;
-                    slide.appendChild(overlay);
-                    return slide;
-                };
-
-                const slideA = createSlideElement();
-                const slideB = createSlideElement();
-                track.appendChild(slideA);
-                track.appendChild(slideB);
-
-                let activeSlide = slideA;
-                let bufferSlide = slideB;
-
-                const renderSlideData = (slide, data, shouldPreload = false) => {
+                const renderSlideData = (slide, data, applySrc = false) => {
                     const vid = slide.querySelector('video');
                     vid.poster = data.poster;
                     
-                    if (!vid.src.endsWith(data.src)) {
+                    if (applySrc && (!vid.src || !vid.src.endsWith(data.src))) {
                         vid.defaultMuted = true;
                         vid.muted = isGlobalMuted;
-                        if (shouldPreload) {
-                            vid.src = data.src;
-                        } else {
-                            vid.removeAttribute('src');
-                        }
+                        vid.src = data.src;
                     }
 
                     slide.querySelector('.txt-creator').textContent = data.creator;
@@ -683,8 +693,8 @@
                     slide.querySelector('.txt-shares').textContent = data.shares;
                 };
 
+                // Initialize active slide with the verified 1st video
                 renderSlideData(activeSlide, playlist[currentIndex], true);
-                activeSlide.classList.add('active');
 
                 const playCurrentVideo = () => {
                     const vid = activeSlide.querySelector('video');
@@ -701,14 +711,21 @@
                     }
                 };
 
-                const setupBufferSlide = (nextIdx) => {
-                    renderSlideData(bufferSlide, playlist[nextIdx], true);
-                };
+                // Let the primary video breathe and start playing BEFORE buffering the next slide
+                const initVid = activeSlide.querySelector('video');
+                if (initVid) {
+                    const onFirstPlay = () => {
+                        initVid.removeEventListener('playing', onFirstPlay);
+                        setTimeout(() => {
+                            renderSlideData(bufferSlide, playlist[(currentIndex + 1) % playlist.length], true);
+                        }, 250);
+                    };
+                    initVid.addEventListener('playing', onFirstPlay, { once: true });
+                }
 
-                setTimeout(() => {
-                    playCurrentVideo();
-                    setupBufferSlide((currentIndex + 1) % playlist.length);
-                }, 100);
+                // Autoplay trigger
+                playCurrentVideo();
+                setTimeout(playCurrentVideo, 300);
 
                 const transitionTo = (direction) => {
                     if (isAnimating) return;
@@ -718,6 +735,7 @@
                         ? (currentIndex + 1) % playlist.length 
                         : (currentIndex - 1 + playlist.length) % playlist.length;
 
+                    // Ensure target buffer has data loaded
                     renderSlideData(bufferSlide, playlist[newIndex], true);
 
                     bufferSlide.style.transition = 'none';
@@ -760,7 +778,8 @@
                         currentIndex = newIndex;
                         isAnimating = false;
 
-                        setupBufferSlide((currentIndex + 1) % playlist.length);
+                        // Prep the subsequent video quietly
+                        renderSlideData(bufferSlide, playlist[(currentIndex + 1) % playlist.length], true);
                     }, 370);
                 };
 
