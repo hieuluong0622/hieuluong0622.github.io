@@ -742,7 +742,8 @@
                 const nextBtn = document.getElementById('feed-next-btn');
 
                 let isGlobalMuted = true;
-                let items = [];
+                let isNavigating = false;
+                let realCount = 0;
 
                 if (viewport) {
                     const rawItems = Array.from(viewport.querySelectorAll('.tiktok-item'));
@@ -750,12 +751,27 @@
                         const j = Math.floor(Math.random() * (i + 1));
                         [rawItems[i], rawItems[j]] = [rawItems[j], rawItems[i]];
                     }
-                    rawItems.forEach((item, index) => {
-                        item.setAttribute('data-index', index);
-                        viewport.appendChild(item);
+                    viewport.innerHTML = '';
+                    rawItems.forEach(item => viewport.appendChild(item));
+
+                    realCount = rawItems.length;
+
+                    const firstClone = rawItems[0].cloneNode(true);
+                    const lastClone = rawItems[realCount - 1].cloneNode(true);
+
+                    firstClone.classList.add('clone-node');
+                    lastClone.classList.add('clone-node');
+
+                    viewport.appendChild(firstClone);
+                    viewport.insertBefore(lastClone, viewport.firstChild);
+
+                    requestAnimationFrame(() => {
+                        viewport.scrollTop = viewport.clientHeight;
+                        updateActiveVideo();
                     });
-                    items = Array.from(viewport.querySelectorAll('.tiktok-item'));
                 }
+
+                const getAllItems = () => viewport ? Array.from(viewport.querySelectorAll('.tiktok-item')) : [];
 
                 if (btnTiktok && btnGrid && tiktokContainer && gridContainer) {
                     btnTiktok.addEventListener('click', () => {
@@ -771,7 +787,7 @@
                         btnTiktok.classList.remove('active');
                         tiktokContainer.classList.add('hidden');
                         gridContainer.classList.add('active');
-                        items.forEach(item => {
+                        getAllItems().forEach(item => {
                             const vid = item.querySelector('video');
                             if (vid) vid.pause();
                         });
@@ -779,7 +795,10 @@
                 }
 
                 const updateActiveVideo = () => {
-                    if (!viewport || tiktokContainer.classList.contains('hidden') || items.length === 0) return;
+                    if (!viewport || tiktokContainer.classList.contains('hidden')) return;
+                    const items = getAllItems();
+                    if (items.length === 0) return;
+
                     const scrollPos = viewport.scrollTop;
                     const itemHeight = viewport.clientHeight;
                     const activeIndex = Math.round(scrollPos / itemHeight);
@@ -789,8 +808,8 @@
                         if (!vid) return;
                         if (idx === activeIndex) {
                             vid.muted = isGlobalMuted;
-                            const playPromise = vid.play();
-                            if (playPromise !== undefined) playPromise.catch(() => {});
+                            const p = vid.play();
+                            if (p !== undefined) p.catch(() => {});
                         } else {
                             vid.pause();
                             vid.currentTime = 0;
@@ -798,74 +817,85 @@
                     });
                 };
 
-                const scrollNextLoop = () => {
-                    if (!viewport || items.length === 0) return;
+                const handleInfiniteBoundary = () => {
+                    if (!viewport || realCount === 0) return;
                     const itemHeight = viewport.clientHeight;
-                    const currentIndex = Math.round(viewport.scrollTop / itemHeight);
+                    const scrollPos = viewport.scrollTop;
+                    const currentIndex = Math.round(scrollPos / itemHeight);
 
-                    if (currentIndex >= items.length - 1) {
-                        viewport.scrollTo({ top: 0, behavior: 'smooth' });
+                    if (currentIndex >= realCount + 1) {
+                        viewport.style.scrollSnapType = 'none';
+                        viewport.scrollTop = itemHeight;
+                        viewport.style.scrollSnapType = 'y mandatory';
+                        updateActiveVideo();
+                    } else if (currentIndex <= 0) {
+                        viewport.style.scrollSnapType = 'none';
+                        viewport.scrollTop = realCount * itemHeight;
+                        viewport.style.scrollSnapType = 'y mandatory';
+                        updateActiveVideo();
                     } else {
-                        viewport.scrollBy({ top: itemHeight, behavior: 'smooth' });
-                    }
-                };
-
-                const scrollPrevLoop = () => {
-                    if (!viewport || items.length === 0) return;
-                    const itemHeight = viewport.clientHeight;
-                    const currentIndex = Math.round(viewport.scrollTop / itemHeight);
-
-                    if (currentIndex <= 0) {
-                        viewport.scrollTo({ top: (items.length - 1) * itemHeight, behavior: 'smooth' });
-                    } else {
-                        viewport.scrollBy({ top: -itemHeight, behavior: 'smooth' });
+                        updateActiveVideo();
                     }
                 };
 
                 if (viewport) {
-                    let scrollTimeout;
+                    let scrollTimer;
                     viewport.addEventListener('scroll', () => {
-                        clearTimeout(scrollTimeout);
-                        scrollTimeout = setTimeout(updateActiveVideo, 120);
+                        clearTimeout(scrollTimer);
+                        scrollTimer = setTimeout(() => {
+                            handleInfiniteBoundary();
+                        }, 90);
                     }, { passive: true });
+
+                    const scrollByStep = (direction) => {
+                        if (isNavigating) return;
+                        isNavigating = true;
+                        const itemHeight = viewport.clientHeight;
+                        viewport.scrollBy({
+                            top: direction * itemHeight,
+                            behavior: 'smooth'
+                        });
+                        setTimeout(() => {
+                            isNavigating = false;
+                        }, 400);
+                    };
+
+                    if (nextBtn) nextBtn.addEventListener('click', () => scrollByStep(1));
+                    if (prevBtn) prevBtn.addEventListener('click', () => scrollByStep(-1));
 
                     document.addEventListener('keydown', (e) => {
                         if (tiktokContainer.classList.contains('hidden')) return;
                         if (e.key === 'ArrowDown') {
                             e.preventDefault();
-                            scrollNextLoop();
+                            scrollByStep(1);
                         } else if (e.key === 'ArrowUp') {
                             e.preventDefault();
-                            scrollPrevLoop();
+                            scrollByStep(-1);
                         }
                     });
                 }
 
-                if (nextBtn) nextBtn.addEventListener('click', scrollNextLoop);
-                if (prevBtn) prevBtn.addEventListener('click', scrollPrevLoop);
-
-                document.querySelectorAll('.tiktok-sound-mute-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
+                document.addEventListener('click', (e) => {
+                    const muteBtn = e.target.closest('.tiktok-sound-mute-btn');
+                    if (muteBtn) {
                         e.stopPropagation();
                         isGlobalMuted = !isGlobalMuted;
                         document.querySelectorAll('.tiktok-sound-mute-btn').forEach(b => {
                             b.innerHTML = isGlobalMuted ? '<i class="fas fa-volume-xmark"></i>' : '<i class="fas fa-volume-high"></i>';
                         });
-                        items.forEach(item => {
+                        getAllItems().forEach(item => {
                             const vid = item.querySelector('video');
                             if (vid) vid.muted = isGlobalMuted;
                         });
-                    });
-                });
+                        return;
+                    }
 
-                document.querySelectorAll('.action-like-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
+                    const likeBtn = e.target.closest('.action-like-btn');
+                    if (likeBtn) {
                         e.stopPropagation();
-                        btn.classList.toggle('liked');
-                    });
+                        likeBtn.classList.toggle('liked');
+                    }
                 });
-
-                setTimeout(updateActiveVideo, 300);
             });
         </script>
     </body>
