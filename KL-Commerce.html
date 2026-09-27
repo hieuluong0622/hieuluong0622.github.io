@@ -79,6 +79,8 @@
                 border: 10px solid #222222;
                 box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
                 overflow: hidden;
+                touch-action: none;
+                user-select: none;
             }
 
             .phone-notch {
@@ -94,37 +96,43 @@
                 pointer-events: none;
             }
 
-            .tiktok-viewport {
-                width: 100%;
-                height: 100%;
-                overflow-y: scroll;
-                scroll-snap-type: y mandatory;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-                position: relative;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .tiktok-viewport::-webkit-scrollbar {
-                display: none;
-            }
-
-            .tiktok-item {
+            .tiktok-slider-track {
                 position: relative;
                 width: 100%;
                 height: 100%;
-                flex: 0 0 100%;
-                scroll-snap-align: start;
-                scroll-snap-stop: always;
-                background: #000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
                 overflow: hidden;
             }
 
-            .tiktok-item video {
+            .tiktok-slide {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                background: #000000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transform: translateY(100%);
+                will-change: transform;
+                transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+            }
+
+            .tiktok-slide.active {
+                transform: translateY(0%);
+                z-index: 2;
+            }
+
+            .tiktok-slide.prev-slide {
+                transform: translateY(-100%);
+                z-index: 1;
+            }
+
+            .tiktok-slide.next-slide {
+                transform: translateY(100%);
+                z-index: 1;
+            }
+
+            .tiktok-slide video {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
@@ -139,7 +147,8 @@
                 flex-direction: column;
                 justify-content: space-between;
                 padding: 2.2rem 0.85rem 1.2rem 1rem;
-                background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 65%, rgba(0,0,0,0.85) 100%);
+                background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 65%, rgba(0,0,0,0.85) 100%);
+                z-index: 5;
             }
 
             .tiktok-top-bar {
@@ -368,242 +377,9 @@
             <main class="container px-4 px-lg-5 py-4">
                 
                 <section id="tiktok-view-container" class="tiktok-feed-wrapper">
-                    <div class="phone-mockup-frame">
+                    <div class="phone-mockup-frame" id="phoneMockupFrame">
                         <div class="phone-notch"></div>
-                        
-                        <div class="tiktok-viewport" id="tiktok-viewport">
-                            
-                            <div class="tiktok-item" data-video-src="assets/videos/v14025g50000cvjpb0nog65pt2rekpsg.mov">
-                                <video playsinline loop muted preload="none" poster="assets/img/KL-Commerce/thumbs/philips-featured.webp"></video>
-                                <div class="tiktok-overlay-ui">
-                                    <div class="tiktok-top-bar">
-                                        <span>Following | <strong>For You</strong></span>
-                                        <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
-                                    </div>
-                                    <div class="tiktok-main-content">
-                                        <div class="tiktok-info-col">
-                                            <div class="tiktok-creator-tag">@philipsmassagervietnam <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
-                                            <div class="tiktok-caption-text">Philips Massager Hero Campaign • Motion Graphics & Keying Composite</div>
-                                            <div class="tiktok-music-track"><i class="fas fa-music"></i> <span>Original Sound - Philips Massager</span></div>
-                                        </div>
-                                        <div class="tiktok-actions-col">
-                                            <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count">24.5K</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count">382</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count">1.1K</span></button>
-                                            <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tiktok-item" data-video-src="assets/videos/1JJIL6TK3_7S3IBU.mp4">
-                                <video playsinline loop muted preload="none" poster="assets/img/KL-Commerce/thumbs/philips-thumb-01.webp"></video>
-                                <div class="tiktok-overlay-ui">
-                                    <div class="tiktok-top-bar">
-                                        <span>Following | <strong>For You</strong></span>
-                                        <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
-                                    </div>
-                                    <div class="tiktok-main-content">
-                                        <div class="tiktok-info-col">
-                                            <div class="tiktok-creator-tag">@philipsmassagervietnam <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
-                                            <div class="tiktok-caption-text">Ergonomic deep-tissue massager performance review #philips #wellness</div>
-                                            <div class="tiktok-music-track"><i class="fas fa-music"></i> <span>Trending Beat - KL Commerce</span></div>
-                                        </div>
-                                        <div class="tiktok-actions-col">
-                                            <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count">18.2K</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count">194</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count">528</span></button>
-                                            <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tiktok-item" data-video-src="assets/videos/1JJIL02HG_7S3IBU.mp4">
-                                <video playsinline loop muted preload="none" poster="assets/img/KL-Commerce/thumbs/philips-thumb-02.webp"></video>
-                                <div class="tiktok-overlay-ui">
-                                    <div class="tiktok-top-bar">
-                                        <span>Following | <strong>For You</strong></span>
-                                        <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
-                                    </div>
-                                    <div class="tiktok-main-content">
-                                        <div class="tiktok-info-col">
-                                            <div class="tiktok-creator-tag">@philipsmassagervietnam <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
-                                            <div class="tiktok-caption-text">Smart heat-therapy mini massage gun demonstration #gadgets #relax</div>
-                                            <div class="tiktok-music-track"><i class="fas fa-music"></i> <span>Original Sound - KL Creative Suite</span></div>
-                                        </div>
-                                        <div class="tiktok-actions-col">
-                                            <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count">31.4K</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count">412</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count">940</span></button>
-                                            <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tiktok-item" data-video-src="assets/videos/v14025g50000cv1e1dnog65vetcm2clg.mov">
-                                <video playsinline loop muted preload="none" poster="assets/img/KL-Commerce/thumbs/philips-thumb-03.webp"></video>
-                                <div class="tiktok-overlay-ui">
-                                    <div class="tiktok-top-bar">
-                                        <span>Following | <strong>For You</strong></span>
-                                        <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
-                                    </div>
-                                    <div class="tiktok-main-content">
-                                        <div class="tiktok-info-col">
-                                            <div class="tiktok-creator-tag">@philipsmassagervietnam <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
-                                            <div class="tiktok-caption-text">Neck & shoulder wrap therapy in-depth feature showcase #lifestyle #relax</div>
-                                            <div class="tiktok-music-track"><i class="fas fa-music"></i> <span>Chill Vibes - Philips Suite</span></div>
-                                        </div>
-                                        <div class="tiktok-actions-col">
-                                            <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count">15.7K</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count">129</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count">410</span></button>
-                                            <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tiktok-item" data-video-src="assets/videos/v14025g50000d06b9onog65n6pomf850.mov">
-                                <video playsinline loop muted preload="none" poster="assets/img/KL-Commerce/thumbs/philips-thumb-04.webp"></video>
-                                <div class="tiktok-overlay-ui">
-                                    <div class="tiktok-top-bar">
-                                        <span>Following | <strong>For You</strong></span>
-                                        <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
-                                    </div>
-                                    <div class="tiktok-main-content">
-                                        <div class="tiktok-info-col">
-                                            <div class="tiktok-creator-tag">@philipsmassagervietnam <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
-                                            <div class="tiktok-caption-text">Dynamic motion typography & product kinetic typography cut #motion #ads</div>
-                                            <div class="tiktok-music-track"><i class="fas fa-music"></i> <span>Bass Drop - Motion Beat</span></div>
-                                        </div>
-                                        <div class="tiktok-actions-col">
-                                            <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count">28.9K</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count">305</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count">815</span></button>
-                                            <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tiktok-item" data-video-src="assets/videos/Germ2.mp4">
-                                <video playsinline loop muted preload="none" poster="assets/img/KL-Commerce/thumbs/germ-featured.webp"></video>
-                                <div class="tiktok-overlay-ui">
-                                    <div class="tiktok-top-bar">
-                                        <span>Following | <strong>For You</strong></span>
-                                        <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
-                                    </div>
-                                    <div class="tiktok-main-content">
-                                        <div class="tiktok-info-col">
-                                            <div class="tiktok-creator-tag">@germ_vietnam <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
-                                            <div class="tiktok-caption-text">GERM Thermos Bottle Collection - Brand Launch Campaign #germvietnam #aesthetic</div>
-                                            <div class="tiktok-music-track"><i class="fas fa-music"></i> <span>Original Sound - GERM Vietnam</span></div>
-                                        </div>
-                                        <div class="tiktok-actions-col">
-                                            <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count">45.8K</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count">560</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count">1.4K</span></button>
-                                            <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tiktok-item" data-video-src="assets/videos/Germ1.mp4">
-                                <video playsinline loop muted preload="none" poster="assets/img/KL-Commerce/thumbs/germ-thumb-01.webp"></video>
-                                <div class="tiktok-overlay-ui">
-                                    <div class="tiktok-top-bar">
-                                        <span>Following | <strong>For You</strong></span>
-                                        <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
-                                    </div>
-                                    <div class="tiktok-main-content">
-                                        <div class="tiktok-info-col">
-                                            <div class="tiktok-creator-tag">@germ_vietnam <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
-                                            <div class="tiktok-caption-text">Premium vacuum-insulated bottle unboxing & thermal testing #dailyessentials</div>
-                                            <div class="tiktok-music-track"><i class="fas fa-music"></i> <span>Lo-Fi Chill Beat - KL Suite</span></div>
-                                        </div>
-                                        <div class="tiktok-actions-col">
-                                            <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count">12.9K</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count">88</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count">310</span></button>
-                                            <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tiktok-item" data-video-src="assets/videos/Germ3.mp4">
-                                <video playsinline loop muted preload="none" poster="assets/img/KL-Commerce/thumbs/germ-thumb-02.webp"></video>
-                                <div class="tiktok-overlay-ui">
-                                    <div class="tiktok-top-bar">
-                                        <span>Following | <strong>For You</strong></span>
-                                        <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
-                                    </div>
-                                    <div class="tiktok-main-content">
-                                        <div class="tiktok-info-col">
-                                            <div class="tiktok-creator-tag">@germ_vietnam <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
-                                            <div class="tiktok-caption-text">Minimalist pastel tumbler edition aesthetic cut #hydration #tumbler</div>
-                                            <div class="tiktok-music-track"><i class="fas fa-music"></i> <span>Aesthetic Piano - GERM Sound</span></div>
-                                        </div>
-                                        <div class="tiktok-actions-col">
-                                            <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count">22.1K</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count">175</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count">480</span></button>
-                                            <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tiktok-item" data-video-src="assets/videos/Germ4.mp4">
-                                <video playsinline loop muted preload="none" poster="assets/img/KL-Commerce/thumbs/germ-thumb-03.webp"></video>
-                                <div class="tiktok-overlay-ui">
-                                    <div class="tiktok-top-bar">
-                                        <span>Following | <strong>For You</strong></span>
-                                        <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
-                                    </div>
-                                    <div class="tiktok-main-content">
-                                        <div class="tiktok-info-col">
-                                            <div class="tiktok-creator-tag">@germ_vietnam <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
-                                            <div class="tiktok-caption-text">Leak-proof cap design & daily gym companion workout test #fitlife #germ</div>
-                                            <div class="tiktok-music-track"><i class="fas fa-music"></i> <span>Workout Upbeat - KL Edit</span></div>
-                                        </div>
-                                        <div class="tiktok-actions-col">
-                                            <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count">16.4K</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count">112</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count">365</span></button>
-                                            <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tiktok-item" data-video-src="assets/videos/Germ5.mp4">
-                                <video playsinline loop muted preload="none" poster="assets/img/KL-Commerce/thumbs/germ-thumb-04.webp"></video>
-                                <div class="tiktok-overlay-ui">
-                                    <div class="tiktok-top-bar">
-                                        <span>Following | <strong>For You</strong></span>
-                                        <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
-                                    </div>
-                                    <div class="tiktok-main-content">
-                                        <div class="tiktok-info-col">
-                                            <div class="tiktok-creator-tag">@germ_vietnam <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
-                                            <div class="tiktok-caption-text">Dynamic summer sale promotional spot & animated discount banners #sale #promo</div>
-                                            <div class="tiktok-music-track"><i class="fas fa-music"></i> <span>Summer Vibes - Promo Beat</span></div>
-                                        </div>
-                                        <div class="tiktok-actions-col">
-                                            <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count">37.6K</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count">420</span></button>
-                                            <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count">920</span></button>
-                                            <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                        <div class="tiktok-slider-track" id="tiktokSliderTrack"></div>
                     </div>
 
                     <div class="feed-nav-arrows">
@@ -623,31 +399,31 @@
                         
                         <div class="video-vertical-grid">
                             <div class="vertical-video-frame featured-mobile-video">
-                                <video controls playsinline loop preload="metadata" poster="assets/img/KL-Commerce/thumbs/philips-featured.webp">
+                                <video controls playsinline loop preload="none" poster="assets/img/KL-Commerce/thumbs/philips-featured.webp">
                                     <source src="assets/videos/v14025g50000cvjpb0nog65pt2rekpsg.mov" type="video/quicktime">
                                 </video>
                             </div>
 
                             <div class="vertical-video-frame">
-                                <video controls playsinline loop preload="metadata" poster="assets/img/KL-Commerce/thumbs/philips-thumb-01.webp">
+                                <video controls playsinline loop preload="none" poster="assets/img/KL-Commerce/thumbs/philips-thumb-01.webp">
                                     <source src="assets/videos/1JJIL6TK3_7S3IBU.mp4" type="video/mp4">
                                 </video>
                             </div>
 
                             <div class="vertical-video-frame">
-                                <video controls playsinline loop preload="metadata" poster="assets/img/KL-Commerce/thumbs/philips-thumb-02.webp">
+                                <video controls playsinline loop preload="none" poster="assets/img/KL-Commerce/thumbs/philips-thumb-02.webp">
                                     <source src="assets/videos/1JJIL02HG_7S3IBU.mp4" type="video/mp4">
                                 </video>
                             </div>
 
                             <div class="vertical-video-frame">
-                                <video controls playsinline loop preload="metadata" poster="assets/img/KL-Commerce/thumbs/philips-thumb-03.webp">
+                                <video controls playsinline loop preload="none" poster="assets/img/KL-Commerce/thumbs/philips-thumb-03.webp">
                                     <source src="assets/videos/v14025g50000cv1e1dnog65vetcm2clg.mov" type="video/quicktime">
                                 </video>
                             </div>
 
                             <div class="vertical-video-frame">
-                                <video controls playsinline loop preload="metadata" poster="assets/img/KL-Commerce/thumbs/philips-thumb-04.webp">
+                                <video controls playsinline loop preload="none" poster="assets/img/KL-Commerce/thumbs/philips-thumb-04.webp">
                                     <source src="assets/videos/v14025g50000d06b9onog65n6pomf850.mov" type="video/quicktime">
                                 </video>
                             </div>
@@ -664,31 +440,31 @@
 
                         <div class="video-vertical-grid">
                             <div class="vertical-video-frame featured-mobile-video">
-                                <video controls playsinline loop preload="metadata" poster="assets/img/KL-Commerce/thumbs/germ-featured.webp">
+                                <video controls playsinline loop preload="none" poster="assets/img/KL-Commerce/thumbs/germ-featured.webp">
                                     <source src="assets/videos/Germ2.mp4" type="video/mp4">
                                 </video>
                             </div>
 
                             <div class="vertical-video-frame">
-                                <video controls playsinline loop preload="metadata" poster="assets/img/KL-Commerce/thumbs/germ-thumb-01.webp">
+                                <video controls playsinline loop preload="none" poster="assets/img/KL-Commerce/thumbs/germ-thumb-01.webp">
                                     <source src="assets/videos/Germ1.mp4" type="video/mp4">
                                 </video>
                             </div>
 
                             <div class="vertical-video-frame">
-                                <video controls playsinline loop preload="metadata" poster="assets/img/KL-Commerce/thumbs/germ-thumb-02.webp">
+                                <video controls playsinline loop preload="none" poster="assets/img/KL-Commerce/thumbs/germ-thumb-02.webp">
                                     <source src="assets/videos/Germ3.mp4" type="video/mp4">
                                 </video>
                             </div>
 
                             <div class="vertical-video-frame">
-                                <video controls playsinline loop preload="metadata" poster="assets/img/KL-Commerce/thumbs/germ-thumb-03.webp">
+                                <video controls playsinline loop preload="none" poster="assets/img/KL-Commerce/thumbs/germ-thumb-03.webp">
                                     <source src="assets/videos/Germ4.mp4" type="video/mp4">
                                 </video>
                             </div>
 
                             <div class="vertical-video-frame">
-                                <video controls playsinline loop preload="metadata" poster="assets/img/KL-Commerce/thumbs/germ-thumb-04.webp">
+                                <video controls playsinline loop preload="none" poster="assets/img/KL-Commerce/thumbs/germ-thumb-04.webp">
                                     <source src="assets/videos/Germ5.mp4" type="video/mp4">
                                 </video>
                             </div>
@@ -716,32 +492,312 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {
+                const RAW_VIDEOS = [
+                    {
+                        src: 'assets/videos/v14025g50000cvjpb0nog65pt2rekpsg.mov',
+                        poster: 'assets/img/KL-Commerce/thumbs/philips-featured.webp',
+                        creator: '@philipsmassagervietnam',
+                        caption: 'Philips Massager Hero Campaign • Motion Graphics & Keying Composite',
+                        music: 'Original Sound - Philips Massager',
+                        likes: '24.5K',
+                        comments: '382',
+                        shares: '1.1K'
+                    },
+                    {
+                        src: 'assets/videos/1JJIL6TK3_7S3IBU.mp4',
+                        poster: 'assets/img/KL-Commerce/thumbs/philips-thumb-01.webp',
+                        creator: '@philipsmassagervietnam',
+                        caption: 'Ergonomic deep-tissue massager performance review #philips #wellness',
+                        music: 'Trending Beat - KL Commerce',
+                        likes: '18.2K',
+                        comments: '194',
+                        shares: '528'
+                    },
+                    {
+                        src: 'assets/videos/1JJIL02HG_7S3IBU.mp4',
+                        poster: 'assets/img/KL-Commerce/thumbs/philips-thumb-02.webp',
+                        creator: '@philipsmassagervietnam',
+                        caption: 'Smart heat-therapy mini massage gun demonstration #gadgets #relax',
+                        music: 'Original Sound - KL Creative Suite',
+                        likes: '31.4K',
+                        comments: '412',
+                        shares: '940'
+                    },
+                    {
+                        src: 'assets/videos/v14025g50000cv1e1dnog65vetcm2clg.mov',
+                        poster: 'assets/img/KL-Commerce/thumbs/philips-thumb-03.webp',
+                        creator: '@philipsmassagervietnam',
+                        caption: 'Neck & shoulder wrap therapy in-depth feature showcase #lifestyle #relax',
+                        music: 'Chill Vibes - Philips Suite',
+                        likes: '15.7K',
+                        comments: '129',
+                        shares: '410'
+                    },
+                    {
+                        src: 'assets/videos/v14025g50000d06b9onog65n6pomf850.mov',
+                        poster: 'assets/img/KL-Commerce/thumbs/philips-thumb-04.webp',
+                        creator: '@philipsmassagervietnam',
+                        caption: 'Dynamic motion typography & product kinetic typography cut #motion #ads',
+                        music: 'Bass Drop - Motion Beat',
+                        likes: '28.9K',
+                        comments: '305',
+                        shares: '815'
+                    },
+                    {
+                        src: 'assets/videos/Germ2.mp4',
+                        poster: 'assets/img/KL-Commerce/thumbs/germ-featured.webp',
+                        creator: '@germ_vietnam',
+                        caption: 'GERM Thermos Bottle Collection - Brand Launch Campaign #germvietnam #aesthetic',
+                        music: 'Original Sound - GERM Vietnam',
+                        likes: '45.8K',
+                        comments: '560',
+                        shares: '1.4K'
+                    },
+                    {
+                        src: 'assets/videos/Germ1.mp4',
+                        poster: 'assets/img/KL-Commerce/thumbs/germ-thumb-01.webp',
+                        creator: '@germ_vietnam',
+                        caption: 'Premium vacuum-insulated bottle unboxing & thermal testing #dailyessentials',
+                        music: 'Lo-Fi Chill Beat - KL Suite',
+                        likes: '12.9K',
+                        comments: '88',
+                        shares: '310'
+                    },
+                    {
+                        src: 'assets/videos/Germ3.mp4',
+                        poster: 'assets/img/KL-Commerce/thumbs/germ-thumb-02.webp',
+                        creator: '@germ_vietnam',
+                        caption: 'Minimalist pastel tumbler edition aesthetic cut #hydration #tumbler',
+                        music: 'Aesthetic Piano - GERM Sound',
+                        likes: '22.1K',
+                        comments: '175',
+                        shares: '480'
+                    },
+                    {
+                        src: 'assets/videos/Germ4.mp4',
+                        poster: 'assets/img/KL-Commerce/thumbs/germ-thumb-03.webp',
+                        creator: '@germ_vietnam',
+                        caption: 'Leak-proof cap design & daily gym companion workout test #fitlife #germ',
+                        music: 'Workout Upbeat - KL Edit',
+                        likes: '16.4K',
+                        comments: '112',
+                        shares: '365'
+                    },
+                    {
+                        src: 'assets/videos/Germ5.mp4',
+                        poster: 'assets/img/KL-Commerce/thumbs/germ-thumb-04.webp',
+                        creator: '@germ_vietnam',
+                        caption: 'Dynamic summer sale promotional spot & animated discount banners #sale #promo',
+                        music: 'Summer Vibes - Promo Beat',
+                        likes: '37.6K',
+                        comments: '420',
+                        shares: '920'
+                    }
+                ];
+
+                const playlist = [...RAW_VIDEOS];
+                for (let i = playlist.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [playlist[i], playlist[j]] = [playlist[j], playlist[i]];
+                }
+
+                const track = document.getElementById('tiktokSliderTrack');
+                const frame = document.getElementById('phoneMockupFrame');
                 const btnTiktok = document.getElementById('btn-mode-tiktok');
                 const btnGrid = document.getElementById('btn-mode-grid');
                 const tiktokContainer = document.getElementById('tiktok-view-container');
                 const gridContainer = document.getElementById('grid-view-container');
-                const viewport = document.getElementById('tiktok-viewport');
                 const prevBtn = document.getElementById('feed-prev-btn');
                 const nextBtn = document.getElementById('feed-next-btn');
 
                 let isGlobalMuted = true;
-                let orderedItems = [];
-                let isNavigating = false;
+                let currentIndex = 0;
+                let isAnimating = false;
 
-                if (viewport) {
-                    const originalItems = Array.from(viewport.querySelectorAll('.tiktok-item'));
-                    const shuffled = [...originalItems];
-                    for (let i = shuffled.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                const createSlideElement = () => {
+                    const slide = document.createElement('div');
+                    slide.className = 'tiktok-slide';
+                    slide.innerHTML = `
+                        <video playsinline loop muted preload="auto"></video>
+                        <div class="tiktok-overlay-ui">
+                            <div class="tiktok-top-bar">
+                                <span>Following | <strong>For You</strong></span>
+                                <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
+                            </div>
+                            <div class="tiktok-main-content">
+                                <div class="tiktok-info-col">
+                                    <div class="tiktok-creator-tag"><span class="txt-creator"></span> <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
+                                    <div class="tiktok-caption-text txt-caption"></div>
+                                    <div class="tiktok-music-track"><i class="fas fa-music"></i> <span class="txt-music"></span></div>
+                                </div>
+                                <div class="tiktok-actions-col">
+                                    <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count txt-likes"></span></button>
+                                    <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count txt-comments"></span></button>
+                                    <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count txt-shares"></span></button>
+                                    <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    return slide;
+                };
+
+                const slideA = createSlideElement();
+                const slideB = createSlideElement();
+                track.appendChild(slideA);
+                track.appendChild(slideB);
+
+                let activeSlide = slideA;
+                let bufferSlide = slideB;
+
+                const renderSlideData = (slide, data) => {
+                    const vid = slide.querySelector('video');
+                    vid.poster = data.poster;
+                    if (vid.src !== location.origin + '/' + data.src && !vid.src.endsWith(data.src)) {
+                        vid.src = data.src;
+                        vid.load();
+                    }
+                    slide.querySelector('.txt-creator').textContent = data.creator;
+                    slide.querySelector('.txt-caption').textContent = data.caption;
+                    slide.querySelector('.txt-music').textContent = data.music;
+                    slide.querySelector('.txt-likes').textContent = data.likes;
+                    slide.querySelector('.txt-comments').textContent = data.comments;
+                    slide.querySelector('.txt-shares').textContent = data.shares;
+                };
+
+                renderSlideData(activeSlide, playlist[currentIndex]);
+                activeSlide.classList.add('active');
+
+                const playCurrentVideo = () => {
+                    const vid = activeSlide.querySelector('video');
+                    if (vid) {
+                        vid.muted = isGlobalMuted;
+                        const p = vid.play();
+                        if (p !== undefined) p.catch(() => {});
+                    }
+                };
+
+                const prefetchNext = (nextIdx) => {
+                    const nextData = playlist[nextIdx];
+                    renderSlideData(bufferSlide, nextData);
+                };
+
+                prefetchNext((currentIndex + 1) % playlist.length);
+                setTimeout(playCurrentVideo, 150);
+
+                const transitionTo = (direction) => {
+                    if (isAnimating) return;
+                    isAnimating = true;
+
+                    const newIndex = direction === 1 
+                        ? (currentIndex + 1) % playlist.length 
+                        : (currentIndex - 1 + playlist.length) % playlist.length;
+
+                    renderSlideData(bufferSlide, playlist[newIndex]);
+
+                    bufferSlide.style.transition = 'none';
+                    bufferSlide.style.transform = direction === 1 ? 'translateY(100%)' : 'translateY(-100%)';
+                    bufferSlide.classList.remove('active', 'prev-slide', 'next-slide');
+
+                    void bufferSlide.offsetWidth;
+
+                    bufferSlide.style.transition = 'transform 0.36s cubic-bezier(0.22, 1, 0.36, 1)';
+                    activeSlide.style.transition = 'transform 0.36s cubic-bezier(0.22, 1, 0.36, 1)';
+
+                    bufferSlide.style.transform = 'translateY(0%)';
+                    activeSlide.style.transform = direction === 1 ? 'translateY(-100%)' : 'translateY(100%)';
+
+                    const currentVid = activeSlide.querySelector('video');
+                    if (currentVid) currentVid.pause();
+
+                    const nextVid = bufferSlide.querySelector('video');
+                    if (nextVid) {
+                        nextVid.muted = isGlobalMuted;
+                        nextVid.currentTime = 0;
+                        const p = nextVid.play();
+                        if (p !== undefined) p.catch(() => {});
                     }
 
-                    shuffled.forEach((item, index) => {
-                        item.style.order = index;
-                    });
+                    setTimeout(() => {
+                        bufferSlide.classList.add('active');
+                        activeSlide.classList.remove('active');
 
-                    orderedItems = shuffled;
-                }
+                        const temp = activeSlide;
+                        activeSlide = bufferSlide;
+                        bufferSlide = temp;
+
+                        currentIndex = newIndex;
+                        isAnimating = false;
+
+                        prefetchNext((currentIndex + 1) % playlist.length);
+                    }, 370);
+                };
+
+                let wheelTimeout;
+                frame.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    if (isAnimating) return;
+                    clearTimeout(wheelTimeout);
+                    wheelTimeout = setTimeout(() => {
+                        if (e.deltaY > 18) {
+                            transitionTo(1);
+                        } else if (e.deltaY < -18) {
+                            transitionTo(-1);
+                        }
+                    }, 20);
+                }, { passive: false });
+
+                let startY = 0;
+                let isTouching = false;
+                frame.addEventListener('touchstart', (e) => {
+                    startY = e.touches[0].clientY;
+                    isTouching = true;
+                }, { passive: true });
+
+                frame.addEventListener('touchend', (e) => {
+                    if (!isTouching || isAnimating) return;
+                    isTouching = false;
+                    const diffY = startY - e.changedTouches[0].clientY;
+                    if (diffY > 40) {
+                        transitionTo(1);
+                    } else if (diffY < -40) {
+                        transitionTo(-1);
+                    }
+                }, { passive: true });
+
+                if (nextBtn) nextBtn.addEventListener('click', () => transitionTo(1));
+                if (prevBtn) prevBtn.addEventListener('click', () => transitionTo(-1));
+
+                document.addEventListener('keydown', (e) => {
+                    if (tiktokContainer.classList.contains('hidden')) return;
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        transitionTo(1);
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        transitionTo(-1);
+                    }
+                });
+
+                document.addEventListener('click', (e) => {
+                    const muteBtn = e.target.closest('.tiktok-sound-mute-btn');
+                    if (muteBtn) {
+                        e.stopPropagation();
+                        isGlobalMuted = !isGlobalMuted;
+                        document.querySelectorAll('.tiktok-sound-mute-btn').forEach(b => {
+                            b.innerHTML = isGlobalMuted ? '<i class="fas fa-volume-xmark"></i>' : '<i class="fas fa-volume-high"></i>';
+                        });
+                        const currentVid = activeSlide.querySelector('video');
+                        if (currentVid) currentVid.muted = isGlobalMuted;
+                        return;
+                    }
+
+                    const likeBtn = e.target.closest('.action-like-btn');
+                    if (likeBtn) {
+                        e.stopPropagation();
+                        likeBtn.classList.toggle('liked');
+                    }
+                });
 
                 if (btnTiktok && btnGrid && tiktokContainer && gridContainer) {
                     btnTiktok.addEventListener('click', () => {
@@ -749,7 +805,7 @@
                         btnGrid.classList.remove('active');
                         tiktokContainer.classList.remove('hidden');
                         gridContainer.classList.remove('active');
-                        updateActiveVideo();
+                        playCurrentVideo();
                     });
 
                     btnGrid.addEventListener('click', () => {
@@ -757,153 +813,10 @@
                         btnTiktok.classList.remove('active');
                         tiktokContainer.classList.add('hidden');
                         gridContainer.classList.add('active');
-                        orderedItems.forEach(item => {
-                            const vid = item.querySelector('video');
-                            if (vid) vid.pause();
-                        });
+                        const currentVid = activeSlide.querySelector('video');
+                        if (currentVid) currentVid.pause();
                     });
                 }
-
-                const loadVideoSrc = (item) => {
-                    if (!item) return;
-                    const vid = item.querySelector('video');
-                    const src = item.getAttribute('data-video-src');
-                    if (vid && src && !vid.src) {
-                        vid.src = src;
-                        vid.load();
-                    }
-                };
-
-                const updateActiveVideo = () => {
-                    if (!viewport || tiktokContainer.classList.contains('hidden') || orderedItems.length === 0) return;
-                    const itemHeight = viewport.clientHeight;
-                    const activeIndex = Math.min(Math.max(Math.round(viewport.scrollTop / itemHeight), 0), orderedItems.length - 1);
-
-                    const activeItem = orderedItems[activeIndex];
-                    const nextItem = orderedItems[(activeIndex + 1) % orderedItems.length];
-                    const prevItem = orderedItems[(activeIndex - 1 + orderedItems.length) % orderedItems.length];
-
-                    loadVideoSrc(activeItem);
-                    loadVideoSrc(nextItem);
-                    loadVideoSrc(prevItem);
-
-                    orderedItems.forEach((item, idx) => {
-                        const vid = item.querySelector('video');
-                        if (!vid) return;
-
-                        if (idx === activeIndex) {
-                            vid.muted = isGlobalMuted;
-                            const playPromise = vid.play();
-                            if (playPromise !== undefined) playPromise.catch(() => {});
-                        } else {
-                            vid.pause();
-                            if (Math.abs(idx - activeIndex) > 2) {
-                                vid.removeAttribute('src');
-                                vid.load();
-                            }
-                        }
-                    });
-                };
-
-                const scrollToVirtualIndex = (targetIndex) => {
-                    if (!viewport || orderedItems.length === 0 || isNavigating) return;
-                    isNavigating = true;
-
-                    let finalIndex = targetIndex;
-                    if (targetIndex >= orderedItems.length) {
-                        finalIndex = 0;
-                    } else if (targetIndex < 0) {
-                        finalIndex = orderedItems.length - 1;
-                    }
-
-                    const itemHeight = viewport.clientHeight;
-                    viewport.scrollTo({
-                        top: finalIndex * itemHeight,
-                        behavior: 'smooth'
-                    });
-
-                    setTimeout(() => {
-                        isNavigating = false;
-                        updateActiveVideo();
-                    }, 400);
-                };
-
-                const getVirtualCurrentIndex = () => {
-                    if (!viewport) return 0;
-                    return Math.round(viewport.scrollTop / viewport.clientHeight);
-                };
-
-                if (viewport) {
-                    let scrollDebounce;
-                    viewport.addEventListener('scroll', () => {
-                        clearTimeout(scrollDebounce);
-                        scrollDebounce = setTimeout(updateActiveVideo, 70);
-                    }, { passive: true });
-
-                    viewport.addEventListener('wheel', (e) => {
-                        if (Math.abs(e.deltaY) < 30) return;
-                        const curr = getVirtualCurrentIndex();
-                        if (e.deltaY > 0 && curr >= orderedItems.length - 1) {
-                            e.preventDefault();
-                            scrollToVirtualIndex(0);
-                        } else if (e.deltaY < 0 && curr <= 0) {
-                            e.preventDefault();
-                            scrollToVirtualIndex(orderedItems.length - 1);
-                        }
-                    }, { passive: false });
-
-                    let touchStartY = 0;
-                    viewport.addEventListener('touchstart', (e) => {
-                        touchStartY = e.touches[0].clientY;
-                    }, { passive: true });
-
-                    viewport.addEventListener('touchend', (e) => {
-                        const diffY = touchStartY - e.changedTouches[0].clientY;
-                        const curr = getVirtualCurrentIndex();
-                        if (diffY > 50 && curr >= orderedItems.length - 1) {
-                            scrollToVirtualIndex(0);
-                        } else if (diffY < -50 && curr <= 0) {
-                            scrollToVirtualIndex(orderedItems.length - 1);
-                        }
-                    }, { passive: true });
-
-                    document.addEventListener('keydown', (e) => {
-                        if (tiktokContainer.classList.contains('hidden')) return;
-                        if (e.key === 'ArrowDown') {
-                            e.preventDefault();
-                            scrollToVirtualIndex(getVirtualCurrentIndex() + 1);
-                        } else if (e.key === 'ArrowUp') {
-                            e.preventDefault();
-                            scrollToVirtualIndex(getVirtualCurrentIndex() - 1);
-                        }
-                    });
-                }
-
-                if (nextBtn) nextBtn.addEventListener('click', () => scrollToVirtualIndex(getVirtualCurrentIndex() + 1));
-                if (prevBtn) prevBtn.addEventListener('click', () => scrollToVirtualIndex(getVirtualCurrentIndex() - 1));
-
-                document.querySelectorAll('.tiktok-sound-mute-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        isGlobalMuted = !isGlobalMuted;
-                        document.querySelectorAll('.tiktok-sound-mute-btn').forEach(b => {
-                            b.innerHTML = isGlobalMuted ? '<i class="fas fa-volume-xmark"></i>' : '<i class="fas fa-volume-high"></i>';
-                        });
-                        orderedItems.forEach(item => {
-                            const vid = item.querySelector('video');
-                            if (vid) vid.muted = isGlobalMuted;
-                        });
-                    });
-                });
-
-                document.querySelectorAll('.action-like-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        btn.classList.toggle('liked');
-                    });
-                });
-
-                updateActiveVideo();
             });
         </script>
     </body>
