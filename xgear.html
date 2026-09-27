@@ -30,6 +30,37 @@
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window, document, "clarity", "script", "youn3f2y8u");
         </script>
+
+        <style>
+            .poster-card {
+                perspective: 1000px;
+                transform-style: preserve-3d;
+                will-change: transform;
+            }
+
+            .holo-glare {
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                z-index: 3;
+                border-radius: inherit;
+                opacity: 0;
+                background: radial-gradient(
+                    circle 240px at var(--glare-x, 50%) var(--glare-y, 50%),
+                    rgba(255, 255, 255, 0.35) 0%,
+                    rgba(0, 220, 255, 0.12) 40%,
+                    transparent 80%
+                );
+                mix-blend-mode: overlay;
+                transition: opacity 0.25s ease;
+            }
+
+            @media (hover: hover) and (pointer: fine) {
+                .poster-card:hover .holo-glare {
+                    opacity: 1;
+                }
+            }
+        </style>
     </head>
     <body id="page-top">
         <div class="main-wrapper main-wrapper-project">
@@ -69,6 +100,7 @@
                         
                         <div class="poster-card featured-mobile-poster" onclick="openLightbox('assets/img/xgear/poster-02.png')">
                             <img src="assets/img/xgear/poster-02.png" alt="Xgear Product Poster 02 - Featured" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -76,6 +108,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-01.png')">
                             <img src="assets/img/xgear/poster-01.png" alt="Xgear Product Poster 01" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -83,6 +116,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-03.png')">
                             <img src="assets/img/xgear/poster-03.png" alt="Xgear Product Poster 03" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -90,6 +124,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-04.png')">
                             <img src="assets/img/xgear/poster-04.png" alt="Xgear Product Poster 04" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -97,6 +132,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-05.png')">
                             <img src="assets/img/xgear/poster-05.png" alt="Xgear Product Poster 05" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -104,6 +140,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-06.png')">
                             <img src="assets/img/xgear/poster-06.png" alt="Xgear Product Poster 06" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -111,6 +148,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-07.png')">
                             <img src="assets/img/xgear/poster-07.png" alt="Xgear Product Poster 07" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -118,6 +156,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-08.png')">
                             <img src="assets/img/xgear/poster-08.png" alt="Xgear Product Poster 08" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -125,6 +164,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-09.png')">
                             <img src="assets/img/xgear/poster-09.png" alt="Xgear Product Poster 09" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -132,6 +172,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-10.png')">
                             <img src="assets/img/xgear/poster-10.png" alt="Xgear Product Poster 10" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -139,6 +180,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-11.png')">
                             <img src="assets/img/xgear/poster-11.png" alt="Xgear Product Poster 11" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -146,6 +188,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-12.png')">
                             <img src="assets/img/xgear/poster-12.png" alt="Xgear Product Poster 12" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -153,6 +196,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-13.png')">
                             <img src="assets/img/xgear/poster-13.png" alt="Xgear Product Poster 13" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -160,6 +204,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-14.png')">
                             <img src="assets/img/xgear/poster-14.png" alt="Xgear Product Poster 14" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -167,6 +212,7 @@
 
                         <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-15.png')">
                             <img src="assets/img/xgear/poster-15.png" alt="Xgear Product Poster 15" loading="lazy" decoding="async" />
+                            <div class="holo-glare"></div>
                             <div class="poster-overlay">
                                 <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
                             </div>
@@ -210,5 +256,56 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="js/scripts.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+                if (!isDesktop) return;
+
+                const cards = document.querySelectorAll('.poster-card');
+
+                cards.forEach(card => {
+                    let bounds;
+                    const glare = card.querySelector('.holo-glare');
+
+                    const updateBounds = () => {
+                        bounds = card.getBoundingClientRect();
+                    };
+
+                    const handleMouseMove = (e) => {
+                        if (!bounds) updateBounds();
+                        const mouseX = e.clientX - bounds.left;
+                        const mouseY = e.clientY - bounds.top;
+
+                        const percentX = (mouseX / bounds.width) * 100;
+                        const percentY = (mouseY / bounds.height) * 100;
+
+                        const rotateX = ((mouseY - bounds.height / 2) / (bounds.height / 2)) * -11;
+                        const rotateY = ((mouseX - bounds.width / 2) / (bounds.width / 2)) * 11;
+
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`;
+
+                        if (glare) {
+                            glare.style.setProperty('--glare-x', `${percentX}%`);
+                            glare.style.setProperty('--glare-y', `${percentY}%`);
+                        }
+                    };
+
+                    const handleMouseLeave = () => {
+                        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                        card.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+                    };
+
+                    const handleMouseEnter = () => {
+                        updateBounds();
+                        card.style.transition = 'none';
+                    };
+
+                    card.addEventListener('mouseenter', handleMouseEnter);
+                    card.addEventListener('mousemove', handleMouseMove);
+                    card.addEventListener('mouseleave', handleMouseLeave);
+                });
+            });
+        </script>
     </body>
 </html>
