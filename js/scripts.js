@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(html => {
                 navPlaceholder.innerHTML = html;
                 initMenu();
+                bindCursorToDynamicElements();
             })
             .catch(() => {
                 initMenu();
@@ -247,5 +248,104 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    // ==========================================================
+    // Custom Interactive Cursor Engine (Desktop Only)
+    // ==========================================================
+    let bindCursorToDynamicElements = () => {};
+
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        const dot = document.createElement('div');
+        dot.className = 'custom-cursor-dot';
+
+        const ring = document.createElement('div');
+        ring.className = 'custom-cursor-ring';
+
+        const ringText = document.createElement('span');
+        ringText.className = 'custom-cursor-text';
+        ring.appendChild(ringText);
+
+        document.body.appendChild(dot);
+        document.body.appendChild(ring);
+
+        let mouseX = -100, mouseY = -100;
+        let ringX = -100, ringY = -100;
+        let isCursorVisible = false;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            if (!isCursorVisible) {
+                dot.style.opacity = '1';
+                ring.style.opacity = '1';
+                isCursorVisible = true;
+            }
+
+            dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+        }, { passive: true });
+
+        document.addEventListener('mouseleave', () => {
+            dot.style.opacity = '0';
+            ring.style.opacity = '0';
+            isCursorVisible = false;
+        });
+
+        const renderCursor = () => {
+            ringX += (mouseX - ringX) * 0.18;
+            ringY += (mouseY - ringY) * 0.18;
+            ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+            requestAnimationFrame(renderCursor);
+        };
+        requestAnimationFrame(renderCursor);
+
+        const attachHoverEffects = (container = document) => {
+            const viewCards = container.querySelectorAll('.project-card, .poster-card');
+            viewCards.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    ring.classList.add('cursor-hover-view');
+                    dot.classList.add('cursor-hover-view');
+                    ringText.textContent = 'VIEW';
+                });
+                el.addEventListener('mouseleave', () => {
+                    ring.classList.remove('cursor-hover-view');
+                    dot.classList.remove('cursor-hover-view');
+                });
+            });
+
+            const videoCards = container.querySelectorAll('.vertical-video-frame, .cinematic-video-frame');
+            videoCards.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    ring.classList.add('cursor-hover-view');
+                    dot.classList.add('cursor-hover-view');
+                    ringText.textContent = 'PLAY';
+                });
+                el.addEventListener('mouseleave', () => {
+                    ring.classList.remove('cursor-hover-view');
+                    dot.classList.remove('cursor-hover-view');
+                });
+            });
+
+            const interactiveBtns = container.querySelectorAll('.btn-minimal, .btn-view-more, .nav-brand-center, .nav-menu-btn, .menu-close-btn, .menu-copy-email-btn, .view-btn, .scroll-indicator, .brand-tiktok-pill, .menu-nav-links a, .menu-social-icons a');
+            interactiveBtns.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    ring.classList.add('cursor-hover-btn');
+                    dot.classList.add('cursor-hover-btn');
+                });
+                el.addEventListener('mouseleave', () => {
+                    ring.classList.remove('cursor-hover-btn');
+                    dot.classList.remove('cursor-hover-btn');
+                });
+            });
+        };
+
+        attachHoverEffects();
+        bindCursorToDynamicElements = () => {
+            const navPlaceholderEl = document.getElementById('nav-placeholder');
+            if (navPlaceholderEl) {
+                attachHoverEffects(navPlaceholderEl);
+            }
+        };
+    }
 
 });
