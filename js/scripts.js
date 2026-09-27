@@ -5,26 +5,31 @@ document.addEventListener('DOMContentLoaded', () => {
     let audioEnabled = true;
     let audioCtx = null;
 
+    const getAudioContext = () => {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        return audioCtx;
+    };
+
     const playClickSound = () => {
         if (!isDesktopHover || !audioEnabled) return;
         try {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
+            const ctx = getAudioContext();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
             osc.type = 'triangle';
-            osc.frequency.setValueAtTime(820, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.035);
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.035);
+            osc.frequency.setValueAtTime(820, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.035);
+            gain.gain.setValueAtTime(0.08, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.035);
             osc.connect(gain);
-            gain.connect(audioCtx.destination);
+            gain.connect(ctx.destination);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.035);
+            osc.stop(ctx.currentTime + 0.035);
         } catch (e) {}
     };
 
@@ -35,22 +40,52 @@ document.addEventListener('DOMContentLoaded', () => {
         if (now - lastTickTime < 65) return;
         lastTickTime = now;
         try {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
+            const ctx = getAudioContext();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(1400, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.015);
+            osc.frequency.setValueAtTime(1400, ctx.currentTime);
+            gain.gain.setValueAtTime(0.02, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.015);
             osc.connect(gain);
-            gain.connect(audioCtx.destination);
+            gain.connect(ctx.destination);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.015);
+            osc.stop(ctx.currentTime + 0.015);
+        } catch (e) {}
+    };
+
+    const playClapperSound = () => {
+        if (!audioEnabled) return;
+        try {
+            const ctx = getAudioContext();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(320, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.08);
+            gain.gain.setValueAtTime(0.3, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.08);
+        } catch (e) {}
+    };
+
+    const playRenderDing = () => {
+        if (!audioEnabled) return;
+        try {
+            const ctx = getAudioContext();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, ctx.currentTime);
+            gain.gain.setValueAtTime(0.2, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.6);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.6);
         } catch (e) {}
     };
 
@@ -59,6 +94,55 @@ document.addEventListener('DOMContentLoaded', () => {
             gtag('event', eventName, params);
         }
     };
+
+    const isIndexPage = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/') || window.location.pathname === '';
+    const hasSeenIntro = sessionStorage.getItem('clapper_intro_seen');
+
+    if (isIndexPage && !hasSeenIntro) {
+        const overlay = document.createElement('div');
+        overlay.className = 'clapper-overlay';
+        overlay.innerHTML = `
+            <div class="clapper-slate">
+                <div class="clapper-head-container">
+                    <div class="clapper-arm" id="clapper-arm"></div>
+                </div>
+                <div class="clapper-body">
+                    <div class="clapper-row">
+                        <span class="clapper-label">PROD</span>
+                        <span class="clapper-val">PORTFOLIO</span>
+                    </div>
+                    <div class="clapper-row">
+                        <span class="clapper-label">SCENE</span>
+                        <span class="clapper-val">01</span>
+                        <span class="clapper-label">TAKE</span>
+                        <span class="clapper-val">01</span>
+                    </div>
+                    <div class="clapper-row">
+                        <span class="clapper-label">DIRECTOR</span>
+                        <span class="clapper-val">HIEU LUONG</span>
+                    </div>
+                </div>
+            </div>
+            <div class="clapper-hint">Click anywhere to Action</div>
+        `;
+        document.body.appendChild(overlay);
+
+        const dismissClapper = () => {
+            const arm = document.getElementById('clapper-arm');
+            if (arm) arm.classList.add('snapped');
+            playClapperSound();
+            sessionStorage.setItem('clapper_intro_seen', 'true');
+
+            setTimeout(() => {
+                overlay.classList.add('dismissed');
+                setTimeout(() => {
+                    overlay.remove();
+                }, 500);
+            }, 250);
+        };
+
+        overlay.addEventListener('click', dismissClapper, { once: true });
+    }
 
     const initMenu = () => {
         const openMenuBtn = document.getElementById('open-menu-btn');
@@ -164,6 +248,25 @@ document.addEventListener('DOMContentLoaded', () => {
             heroContent.style.opacity = opacity;
             mastheadDark.style.pointerEvents = (opacity === 0) ? 'none' : 'auto';
         }, { passive: true });
+
+        if (isDesktopHover) {
+            const flare = document.createElement('div');
+            flare.className = 'anamorphic-flare';
+            mastheadDark.appendChild(flare);
+
+            mastheadDark.addEventListener('mousemove', (e) => {
+                const rect = mastheadDark.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                flare.style.setProperty('--flare-x', `${x}%`);
+                flare.style.setProperty('--flare-y', `${y}%`);
+                flare.classList.add('active');
+            }, { passive: true });
+
+            mastheadDark.addEventListener('mouseleave', () => {
+                flare.classList.remove('active');
+            });
+        }
     }
 
     const lightboxModal = document.getElementById('lightbox-modal');
@@ -315,9 +418,72 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const renderModal = document.createElement('div');
+    renderModal.className = 'render-modal-backdrop';
+    renderModal.innerHTML = `
+        <div class="render-dialog">
+            <div class="render-dialog-header">
+                <span class="render-dialog-title"><i class="fas fa-film"></i> Media Queue Export</span>
+                <span style="font-size: 0.65rem; color: #888; font-family: monospace;">Render Engine v2.6</span>
+            </div>
+            <div class="render-dialog-body">
+                <div class="render-file-info">
+                    <div class="render-file-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div>
+                        <div class="render-file-name">CV_LuongTrungHieu.pdf</div>
+                        <div class="render-file-meta">Preset: High Quality Profile &bull; 1.2 MB</div>
+                    </div>
+                </div>
+                <div class="render-bar-container">
+                    <div class="render-bar-fill" id="render-bar-fill"></div>
+                </div>
+                <div class="render-status-row">
+                    <span class="render-status-text" id="render-status-text">Encoding...</span>
+                    <span id="render-progress-num">0%</span>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(renderModal);
+
+    const barFill = renderModal.querySelector('#render-bar-fill');
+    const statusText = renderModal.querySelector('#render-status-text');
+    const progressNum = renderModal.querySelector('#render-progress-num');
+
+    const triggerRenderExport = (targetUrl) => {
+        renderModal.classList.add('active');
+        barFill.style.width = '0%';
+        statusText.textContent = 'Encoding...';
+        progressNum.textContent = '0%';
+
+        let currentPercent = 0;
+        const interval = setInterval(() => {
+            currentPercent += Math.floor(Math.random() * 18) + 12;
+            if (currentPercent >= 100) {
+                currentPercent = 100;
+                clearInterval(interval);
+                barFill.style.width = '100%';
+                progressNum.textContent = '100%';
+                statusText.textContent = 'Render Finished!';
+                playRenderDing();
+
+                setTimeout(() => {
+                    renderModal.classList.remove('active');
+                    window.open(targetUrl, '_blank');
+                }, 400);
+            } else {
+                barFill.style.width = `${currentPercent}%`;
+                progressNum.textContent = `${currentPercent}%`;
+            }
+        }, 60);
+    };
+
     document.querySelectorAll('a[href*="CV_LuongTrungHieu.pdf"]').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
             playClickSound();
+            const targetUrl = btn.getAttribute('href');
+            triggerRenderExport(targetUrl);
             trackEvent('click_download_resume', {
                 link_text: btn.textContent.trim(),
                 page: window.location.pathname
