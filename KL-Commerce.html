@@ -617,28 +617,39 @@
                 const createSlideElement = () => {
                     const slide = document.createElement('div');
                     slide.className = 'tiktok-slide';
-                    slide.innerHTML = `
-                        <video playsinline loop muted preload="auto"></video>
-                        <div class="tiktok-overlay-ui">
-                            <div class="tiktok-top-bar">
-                                <span>Following | <strong>For You</strong></span>
-                                <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
+                    
+                    const vid = document.createElement('video');
+                    vid.playsInline = true;
+                    vid.loop = true;
+                    vid.defaultMuted = true;
+                    vid.muted = true;
+                    vid.setAttribute('playsinline', '');
+                    vid.setAttribute('webkit-playsinline', '');
+                    vid.preload = 'metadata';
+                    slide.appendChild(vid);
+
+                    const overlay = document.createElement('div');
+                    overlay.className = 'tiktok-overlay-ui';
+                    overlay.innerHTML = `
+                        <div class="tiktok-top-bar">
+                            <span>Following | <strong>For You</strong></span>
+                            <button class="tiktok-sound-mute-btn" aria-label="Toggle Sound"><i class="fas fa-volume-xmark"></i></button>
+                        </div>
+                        <div class="tiktok-main-content">
+                            <div class="tiktok-info-col">
+                                <div class="tiktok-creator-tag"><span class="txt-creator"></span> <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
+                                <div class="tiktok-caption-text txt-caption"></div>
+                                <div class="tiktok-music-track"><i class="fas fa-music"></i> <span class="txt-music"></span></div>
                             </div>
-                            <div class="tiktok-main-content">
-                                <div class="tiktok-info-col">
-                                    <div class="tiktok-creator-tag"><span class="txt-creator"></span> <i class="fas fa-check-circle tiktok-verified-badge"></i></div>
-                                    <div class="tiktok-caption-text txt-caption"></div>
-                                    <div class="tiktok-music-track"><i class="fas fa-music"></i> <span class="txt-music"></span></div>
-                                </div>
-                                <div class="tiktok-actions-col">
-                                    <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count txt-likes"></span></button>
-                                    <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count txt-comments"></span></button>
-                                    <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count txt-shares"></span></button>
-                                    <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
-                                </div>
+                            <div class="tiktok-actions-col">
+                                <button class="action-item action-like-btn"><div class="action-icon-circle"><i class="fas fa-heart"></i></div><span class="action-count txt-likes"></span></button>
+                                <button class="action-item"><div class="action-icon-circle"><i class="fas fa-comment-dots"></i></div><span class="action-count txt-comments"></span></button>
+                                <button class="action-item"><div class="action-icon-circle"><i class="fas fa-share"></i></div><span class="action-count txt-shares"></span></button>
+                                <div class="music-disc-rotating"><div class="music-disc-core"></div></div>
                             </div>
                         </div>
                     `;
+                    slide.appendChild(overlay);
                     return slide;
                 };
 
@@ -650,13 +661,20 @@
                 let activeSlide = slideA;
                 let bufferSlide = slideB;
 
-                const renderSlideData = (slide, data) => {
+                const renderSlideData = (slide, data, shouldPreload = false) => {
                     const vid = slide.querySelector('video');
                     vid.poster = data.poster;
-                    if (vid.src !== location.origin + '/' + data.src && !vid.src.endsWith(data.src)) {
-                        vid.src = data.src;
-                        vid.load();
+                    
+                    if (!vid.src.endsWith(data.src)) {
+                        vid.defaultMuted = true;
+                        vid.muted = isGlobalMuted;
+                        if (shouldPreload) {
+                            vid.src = data.src;
+                        } else {
+                            vid.removeAttribute('src');
+                        }
                     }
+
                     slide.querySelector('.txt-creator').textContent = data.creator;
                     slide.querySelector('.txt-caption').textContent = data.caption;
                     slide.querySelector('.txt-music').textContent = data.music;
@@ -665,25 +683,32 @@
                     slide.querySelector('.txt-shares').textContent = data.shares;
                 };
 
-                renderSlideData(activeSlide, playlist[currentIndex]);
+                renderSlideData(activeSlide, playlist[currentIndex], true);
                 activeSlide.classList.add('active');
 
                 const playCurrentVideo = () => {
                     const vid = activeSlide.querySelector('video');
                     if (vid) {
+                        vid.defaultMuted = true;
                         vid.muted = isGlobalMuted;
                         const p = vid.play();
-                        if (p !== undefined) p.catch(() => {});
+                        if (p !== undefined) {
+                            p.catch(() => {
+                                vid.muted = true;
+                                vid.play().catch(() => {});
+                            });
+                        }
                     }
                 };
 
-                const prefetchNext = (nextIdx) => {
-                    const nextData = playlist[nextIdx];
-                    renderSlideData(bufferSlide, nextData);
+                const setupBufferSlide = (nextIdx) => {
+                    renderSlideData(bufferSlide, playlist[nextIdx], true);
                 };
 
-                prefetchNext((currentIndex + 1) % playlist.length);
-                setTimeout(playCurrentVideo, 150);
+                setTimeout(() => {
+                    playCurrentVideo();
+                    setupBufferSlide((currentIndex + 1) % playlist.length);
+                }, 100);
 
                 const transitionTo = (direction) => {
                     if (isAnimating) return;
@@ -693,7 +718,7 @@
                         ? (currentIndex + 1) % playlist.length 
                         : (currentIndex - 1 + playlist.length) % playlist.length;
 
-                    renderSlideData(bufferSlide, playlist[newIndex]);
+                    renderSlideData(bufferSlide, playlist[newIndex], true);
 
                     bufferSlide.style.transition = 'none';
                     bufferSlide.style.transform = direction === 1 ? 'translateY(100%)' : 'translateY(-100%)';
@@ -712,10 +737,16 @@
 
                     const nextVid = bufferSlide.querySelector('video');
                     if (nextVid) {
+                        nextVid.defaultMuted = true;
                         nextVid.muted = isGlobalMuted;
                         nextVid.currentTime = 0;
                         const p = nextVid.play();
-                        if (p !== undefined) p.catch(() => {});
+                        if (p !== undefined) {
+                            p.catch(() => {
+                                nextVid.muted = true;
+                                nextVid.play().catch(() => {});
+                            });
+                        }
                     }
 
                     setTimeout(() => {
@@ -729,7 +760,7 @@
                         currentIndex = newIndex;
                         isAnimating = false;
 
-                        prefetchNext((currentIndex + 1) % playlist.length);
+                        setupBufferSlide((currentIndex + 1) % playlist.length);
                     }, 370);
                 };
 
@@ -744,7 +775,7 @@
                         } else if (e.deltaY < -18) {
                             transitionTo(-1);
                         }
-                    }, 20);
+                    }, 25);
                 }, { passive: false });
 
                 let startY = 0;
