@@ -141,16 +141,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const video = frame.querySelector('video');
             if (!video) return;
 
-            frame.addEventListener('mouseenter', () => {
-                video.muted = true;
-                const playPromise = video.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(() => {});
+            let progressBar = frame.querySelector('.scrub-progress-bar');
+            if (!progressBar) {
+                progressBar = document.createElement('div');
+                progressBar.className = 'scrub-progress-bar';
+                progressBar.innerHTML = '<div class="scrub-progress-fill"></div>';
+                frame.appendChild(progressBar);
+            }
+            const progressFill = progressBar.querySelector('.scrub-progress-fill');
+
+            frame.addEventListener('mousemove', (e) => {
+                if (video.duration && !isNaN(video.duration)) {
+                    const rect = frame.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const percent = Math.min(Math.max(x / rect.width, 0), 1);
+                    
+                    video.pause();
+                    video.currentTime = percent * video.duration;
+                    if (progressFill) {
+                        progressFill.style.width = `${percent * 100}%`;
+                    }
                 }
             });
 
             frame.addEventListener('mouseleave', () => {
-                video.pause();
+                if (progressFill) progressFill.style.width = '0%';
                 video.currentTime = 0;
             });
         });
@@ -249,12 +264,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ==========================================================
-    // Custom Interactive Cursor Engine (Desktop Only)
-    // ==========================================================
+    const profiles = [
+        { name: 'Rec.709', class: '' },
+        { name: 'Flat LOG', class: 'profile-log' },
+        { name: '35mm Film', class: 'profile-film' }
+    ];
+    let currentProfileIndex = 0;
+
+    const grainOverlay = document.createElement('div');
+    grainOverlay.className = 'film-grain-overlay';
+    document.body.appendChild(grainOverlay);
+
+    const lutBtn = document.createElement('button');
+    lutBtn.type = 'button';
+    lutBtn.className = 'lut-toggle-btn';
+    lutBtn.setAttribute('aria-label', 'Toggle Color Profile LUT');
+    lutBtn.innerHTML = `
+        <span class="lut-dot"></span>
+        <span class="lut-name">LUT: Rec.709</span>
+    `;
+    document.body.appendChild(lutBtn);
+
+    const lutNameEl = lutBtn.querySelector('.lut-name');
+
+    lutBtn.addEventListener('click', () => {
+        if (profiles[currentProfileIndex].class) {
+            document.body.classList.remove(profiles[currentProfileIndex].class);
+        }
+
+        currentProfileIndex = (currentProfileIndex + 1) % profiles.length;
+        const currentProfile = profiles[currentProfileIndex];
+
+        if (currentProfile.class) {
+            document.body.classList.add(currentProfile.class);
+        }
+        lutNameEl.textContent = `LUT: ${currentProfile.name}`;
+
+        trackEvent('switch_color_lut', { profile: currentProfile.name });
+    });
+
     let bindCursorToDynamicElements = () => {};
 
-    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    if (isDesktopHover) {
         const dot = document.createElement('div');
         dot.className = 'custom-cursor-dot';
 
@@ -326,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            const interactiveBtns = container.querySelectorAll('.btn-minimal, .btn-view-more, .nav-brand-center, .nav-menu-btn, .menu-close-btn, .menu-copy-email-btn, .view-btn, .scroll-indicator, .brand-tiktok-pill, .menu-nav-links a, .menu-social-icons a');
+            const interactiveBtns = container.querySelectorAll('.btn-minimal, .btn-view-more, .nav-brand-center, .nav-menu-btn, .menu-close-btn, .menu-copy-email-btn, .view-btn, .scroll-indicator, .brand-tiktok-pill, .menu-nav-links a, .menu-social-icons a, .lut-toggle-btn');
             interactiveBtns.forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     ring.classList.add('cursor-hover-btn');
