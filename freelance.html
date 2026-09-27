@@ -30,6 +30,111 @@
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window, document, "clarity", "script", "youn3f2y8u");
         </script>
+
+        <style>
+            .game-wrapper-box {
+                background: #141414;
+                border: 1px solid var(--border-subtle);
+                border-radius: 16px;
+                padding: 1.5rem;
+                max-width: 760px;
+                margin: 0 auto;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            }
+
+            .game-header-bar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-bottom: 0.85rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                font-family: monospace;
+                font-size: 0.85rem;
+                color: var(--text-secondary);
+            }
+
+            .game-score-badge {
+                color: #ffffff;
+                font-weight: 700;
+            }
+
+            .game-canvas-container {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 16 / 7;
+                background: #0d0d0d;
+                border-radius: 10px;
+                overflow: hidden;
+                margin-top: 1rem;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                user-select: none;
+                touch-action: manipulation;
+            }
+
+            #renderRunCanvas {
+                width: 100%;
+                height: 100%;
+                display: block;
+            }
+
+            .game-overlay-ui {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background: rgba(10, 10, 10, 0.82);
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+                transition: opacity 0.2s ease;
+                z-index: 10;
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .game-overlay-ui.hidden {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .game-btn-start {
+                background: #ffffff;
+                color: #000000;
+                border: none;
+                padding: 0.65rem 1.6rem;
+                font-size: 0.88rem;
+                font-weight: 700;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: transform 0.15s ease, background 0.15s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin-top: 0.75rem;
+            }
+
+            .game-btn-start:hover {
+                background: #e6e6e6;
+                transform: scale(1.05);
+            }
+
+            .game-instruction-hint {
+                color: var(--text-secondary);
+                font-size: 0.75rem;
+                margin-top: 0.75rem;
+                letter-spacing: 0.4px;
+            }
+
+            @media (max-width: 576px) {
+                .game-wrapper-box {
+                    padding: 1rem;
+                }
+                .game-canvas-container {
+                    aspect-ratio: 16 / 9;
+                }
+            }
+        </style>
     </head>
     <body id="page-top">
         <div class="main-wrapper main-wrapper-project">
@@ -39,26 +144,39 @@
             <header class="project-header text-center">
                 <div class="container px-4 px-lg-5">
                     <span class="project-badge">
-                        Independent Projects &amp;<br class="d-sm-none" /> Motion Explorations
+                        Experimental Corner &amp;<br class="d-sm-none" /> Mini-Game
                     </span>
                     <h1 class="project-title">Personal &amp; Freelance Work</h1>
                     <p class="project-description">
-                        It might not be polished to perfection, overly artistic, or meant to make a grand statement. This is simply a personal corner where I document creative experiments, motion tests, and cool ideas gathered along the way.
+                        While new freelance edits and motion experiments are being curated for this showcase, grab a coffee and help the workstation survive the deadline rush in <strong>Render Run</strong>.
                     </p>
                 </div>
             </header>
 
-            <main class="container px-4 px-lg-5 py-5">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="skill-card text-center py-5 px-4" style="border-style: dashed; border-color: #3d3d3d;">
-                            <div class="skill-icon-wrapper mb-3" style="width: 64px; height: 64px; font-size: 1.5rem;">
-                                <i class="fas fa-laptop-code"></i>
-                            </div>
-                            <h3 class="text-white mb-2" style="font-size: 1.35rem; font-weight: 700;">Workspace in Progress</h3>
-                            <p class="mb-0" style="color: var(--text-secondary); max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-                                New experiments, personal edits, and freelance showcases are currently being curated and will be updated here soon.
+            <main class="container px-4 px-lg-5 py-4">
+                <div class="game-wrapper-box">
+                    <div class="game-header-bar">
+                        <div><i class="fas fa-microchip me-1"></i> RENDER QUEUE: RUNNER</div>
+                        <div>
+                            PROGRESS: <span class="game-score-badge" id="hudProgress">0%</span> | 
+                            BEST: <span class="game-score-badge" id="hudBest">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="game-canvas-container" id="canvasContainer">
+                        <canvas id="renderRunCanvas" width="700" height="300"></canvas>
+                        
+                        <div class="game-overlay-ui" id="gameOverlay">
+                            <h3 class="text-white mb-1" id="overlayTitle" style="font-size: 1.35rem; font-weight: 700;">Render Run: Deadline Rush</h3>
+                            <p class="mb-0 text-secondary" id="overlayDesc" style="font-size: 0.82rem; max-width: 360px;">
+                                Jump over crashes, missing assets, and sudden revisions to reach 100% render.
                             </p>
+                            <button type="button" class="game-btn-start" id="startBtn">
+                                <i class="fas fa-play"></i> Start Export
+                            </button>
+                            <div class="game-instruction-hint">
+                                Press <strong>[ Space ]</strong>, <strong>[ &uarr; ]</strong> or Tap Screen to Jump
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -80,5 +198,289 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="js/scripts.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const canvas = document.getElementById('renderRunCanvas');
+                const ctx = canvas.getContext('2d');
+                const overlay = document.getElementById('gameOverlay');
+                const overlayTitle = document.getElementById('overlayTitle');
+                const overlayDesc = document.getElementById('overlayDesc');
+                const startBtn = document.getElementById('startBtn');
+                const hudProgress = document.getElementById('hudProgress');
+                const hudBest = document.getElementById('hudBest');
+                const container = document.getElementById('canvasContainer');
+
+                let audioCtx = null;
+                const playJumpSfx = () => {
+                    try {
+                        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                        if (audioCtx.state === 'suspended') audioCtx.resume();
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(280, audioCtx.currentTime);
+                        osc.frequency.exponentialRampToValueAtTime(750, audioCtx.currentTime + 0.1);
+                        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.1);
+                    } catch (e) {}
+                };
+
+                const playCrashSfx = () => {
+                    try {
+                        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                        if (audioCtx.state === 'suspended') audioCtx.resume();
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(140, audioCtx.currentTime);
+                        osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.18);
+                        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.18);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.18);
+                    } catch (e) {}
+                };
+
+                let bestScore = parseInt(localStorage.getItem('render_run_best') || '0', 10);
+                hudBest.textContent = `${bestScore}%`;
+
+                const OBSTACLE_LABELS = [
+                    'Urgent Fix!',
+                    'Crash: 0x05',
+                    'Disk Full',
+                    'Media Offline',
+                    'Scope Creep',
+                    'Final_v99.mp4'
+                ];
+
+                let isPlaying = false;
+                let frameCount = 0;
+                let score = 0;
+                let speed = 4.2;
+
+                const groundY = 245;
+
+                const player = {
+                    x: 65,
+                    y: groundY - 32,
+                    w: 32,
+                    h: 30,
+                    vy: 0,
+                    gravity: 0.65,
+                    isGrounded: true
+                };
+
+                let obstacles = [];
+
+                const resetGame = () => {
+                    player.y = groundY - 32;
+                    player.vy = 0;
+                    player.isGrounded = true;
+                    obstacles = [];
+                    score = 0;
+                    speed = 4.2;
+                    frameCount = 0;
+                    hudProgress.textContent = '0%';
+                };
+
+                const triggerJump = () => {
+                    if (!isPlaying) return;
+                    if (player.isGrounded) {
+                        player.vy = -11.5;
+                        player.isGrounded = false;
+                        playJumpSfx();
+                    }
+                };
+
+                const startGame = () => {
+                    resetGame();
+                    isPlaying = true;
+                    overlay.classList.add('hidden');
+                };
+
+                const gameOver = () => {
+                    isPlaying = false;
+                    playCrashSfx();
+                    if (score > bestScore) {
+                        bestScore = score;
+                        localStorage.setItem('render_run_best', bestScore.toString());
+                        hudBest.textContent = `${bestScore}%`;
+                    }
+                    overlayTitle.textContent = score >= 100 ? 'Export Complete!' : 'Render Failed!';
+                    overlayDesc.textContent = score >= 100 
+                        ? `Congratulations! You delivered the cut with ${score}% render stability.`
+                        : `Encountered an unexpected error at ${score}%. Deadline caught up with you.`;
+                    startBtn.innerHTML = '<i class="fas fa-redo"></i> Re-Render';
+                    overlay.classList.remove('hidden');
+                };
+
+                const spawnObstacle = () => {
+                    const label = OBSTACLE_LABELS[Math.floor(Math.random() * OBSTACLE_LABELS.length)];
+                    ctx.font = 'bold 11px monospace';
+                    const textWidth = ctx.measureText(label).width;
+                    const w = Math.max(textWidth + 14, 55);
+                    const h = 26;
+
+                    obstacles.push({
+                        x: canvas.width + 10,
+                        y: groundY - h,
+                        w: w,
+                        h: h,
+                        label: label
+                    });
+                };
+
+                let nextSpawnCounter = 90;
+
+                const update = () => {
+                    if (!isPlaying) return;
+                    frameCount++;
+
+                    if (frameCount % 6 === 0) {
+                        score += 1;
+                        hudProgress.textContent = `${score}%`;
+                    }
+
+                    if (frameCount % 300 === 0 && speed < 8.5) {
+                        speed += 0.35;
+                    }
+
+                    player.vy += player.gravity;
+                    player.y += player.vy;
+
+                    if (player.y >= groundY - player.h) {
+                        player.y = groundY - player.h;
+                        player.vy = 0;
+                        player.isGrounded = true;
+                    }
+
+                    nextSpawnCounter--;
+                    if (nextSpawnCounter <= 0) {
+                        spawnObstacle();
+                        nextSpawnCounter = Math.floor(Math.random() * 50) + Math.max(50, 95 - Math.floor(speed * 4));
+                    }
+
+                    for (let i = obstacles.length - 1; i >= 0; i--) {
+                        const obs = obstacles[i];
+                        obs.x -= speed;
+
+                        if (
+                            player.x + 4 < obs.x + obs.w &&
+                            player.x + player.w - 4 > obs.x &&
+                            player.y + 4 < obs.y + obs.h &&
+                            player.y + player.h > obs.y + 4
+                        ) {
+                            gameOver();
+                            return;
+                        }
+
+                        if (obs.x + obs.w < -20) {
+                            obstacles.splice(i, 1);
+                        }
+                    }
+                };
+
+                const draw = () => {
+                    ctx.fillStyle = '#0d0d0d';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+                    ctx.lineWidth = 1;
+                    const timecodeStep = 45;
+                    const offset = (frameCount * (speed * 0.4)) % timecodeStep;
+                    for (let x = -offset; x < canvas.width; x += timecodeStep) {
+                        ctx.beginPath();
+                        ctx.moveTo(x, groundY + 1);
+                        ctx.lineTo(x, groundY + 12);
+                        ctx.stroke();
+                    }
+
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+                    ctx.beginPath();
+                    ctx.moveTo(0, groundY);
+                    ctx.lineTo(canvas.width, groundY);
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#1e1e1e';
+                    ctx.strokeStyle = '#444444';
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.roundRect(player.x, player.y, player.w, player.h - 6, 4);
+                    ctx.fill();
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#00dfd8';
+                    ctx.fillRect(player.x + 3, player.y + 3, player.w - 6, player.h - 12);
+
+                    ctx.fillStyle = '#333333';
+                    ctx.fillRect(player.x + (player.w / 2) - 3, player.y + player.h - 6, 6, 6);
+                    ctx.fillRect(player.x + 5, player.y + player.h - 1, player.w - 10, 2);
+
+                    ctx.fillStyle = isPlaying ? '#00ff88' : '#ff4757';
+                    ctx.beginPath();
+                    ctx.arc(player.x + player.w - 5, player.y + player.h - 8, 1.8, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    obstacles.forEach(obs => {
+                        ctx.fillStyle = '#221518';
+                        ctx.strokeStyle = '#ff3b30';
+                        ctx.lineWidth = 1.5;
+                        ctx.beginPath();
+                        ctx.roundRect(obs.x, obs.y, obs.w, obs.h, 5);
+                        ctx.fill();
+                        ctx.stroke();
+
+                        ctx.fillStyle = '#ffffff';
+                        ctx.font = 'bold 10px monospace';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(obs.label, obs.x + (obs.w / 2), obs.y + 16);
+                    });
+                };
+
+                const gameLoop = () => {
+                    update();
+                    draw();
+                    requestAnimationFrame(gameLoop);
+                };
+                requestAnimationFrame(gameLoop);
+
+                startBtn.addEventListener('click', startGame);
+
+                window.addEventListener('keydown', (e) => {
+                    if (e.code === 'Space' || e.code === 'ArrowUp') {
+                        if (!isPlaying && !overlay.classList.contains('hidden')) {
+                            e.preventDefault();
+                            startGame();
+                        } else if (isPlaying) {
+                            e.preventDefault();
+                            triggerJump();
+                        }
+                    }
+                });
+
+                container.addEventListener('touchstart', (e) => {
+                    if (!isPlaying && !overlay.classList.contains('hidden')) {
+                        startGame();
+                    } else if (isPlaying) {
+                        e.preventDefault();
+                        triggerJump();
+                    }
+                }, { passive: false });
+
+                container.addEventListener('mousedown', (e) => {
+                    if (e.target === startBtn) return;
+                    if (isPlaying) {
+                        triggerJump();
+                    }
+                });
+            });
+        </script>
     </body>
 </html>
