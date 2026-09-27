@@ -1,5 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    const trackEvent = (eventName, params = {}) => {
+        if (typeof gtag === 'function') {
+            gtag('event', eventName, params);
+        }
+    };
+
     const initMenu = () => {
         const openMenuBtn = document.getElementById('open-menu-btn');
         const closeMenuBtn = document.getElementById('close-menu-btn');
@@ -58,6 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     clearTimeout(menuCopyTimeout);
                     if (tooltip) tooltip.classList.add('show');
 
+                    trackEvent('click_copy_email', { location: 'fullscreen_menu' });
+
                     menuCopyTimeout = setTimeout(() => {
                         if (tooltip) tooltip.classList.remove('show');
                     }, 2000);
@@ -104,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             lightboxImg.src = src;
             lightboxModal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            trackEvent('view_poster_lightbox', { poster_url: src });
         };
 
         window.closeLightbox = function(e) {
@@ -168,12 +177,14 @@ document.addEventListener('DOMContentLoaded', () => {
             gridBtn.classList.add('active');
             filmBtn.classList.remove('active');
             posterContainer.classList.remove('filmstrip-mode');
+            trackEvent('switch_view_mode', { mode: 'grid' });
         });
 
         filmBtn.addEventListener('click', () => {
             filmBtn.classList.add('active');
             gridBtn.classList.remove('active');
             posterContainer.classList.add('filmstrip-mode');
+            trackEvent('switch_view_mode', { mode: 'filmstrip' });
         });
     }
 
@@ -209,6 +220,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 copyEmailBtn.classList.add('copied');
                 copyEmailBtn.querySelector('i').className = 'fas fa-check me-2';
 
+                trackEvent('click_copy_email', { location: 'contact_section' });
+
                 copyTimeout = setTimeout(() => {
                     copyEmailText.textContent = email;
                     copyEmailBtn.classList.remove('copied');
@@ -217,5 +230,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    document.querySelectorAll('a[href*="CV_LuongTrungHieu.pdf"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            trackEvent('click_download_resume', {
+                link_text: btn.textContent.trim(),
+                page: window.location.pathname
+            });
+        });
+    });
+
+    document.querySelectorAll('a[href*="linkedin.com"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            trackEvent('click_linkedin', {
+                page: window.location.pathname
+            });
+        });
+    });
 
 });
