@@ -383,6 +383,7 @@ body {
     background-color: var(--bg-main);
     box-sizing: border-box;
     pointer-events: auto;
+    overflow: hidden;
 }
 
 .hero-content {
@@ -395,6 +396,8 @@ body {
     padding-bottom: 3.5rem;
     will-change: opacity;
     transition: opacity 0.1s linear;
+    position: relative;
+    z-index: 2;
 }
 
 .masthead-title {
@@ -404,6 +407,7 @@ body {
     color: #ffffff;
     line-height: 1.15;
     margin-bottom: 1.25rem;
+    position: relative;
 }
 
 @media (max-width: 576px) {
@@ -1282,4 +1286,230 @@ body {
         width: 216px;
         height: 96px;
     }
+
+    .anamorphic-flare {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        background: radial-gradient(ellipse 70% 8% at var(--flare-x, 50%) var(--flare-y, 50%), rgba(0, 160, 255, 0.22) 0%, rgba(0, 220, 255, 0.08) 35%, transparent 70%);
+        mix-blend-mode: screen;
+    }
+
+    .anamorphic-flare.active {
+        opacity: 1;
+    }
+}
+
+.clapper-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: #0a0a0a;
+    z-index: 100000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s ease;
+}
+
+.clapper-overlay.dismissed {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.clapper-slate {
+    width: 290px;
+    background-color: #161616;
+    border: 2px solid #333333;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.85);
+    user-select: none;
+}
+
+.clapper-head-container {
+    width: 100%;
+    height: 42px;
+    background-color: #0f0f0f;
+    position: relative;
+    border-bottom: 2px solid #333333;
+    perspective: 400px;
+}
+
+.clapper-arm {
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(45deg, #111, #111 16px, #eee 16px, #eee 32px);
+    transform-origin: top left;
+    transform: rotate(-18deg);
+    transition: transform 0.22s cubic-bezier(0.3, 0, 0.8, 0.15);
+}
+
+.clapper-arm.snapped {
+    transform: rotate(0deg);
+}
+
+.clapper-body {
+    padding: 1.1rem 1.25rem;
+    font-family: monospace, -apple-system, sans-serif;
+    color: #fff;
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+
+.clapper-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #2a2a2a;
+    padding-bottom: 0.35rem;
+    margin-bottom: 0.35rem;
+}
+
+.clapper-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.clapper-label {
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.clapper-val {
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.clapper-hint {
+    margin-top: 1.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+.render-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s ease;
+}
+
+.render-modal-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.render-dialog {
+    width: 100%;
+    max-width: 440px;
+    background: #181818;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.75);
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.render-dialog-header {
+    background: #121212;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #282828;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.render-dialog-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #dedede;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.render-dialog-body {
+    padding: 1.25rem 1.25rem 1.5rem 1.25rem;
+}
+
+.render-file-info {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1.15rem;
+}
+
+.render-file-icon {
+    width: 38px;
+    height: 38px;
+    background: #242424;
+    border: 1px solid #383838;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff4757;
+    font-size: 1.1rem;
+}
+
+.render-file-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.15rem;
+}
+
+.render-file-meta {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}
+
+.render-bar-container {
+    width: 100%;
+    height: 8px;
+    background: #252525;
+    border-radius: 9999px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+}
+
+.render-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #0070f3, #00dfd8);
+    transition: width 0.05s linear;
+}
+
+.render-status-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.74rem;
+    color: var(--text-secondary);
+    font-family: monospace;
+}
+
+.render-status-text {
+    font-weight: 600;
+    color: #ffffff;
 }
