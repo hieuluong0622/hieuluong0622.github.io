@@ -60,6 +60,149 @@
                     opacity: 1;
                 }
             }
+
+            .commercial-deck-container {
+                max-width: 960px;
+                margin: 0 auto;
+                background: #141414;
+                border: 1px solid var(--border-subtle);
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+            }
+
+            .commercial-deck-container .video-wrapper-16x9 {
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .specs-bar {
+                background: #111111;
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+                padding: 0.85rem 1.25rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .specs-pills-group {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 0.45rem;
+                font-family: monospace;
+                font-size: 0.72rem;
+            }
+
+            .spec-badge {
+                background: rgba(255, 255, 255, 0.05);
+                color: var(--text-secondary);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 4px;
+                padding: 0.25rem 0.6rem;
+                letter-spacing: 0.4px;
+            }
+
+            .spec-badge strong {
+                color: #ffffff;
+                font-weight: 600;
+            }
+
+            .btn-toggle-notes {
+                background: transparent;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                color: #ffffff;
+                font-size: 0.76rem;
+                font-weight: 600;
+                padding: 0.35rem 0.85rem;
+                border-radius: 6px;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                transition: all 0.2s ease;
+            }
+
+            .btn-toggle-notes:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.35);
+            }
+
+            .btn-toggle-notes i {
+                transition: transform 0.25s ease;
+                font-size: 0.7rem;
+            }
+
+            .btn-toggle-notes.active i {
+                transform: rotate(180deg);
+            }
+
+            .notes-drawer {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+                opacity: 0;
+                background: #161616;
+                border-top: 1px solid transparent;
+            }
+
+            .notes-drawer.open {
+                max-height: 500px;
+                opacity: 1;
+                border-top-color: rgba(255, 255, 255, 0.08);
+            }
+
+            .notes-drawer-content {
+                padding: 1.5rem;
+                font-size: 0.88rem;
+                line-height: 1.65;
+                color: var(--text-secondary);
+            }
+
+            .note-item {
+                margin-bottom: 1.15rem;
+            }
+
+            .note-item:last-child {
+                margin-bottom: 0;
+            }
+
+            .note-item-title {
+                color: #ffffff;
+                font-size: 0.85rem;
+                font-weight: 700;
+                letter-spacing: 0.3px;
+                margin-bottom: 0.25rem;
+                display: flex;
+                align-items: center;
+                gap: 0.45rem;
+            }
+
+            .note-item-title i {
+                font-size: 0.8rem;
+                color: #00dfd8;
+            }
+
+            @media (max-width: 576px) {
+                .specs-bar {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    padding: 0.85rem 1rem;
+                }
+                .btn-toggle-notes {
+                    width: 100%;
+                    justify-content: center;
+                }
+                .notes-drawer-content {
+                    padding: 1.15rem 1rem;
+                    font-size: 0.82rem;
+                }
+            }
         </style>
     </head>
     <body id="page-top">
@@ -223,12 +366,58 @@
 
                 <section class="mb-5 pt-2">
                     <h2 class="content-section-title">Brand Commercial</h2>
-                    <div class="video-wrapper-16x9">
-                        <iframe 
-                            src="https://player.vimeo.com/video/1230386335?title=0&byline=0&portrait=0&color=ffffff" 
-                            allow="autoplay; fullscreen; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
+                    <div class="commercial-deck-container">
+                        <div class="video-wrapper-16x9">
+                            <iframe 
+                                src="https://player.vimeo.com/video/1230386335?title=0&byline=0&portrait=0&color=ffffff" 
+                                allow="autoplay; fullscreen; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+
+                        <div class="specs-bar">
+                            <div class="specs-pills-group">
+                                <span class="spec-badge">FORMAT: <strong>1080P • 24 FPS</strong></span>
+                                <span class="spec-badge">COLOR: <strong>REC.709</strong></span>
+                                <span class="spec-badge">SOFTWARE: <strong>PR • AE</strong></span>
+                                <span class="spec-badge d-none d-md-inline-block">ROLE: <strong>CONCEPT • CINEMATOGRAPHY • EDIT • MOTION</strong></span>
+                            </div>
+                            <button type="button" class="btn-toggle-notes" id="toggleNotesBtn">
+                                <span>BTS &amp; Concept Notes</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+
+                        <div class="notes-drawer" id="notesDrawer">
+                            <div class="notes-drawer-content">
+                                <div class="note-item">
+                                    <div class="note-item-title">
+                                        <i class="fas fa-bullseye"></i> Brief &amp; Objective
+                                    </div>
+                                    <p class="mb-0">
+                                        <strong>Brand Identity Showcase:</strong> Designed as a punchy brand commercial to highlight the core values, modern tech ecosystem, and premium shopping experience that <strong>The New Xgear</strong> delivers to gamers and creators.
+                                    </p>
+                                </div>
+
+                                <div class="note-item">
+                                    <div class="note-item-title">
+                                        <i class="fas fa-video"></i> Visual &amp; Cinematography Approach
+                                    </div>
+                                    <p class="mb-0">
+                                        <strong>Dynamic Handheld &amp; Gimbal Work:</strong> Captured using digital cinema cameras paired with a 3-axis gimbal to achieve fluid, cinematic camera moves. The setup balances real-world retail store ambience with practical product lighting to emphasize sleek hardware contours and premium textures.
+                                    </p>
+                                </div>
+
+                                <div class="note-item">
+                                    <div class="note-item-title">
+                                        <i class="fas fa-wave-square"></i> Pacing &amp; Editorial Flow
+                                    </div>
+                                    <p class="mb-0">
+                                        <strong>Rhythm-Driven Editing:</strong> Crafted as a fast-paced 60-second commercial. Rather than intricate sound layering, the edit relies on a driving, continuous music track, cutting precisely on the musical beats to keep viewer retention high and maintain high-energy momentum throughout.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -259,6 +448,16 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {
+                const toggleNotesBtn = document.getElementById('toggleNotesBtn');
+                const notesDrawer = document.getElementById('notesDrawer');
+
+                if (toggleNotesBtn && notesDrawer) {
+                    toggleNotesBtn.addEventListener('click', () => {
+                        const isOpen = notesDrawer.classList.toggle('open');
+                        toggleNotesBtn.classList.toggle('active', isOpen);
+                    });
+                }
+
                 const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
                 if (!isDesktop) return;
 
