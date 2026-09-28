@@ -61,7 +61,86 @@
                 }
             }
 
-            .commercial-deck-container {
+            /* Custom Filmstrip Scrollbar & Controls */
+            .filmstrip-wrapper {
+                position: relative;
+            }
+
+            .poster-grid.filmstrip-mode {
+                display: flex !important;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 1.25rem;
+                padding-bottom: 1.25rem;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .poster-grid.filmstrip-mode::-webkit-scrollbar {
+                height: 8px;
+            }
+
+            .poster-grid.filmstrip-mode::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.03);
+                border-radius: 4px;
+            }
+
+            .poster-grid.filmstrip-mode::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.25);
+                border-radius: 4px;
+            }
+
+            .poster-grid.filmstrip-mode::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.45);
+            }
+
+            .poster-grid.filmstrip-mode .poster-card {
+                flex: 0 0 320px;
+                scroll-snap-align: center;
+                transform: none !important; /* Triệt tiêu hoàn toàn xung đột Parallax trong chế độ filmstrip */
+            }
+
+            .filmstrip-nav-btns {
+                display: none;
+                justify-content: flex-end;
+                gap: 0.5rem;
+                margin-top: 0.75rem;
+            }
+
+            .filmstrip-nav-btns.active {
+                display: flex;
+            }
+
+            .film-nav-btn {
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid var(--border-subtle);
+                color: #ffffff;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+
+            .film-nav-btn:hover {
+                background: rgba(255, 255, 255, 0.2);
+                border-color: #555555;
+            }
+
+            @media (max-width: 576px) {
+                .poster-grid.filmstrip-mode .poster-card {
+                    flex: 0 0 78vw;
+                }
+                .poster-grid.filmstrip-mode .featured-mobile-poster {
+                    grid-column: auto;
+                    margin-bottom: 0;
+                }
+            }
+
+            . commercial-deck-container {
                 max-width: 960px;
                 margin: 0 auto;
                 background: #141414;
@@ -239,128 +318,136 @@
                         </div>
                     </div>
                     
-                    <div class="poster-grid" id="poster-container">
-                        
-                        <div class="poster-card featured-mobile-poster" onclick="openLightbox('assets/img/xgear/poster-02.png')">
-                            <img src="assets/img/xgear/poster-02.png" alt="Xgear Product Poster 02 - Featured" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                    <div class="filmstrip-wrapper">
+                        <div class="poster-grid" id="poster-container">
+                            
+                            <div class="poster-card featured-mobile-poster" onclick="openLightbox('assets/img/xgear/poster-02.png')">
+                                <img src="assets/img/xgear/poster-02.png" alt="Xgear Product Poster 02 - Featured" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
                             </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-01.png')">
+                                <img src="assets/img/xgear/poster-01.png" alt="Xgear Product Poster 01" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-03.png')">
+                                <img src="assets/img/xgear/poster-03.png" alt="Xgear Product Poster 03" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-04.png')">
+                                <img src="assets/img/xgear/poster-04.png" alt="Xgear Product Poster 04" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-05.png')">
+                                <img src="assets/img/xgear/poster-05.png" alt="Xgear Product Poster 05" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-06.png')">
+                                <img src="assets/img/xgear/poster-06.png" alt="Xgear Product Poster 06" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-07.png')">
+                                <img src="assets/img/xgear/poster-07.png" alt="Xgear Product Poster 07" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-08.png')">
+                                <img src="assets/img/xgear/poster-08.png" alt="Xgear Product Poster 08" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-09.png')">
+                                <img src="assets/img/xgear/poster-09.png" alt="Xgear Product Poster 09" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-10.png')">
+                                <img src="assets/img/xgear/poster-10.png" alt="Xgear Product Poster 10" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-11.png')">
+                                <img src="assets/img/xgear/poster-11.png" alt="Xgear Product Poster 11" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-12.png')">
+                                <img src="assets/img/xgear/poster-12.png" alt="Xgear Product Poster 12" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-13.png')">
+                                <img src="assets/img/xgear/poster-13.png" alt="Xgear Product Poster 13" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-14.png')">
+                                <img src="assets/img/xgear/poster-14.png" alt="Xgear Product Poster 14" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-15.png')">
+                                <img src="assets/img/xgear/poster-15.png" alt="Xgear Product Poster 15" loading="lazy" decoding="async" />
+                                <div class="holo-glare"></div>
+                                <div class="poster-overlay">
+                                    <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-01.png')">
-                            <img src="assets/img/xgear/poster-01.png" alt="Xgear Product Poster 01" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
+                        <!-- Cụm nút điều hướng ngang cho Filmstrip trên PC -->
+                        <div class="filmstrip-nav-btns" id="filmstripNavBtns">
+                            <button type="button" class="film-nav-btn" id="filmPrevBtn" aria-label="Scroll Left"><i class="fas fa-chevron-left"></i></button>
+                            <button type="button" class="film-nav-btn" id="filmNextBtn" aria-label="Scroll Right"><i class="fas fa-chevron-right"></i></button>
                         </div>
-
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-03.png')">
-                            <img src="assets/img/xgear/poster-03.png" alt="Xgear Product Poster 03" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-04.png')">
-                            <img src="assets/img/xgear/poster-04.png" alt="Xgear Product Poster 04" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-05.png')">
-                            <img src="assets/img/xgear/poster-05.png" alt="Xgear Product Poster 05" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-06.png')">
-                            <img src="assets/img/xgear/poster-06.png" alt="Xgear Product Poster 06" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-07.png')">
-                            <img src="assets/img/xgear/poster-07.png" alt="Xgear Product Poster 07" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-08.png')">
-                            <img src="assets/img/xgear/poster-08.png" alt="Xgear Product Poster 08" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-09.png')">
-                            <img src="assets/img/xgear/poster-09.png" alt="Xgear Product Poster 09" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-10.png')">
-                            <img src="assets/img/xgear/poster-10.png" alt="Xgear Product Poster 10" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-11.png')">
-                            <img src="assets/img/xgear/poster-11.png" alt="Xgear Product Poster 11" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-12.png')">
-                            <img src="assets/img/xgear/poster-12.png" alt="Xgear Product Poster 12" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-13.png')">
-                            <img src="assets/img/xgear/poster-13.png" alt="Xgear Product Poster 13" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-14.png')">
-                            <img src="assets/img/xgear/poster-14.png" alt="Xgear Product Poster 14" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
-                        </div>
-
-                        <div class="poster-card" onclick="openLightbox('assets/img/xgear/poster-15.png')">
-                            <img src="assets/img/xgear/poster-15.png" alt="Xgear Product Poster 15" loading="lazy" decoding="async" />
-                            <div class="holo-glare"></div>
-                            <div class="poster-overlay">
-                                <div class="poster-zoom-icon"><i class="fas fa-search-plus"></i></div>
-                            </div>
-                        </div>
-
                     </div>
                 </section>
 
@@ -458,6 +545,40 @@
                     });
                 }
 
+                // Grid/Filmstrip Mode Switcher logic
+                const gridBtn = document.getElementById('view-grid-btn');
+                const filmBtn = document.getElementById('view-filmstrip-btn');
+                const posterContainer = document.getElementById('poster-container');
+                const filmstripNavBtns = document.getElementById('filmstripNavBtns');
+                const filmPrevBtn = document.getElementById('filmPrevBtn');
+                const filmNextBtn = document.getElementById('filmNextBtn');
+
+                if (gridBtn && filmBtn && posterContainer) {
+                    gridBtn.addEventListener('click', () => {
+                        gridBtn.classList.add('active');
+                        filmBtn.classList.remove('active');
+                        posterContainer.classList.remove('filmstrip-mode');
+                        if (filmstripNavBtns) filmstripNavBtns.classList.remove('active');
+                    });
+
+                    filmBtn.addEventListener('click', () => {
+                        filmBtn.classList.add('active');
+                        gridBtn.classList.remove('active');
+                        posterContainer.classList.add('filmstrip-mode');
+                        if (filmstripNavBtns) filmstripNavBtns.classList.add('active');
+                    });
+                }
+
+                if (filmPrevBtn && filmNextBtn && posterContainer) {
+                    filmPrevBtn.addEventListener('click', () => {
+                        posterContainer.scrollBy({ left: -340, behavior: 'smooth' });
+                    });
+                    filmNextBtn.addEventListener('click', () => {
+                        posterContainer.scrollBy({ left: 340, behavior: 'smooth' });
+                    });
+                }
+
+                // Parallax Tilt Effect (Chỉ chạy khi ở chế độ Grid, tự động ngắt ở Filmstrip)
                 const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
                 if (!isDesktop) return;
 
@@ -472,6 +593,9 @@
                     };
 
                     const handleMouseMove = (e) => {
+                        // Nếu đang ở chế độ filmstrip thì bỏ qua hiệu ứng nghiêng
+                        if (posterContainer.classList.contains('filmstrip-mode')) return;
+
                         if (!bounds) updateBounds();
                         const mouseX = e.clientX - bounds.left;
                         const mouseY = e.clientY - bounds.top;
