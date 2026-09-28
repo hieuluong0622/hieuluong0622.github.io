@@ -248,25 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
             heroContent.style.opacity = opacity;
             mastheadDark.style.pointerEvents = (opacity === 0) ? 'none' : 'auto';
         }, { passive: true });
-
-        if (isDesktopHover) {
-            const flare = document.createElement('div');
-            flare.className = 'anamorphic-flare';
-            mastheadDark.appendChild(flare);
-
-            mastheadDark.addEventListener('mousemove', (e) => {
-                const rect = mastheadDark.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                flare.style.setProperty('--flare-x', `${x}%`);
-                flare.style.setProperty('--flare-y', `${y}%`);
-                flare.classList.add('active');
-            }, { passive: true });
-
-            mastheadDark.addEventListener('mouseleave', () => {
-                flare.classList.remove('active');
-            });
-        }
     }
 
     const lightboxModal = document.getElementById('lightbox-modal');
@@ -503,126 +484,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let bindCursorToDynamicElements = () => {};
 
     if (isDesktopHover) {
-        const profiles = [
-            { name: 'Rec.709', class: '' },
-            { name: 'Flat LOG', class: 'profile-log' },
-            { name: '35mm Film', class: 'profile-film' }
-        ];
-        let currentProfileIndex = 0;
-
-        const grainOverlay = document.createElement('div');
-        grainOverlay.className = 'film-grain-overlay';
-        document.body.appendChild(grainOverlay);
-
-        const controlDock = document.createElement('div');
-        controlDock.className = 'floating-control-dock';
-
-        const audioBtn = document.createElement('button');
-        audioBtn.type = 'button';
-        audioBtn.className = 'audio-toggle-btn';
-        audioBtn.setAttribute('aria-label', 'Toggle UI Sound Effects');
-        audioBtn.innerHTML = `<i class="fas fa-volume-high"></i>`;
-
-        const lutBtn = document.createElement('button');
-        lutBtn.type = 'button';
-        lutBtn.className = 'lut-toggle-btn';
-        lutBtn.setAttribute('aria-label', 'Toggle Color Profile LUT');
-        lutBtn.innerHTML = `
-            <span class="lut-dot"></span>
-            <span class="lut-name">LUT: Rec.709</span>
-        `;
-
-        controlDock.appendChild(audioBtn);
-        controlDock.appendChild(lutBtn);
-        document.body.appendChild(controlDock);
-
-        const lutNameEl = lutBtn.querySelector('.lut-name');
-
-        audioBtn.addEventListener('click', () => {
-            audioEnabled = !audioEnabled;
-            audioBtn.innerHTML = audioEnabled ? `<i class="fas fa-volume-high"></i>` : `<i class="fas fa-volume-xmark" style="color: var(--text-secondary);"></i>`;
-            if (audioEnabled) playClickSound();
-        });
-
-        lutBtn.addEventListener('click', () => {
-            playClickSound();
-            if (profiles[currentProfileIndex].class) {
-                document.body.classList.remove(profiles[currentProfileIndex].class);
-            }
-
-            currentProfileIndex = (currentProfileIndex + 1) % profiles.length;
-            const currentProfile = profiles[currentProfileIndex];
-
-            if (currentProfile.class) {
-                document.body.classList.add(currentProfile.class);
-            }
-            lutNameEl.textContent = `LUT: ${currentProfile.name}`;
-
-            trackEvent('switch_color_lut', { profile: currentProfile.name });
-        });
-
-        const scopeDock = document.createElement('div');
-        scopeDock.className = 'scope-dock';
-        scopeDock.setAttribute('title', 'Click to expand RGB Waveform');
-        scopeDock.innerHTML = `
-            <div class="scope-header">
-                <span>RGB PARADE</span>
-                <span>100 IRE</span>
-            </div>
-            <canvas class="scope-canvas" width="216" height="96"></canvas>
-        `;
-        document.body.appendChild(scopeDock);
-
-        const scopeCanvas = scopeDock.querySelector('.scope-canvas');
-        const sCtx = scopeCanvas.getContext('2d');
-
-        scopeDock.addEventListener('click', () => {
-            playClickSound();
-            scopeDock.classList.toggle('expanded');
-        });
-
-        let scopeAngle = 0;
-        const renderScope = () => {
-            const w = scopeCanvas.width;
-            const h = scopeCanvas.height;
-            sCtx.fillStyle = '#0d0d0d';
-            sCtx.fillRect(0, 0, w, h);
-
-            sCtx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-            sCtx.lineWidth = 1;
-            [0.2, 0.5, 0.8].forEach(pos => {
-                sCtx.beginPath();
-                sCtx.moveTo(0, h * pos);
-                sCtx.lineTo(w, h * pos);
-                sCtx.stroke();
-            });
-
-            const channels = [
-                { color: 'rgba(255, 59, 48, 0.75)', offset: 0, mult: 1.0 },
-                { color: 'rgba(52, 199, 89, 0.75)', offset: 2.1, mult: 0.85 },
-                { color: 'rgba(0, 122, 255, 0.75)', offset: 4.2, mult: 1.1 }
-            ];
-
-            const partW = w / 3;
-
-            channels.forEach((ch, idx) => {
-                sCtx.fillStyle = ch.color;
-                const startX = idx * partW;
-                for (let i = 4; i < partW - 4; i += 3) {
-                    const nx = (i / partW) * 8;
-                    const wave = Math.sin(nx + scopeAngle + ch.offset) * 0.25 + 
-                                 Math.cos(nx * 2 - scopeAngle) * 0.15 + 0.5;
-                    const y = Math.min(Math.max(wave * ch.mult, 0.1), 0.9) * h;
-                    sCtx.fillRect(startX + i, h - y, 2, 2.5);
-                    sCtx.fillRect(startX + i, h - (y * 0.85), 1.5, 1.5);
-                }
-            });
-
-            scopeAngle += 0.05;
-            requestAnimationFrame(renderScope);
-        };
-        requestAnimationFrame(renderScope);
-
         const dot = document.createElement('div');
         dot.className = 'custom-cursor-dot';
 
@@ -694,7 +555,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            const interactiveBtns = container.querySelectorAll('.btn-minimal, .btn-view-more, .nav-brand-center, .nav-menu-btn, .menu-close-btn, .menu-copy-email-btn, .view-btn, .scroll-indicator, .brand-tiktok-pill, .menu-nav-links a, .menu-social-icons a, .lut-toggle-btn, .audio-toggle-btn, .scope-dock');
+            const interactiveBtns = container.querySelectorAll('.btn-minimal, .btn-view-more, .nav-brand-center, .nav-menu-btn, .menu-close-btn, .menu-copy-email-btn, .view-btn, .scroll-indicator, .brand-tiktok-pill, .menu-nav-links a, .menu-social-icons a');
             interactiveBtns.forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     ring.classList.add('cursor-hover-btn');
