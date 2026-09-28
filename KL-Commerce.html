@@ -371,7 +371,7 @@
                         <div class="tiktok-viewport" id="tiktok-viewport">
                             
                             <div class="tiktok-item" data-index="0">
-                                <video playsinline loop muted preload="metadata" poster="assets/img/KL-Commerce/thumbs/philips-featured.webp">
+                                <video playsinline webkit-playsinline loop muted preload="auto" poster="assets/img/KL-Commerce/thumbs/philips-featured.webp">
                                     <source src="assets/videos/v14025g50000cvjpb0nog65pt2rekpsg.mov" type="video/quicktime">
                                 </video>
                                 <div class="tiktok-overlay-ui">
@@ -396,7 +396,7 @@
                             </div>
 
                             <div class="tiktok-item" data-index="1">
-                                <video playsinline loop muted preload="metadata" poster="assets/img/KL-Commerce/thumbs/philips-thumb-01.webp">
+                                <video playsinline webkit-playsinline loop muted preload="metadata" poster="assets/img/KL-Commerce/thumbs/philips-thumb-01.webp">
                                     <source src="assets/videos/1JJIL6TK3_7S3IBU.mp4" type="video/mp4">
                                 </video>
                                 <div class="tiktok-overlay-ui">
@@ -421,7 +421,7 @@
                             </div>
 
                             <div class="tiktok-item" data-index="2">
-                                <video playsinline loop muted preload="metadata" poster="assets/img/KL-Commerce/thumbs/philips-thumb-02.webp">
+                                <video playsinline webkit-playsinline loop muted preload="metadata" poster="assets/img/KL-Commerce/thumbs/philips-thumb-02.webp">
                                     <source src="assets/videos/1JJIL02HG_7S3IBU.mp4" type="video/mp4">
                                 </video>
                                 <div class="tiktok-overlay-ui">
@@ -446,7 +446,7 @@
                             </div>
 
                             <div class="tiktok-item" data-index="3">
-                                <video playsinline loop muted preload="metadata" poster="assets/img/KL-Commerce/thumbs/germ-featured.webp">
+                                <video playsinline webkit-playsinline loop muted preload="metadata" poster="assets/img/KL-Commerce/thumbs/germ-featured.webp">
                                     <source src="assets/videos/Germ2.mp4" type="video/mp4">
                                 </video>
                                 <div class="tiktok-overlay-ui">
@@ -471,7 +471,7 @@
                             </div>
 
                             <div class="tiktok-item" data-index="4">
-                                <video playsinline loop muted preload="metadata" poster="assets/img/KL-Commerce/thumbs/germ-thumb-01.webp">
+                                <video playsinline webkit-playsinline loop muted preload="metadata" poster="assets/img/KL-Commerce/thumbs/germ-thumb-01.webp">
                                     <source src="assets/videos/Germ1.mp4" type="video/mp4">
                                 </video>
                                 <div class="tiktok-overlay-ui">
@@ -652,7 +652,12 @@
                         if (idx === activeIndex) {
                             vid.muted = isGlobalMuted;
                             const playPromise = vid.play();
-                            if (playPromise !== undefined) playPromise.catch(() => {});
+                            if (playPromise !== undefined) {
+                                playPromise.catch(() => {
+                                    vid.muted = true;
+                                    vid.play().catch(() => {});
+                                });
+                            }
                         } else {
                             vid.pause();
                             vid.currentTime = 0;
@@ -712,7 +717,19 @@
                     });
                 });
 
-                setTimeout(updateActiveVideo, 300);
+                // Kích hoạt ngay lập tức khi load xong
+                const firstVid = items[0] ? items[0].querySelector('video') : null;
+                if (firstVid) {
+                    firstVid.play().catch(() => {
+                        firstVid.muted = true;
+                        firstVid.play().catch(() => {});
+                    });
+                }
+
+                viewport.scrollTop = 0;
+                updateActiveVideo();
+                window.addEventListener('load', updateActiveVideo);
+                setTimeout(updateActiveVideo, 200);
             });
         </script>
     </body>
