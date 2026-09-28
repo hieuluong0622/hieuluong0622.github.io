@@ -102,11 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             </div>
-            <div class="clapper-hint">Click anywhere to Action</div>
+            <div class="clapper-hint" style="opacity: 0;">Action!</div>
         `;
         document.body.appendChild(overlay);
 
-        const dismissClapper = () => {
+        const autoRunClapper = () => {
             const arm = document.getElementById('clapper-arm');
             if (arm) arm.classList.add('snapped');
             playClapperSound();
@@ -117,10 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     overlay.remove();
                 }, 500);
-            }, 250);
+            }, 350);
         };
 
-        overlay.addEventListener('click', dismissClapper, { once: true });
+        // Tự động sập bảng sau 600ms khi trang vừa load xong
+        setTimeout(autoRunClapper, 600);
     }
 
     const initMenu = () => {
