@@ -1092,18 +1092,6 @@ body {
         opacity: 0;
     }
 
-    .custom-cursor-text {
-        color: #000000;
-        font-size: 0.72rem;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        opacity: 0;
-        transform: scale(0.6);
-        transition: opacity 0.2s ease, transform 0.2s ease;
-        user-select: none;
-    }
-
     .custom-cursor-ring.cursor-hover-btn {
         width: 52px;
         height: 52px;
@@ -1112,21 +1100,6 @@ body {
     }
     .custom-cursor-dot.cursor-hover-btn {
         transform: translate3d(-50%, -50%, 0) scale(1.5);
-    }
-
-    .custom-cursor-ring.cursor-hover-view {
-        width: 84px;
-        height: 84px;
-        background-color: #ffffff;
-        border-color: #ffffff;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    }
-    .custom-cursor-ring.cursor-hover-view .custom-cursor-text {
-        opacity: 1;
-        transform: scale(1);
-    }
-    .custom-cursor-dot.cursor-hover-view {
-        opacity: 0;
     }
 
     .scrub-progress-bar {
