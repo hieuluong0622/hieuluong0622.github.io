@@ -33,27 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {}
     };
 
-    let lastTickTime = 0;
-    const playTickSound = () => {
-        if (!isDesktopHover || !audioEnabled) return;
-        const now = performance.now();
-        if (now - lastTickTime < 65) return;
-        lastTickTime = now;
-        try {
-            const ctx = getAudioContext();
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(1400, ctx.currentTime);
-            gain.gain.setValueAtTime(0.02, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.015);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start();
-            osc.stop(ctx.currentTime + 0.015);
-        } catch (e) {}
-    };
-
     const playClapperSound = () => {
         if (!audioEnabled) return;
         try {
@@ -278,45 +257,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 lightboxImg.src = '';
                 document.body.style.overflow = '';
             }
-        });
-    }
-
-    const verticalVideoFrames = document.querySelectorAll('.vertical-video-frame');
-
-    if (isDesktopHover && verticalVideoFrames.length > 0) {
-        verticalVideoFrames.forEach(frame => {
-            const video = frame.querySelector('video');
-            if (!video) return;
-
-            let progressBar = frame.querySelector('.scrub-progress-bar');
-            if (!progressBar) {
-                progressBar = document.createElement('div');
-                progressBar.className = 'scrub-progress-bar';
-                progressBar.innerHTML = '<div class="scrub-progress-fill"></div>';
-                frame.appendChild(progressBar);
-            }
-            const progressFill = progressBar.querySelector('.scrub-progress-fill');
-
-            frame.addEventListener('mousemove', (e) => {
-                if (video.duration && !isNaN(video.duration)) {
-                    const rect = frame.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const percent = Math.min(Math.max(x / rect.width, 0), 1);
-                    
-                    video.pause();
-                    video.currentTime = percent * video.duration;
-                    playTickSound();
-
-                    if (progressFill) {
-                        progressFill.style.width = `${percent * 100}%`;
-                    }
-                }
-            });
-
-            frame.addEventListener('mouseleave', () => {
-                if (progressFill) progressFill.style.width = '0%';
-                video.currentTime = 0;
-            });
         });
     }
 
