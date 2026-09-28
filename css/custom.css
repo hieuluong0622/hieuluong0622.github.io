@@ -1050,59 +1050,6 @@ body {
     }
 }
 
-@media (hover: hover) and (pointer: fine) {
-    body {
-        cursor: default;
-    }
-
-    .custom-cursor-dot {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 8px;
-        height: 8px;
-        background-color: #ffffff;
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 99999;
-        transform: translate3d(-50%, -50%, 0);
-        transition: opacity 0.25s ease, transform 0.15s ease-out;
-        opacity: 0;
-    }
-
-    .custom-cursor-ring {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 36px;
-        height: 36px;
-        border: 1.5px solid rgba(255, 255, 255, 0.45);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 99998;
-        transform: translate3d(-50%, -50%, 0);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                    height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                    border-color 0.25s ease,
-                    background-color 0.25s ease,
-                    opacity 0.25s ease;
-        opacity: 0;
-    }
-
-    .custom-cursor-ring.cursor-hover-btn {
-        width: 52px;
-        height: 52px;
-        border-color: rgba(255, 255, 255, 0.9);
-        background-color: rgba(255, 255, 255, 0.12);
-    }
-    .custom-cursor-dot.cursor-hover-btn {
-        transform: translate3d(-50%, -50%, 0) scale(1.5);
-    }
-}
-
 .clapper-overlay {
     position: fixed;
     inset: 0;
