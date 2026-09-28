@@ -490,10 +490,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const ring = document.createElement('div');
         ring.className = 'custom-cursor-ring';
 
-        const ringText = document.createElement('span');
-        ringText.className = 'custom-cursor-text';
-        ring.appendChild(ringText);
-
         document.body.appendChild(dot);
         document.body.appendChild(ring);
 
@@ -529,32 +525,6 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(renderCursor);
 
         const attachHoverEffects = (container = document) => {
-            const viewCards = container.querySelectorAll('.project-card, .poster-card');
-            viewCards.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    ring.classList.add('cursor-hover-view');
-                    dot.classList.add('cursor-hover-view');
-                    ringText.textContent = 'VIEW';
-                });
-                el.addEventListener('mouseleave', () => {
-                    ring.classList.remove('cursor-hover-view');
-                    dot.classList.remove('cursor-hover-view');
-                });
-            });
-
-            const videoCards = container.querySelectorAll('.vertical-video-frame, .cinematic-video-frame');
-            videoCards.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    ring.classList.add('cursor-hover-view');
-                    dot.classList.add('cursor-hover-view');
-                    ringText.textContent = 'PLAY';
-                });
-                el.addEventListener('mouseleave', () => {
-                    ring.classList.remove('cursor-hover-view');
-                    dot.classList.remove('cursor-hover-view');
-                });
-            });
-
             const interactiveBtns = container.querySelectorAll('.btn-minimal, .btn-view-more, .nav-brand-center, .nav-menu-btn, .menu-close-btn, .menu-copy-email-btn, .view-btn, .scroll-indicator, .brand-tiktok-pill, .menu-nav-links a, .menu-social-icons a');
             interactiveBtns.forEach(el => {
                 el.addEventListener('mouseenter', () => {
